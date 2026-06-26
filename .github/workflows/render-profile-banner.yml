@@ -1,0 +1,40 @@
+name: Render profile banner
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - assets/profile-banner.html
+      - scripts/render-profile-banner.mjs
+      - .github/workflows/render-profile-banner.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  render-banner:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Playwright
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+
+      - name: Render banner from HTML
+        run: node scripts/render-profile-banner.mjs
+
+      - name: Commit rendered banner
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Render profile banner from HTML
+          file_pattern: assets/profile-banner.png
