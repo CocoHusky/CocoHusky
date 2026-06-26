@@ -1,4 +1,4 @@
-<div class="asset hero-banner" data-width="1200" data-height="420" data-orbit-duration="64s">
+<div class="asset hero-banner" data-width="1200" data-height="420" data-orbit-duration="72s" data-connect-distance="180" data-title-size="50" data-body-size="17" data-copy-width="680" data-copy-left="44" data-copy-top="52">
   <style>
     .hero-banner {
       position: relative;
@@ -7,19 +7,49 @@
       overflow: hidden;
       box-sizing: border-box;
       border-radius: 22px;
-      background: radial-gradient(circle at 82% 28%, rgba(76, 141, 255, 0.16), transparent 24%),
-                  radial-gradient(circle at 10% 96%, rgba(232, 131, 74, 0.10), transparent 28%),
-                  linear-gradient(135deg, #010409 0%, #06101c 56%, #0d1117 100%);
+      background: linear-gradient(135deg, #010409 0%, #06101c 56%, #0d1117 100%);
       border: 1px solid rgba(232, 131, 74, 0.16);
       color: #f5f7fb;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    }
+
+    .glow-blue {
+      position: absolute;
+      top: -60px;
+      right: -40px;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59,130,246,0.13) 0%, transparent 70%);
+    }
+
+    .glow-coral {
+      position: absolute;
+      bottom: -80px;
+      left: 30px;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,131,74,0.09) 0%, transparent 70%);
     }
 
     .hero-copy {
       position: absolute;
       left: 44px;
       top: 52px;
-      width: 760px;
+      width: 680px;
+      z-index: 2;
+    }
+
+    .hero-copy::before {
+      content: "";
+      position: absolute;
+      left: -20px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      border-radius: 2px;
+      background: linear-gradient(to bottom, transparent, rgba(232,131,74,0.5) 30%, rgba(59,130,246,0.5) 70%, transparent);
     }
 
     .eyebrow {
@@ -32,10 +62,11 @@
 
     h1 {
       margin: 0;
-      font-size: 54px;
+      font-size: 50px;
       line-height: 1.08;
       font-weight: 820;
       letter-spacing: -2.3px;
+      text-shadow: 0 2px 40px rgba(1,4,9,0.8);
     }
 
     h1 span,
@@ -44,12 +75,16 @@
     }
 
     .body {
-      margin: 30px 0 0 0;
+      margin: 28px 0 0 0;
       color: #b6c2d4;
-      font-size: 19px;
-      line-height: 1.58;
+      font-size: 17px;
+      line-height: 1.62;
+      text-shadow: 0 1px 20px rgba(1,4,9,0.9);
     }
   </style>
+
+  <div class="glow-blue"></div>
+  <div class="glow-coral"></div>
 
   <div class="hero-copy">
     <p class="eyebrow">BIOMEDICAL ENGINEERING FULL STACK</p>
@@ -64,19 +99,43 @@
   </div>
 
   <div class="network" aria-hidden="true">
-    <span class="network-node" data-x="890" data-y="126" data-dx="14" data-dy="-8" data-duration="31s"></span>
-    <span class="network-node" data-x="1008" data-y="84" data-dx="-12" data-dy="10" data-duration="43s"></span>
-    <span class="network-node" data-x="1110" data-y="154" data-dx="10" data-dy="12" data-duration="37s"></span>
-    <span class="network-node" data-x="972" data-y="236" data-dx="-16" data-dy="-10" data-duration="52s"></span>
-    <span class="network-node" data-x="1074" data-y="306" data-dx="12" data-dy="-12" data-duration="47s"></span>
-    <span class="network-node" data-x="836" data-y="292" data-dx="-10" data-dy="8" data-duration="56s"></span>
-    <span class="network-node" data-x="1138" data-y="252" data-dx="-8" data-dy="-14" data-duration="45s"></span>
-
-    <span class="network-link" data-from="0" data-to="1" data-delay="0s" data-duration="13s"></span>
-    <span class="network-link" data-from="1" data-to="2" data-delay="2s" data-duration="15s"></span>
-    <span class="network-link" data-from="2" data-to="3" data-delay="4s" data-duration="17s"></span>
-    <span class="network-link" data-from="3" data-to="4" data-delay="1s" data-duration="16s"></span>
-    <span class="network-link" data-from="4" data-to="6" data-delay="5s" data-duration="18s"></span>
-    <span class="network-link" data-from="3" data-to="5" data-delay="3s" data-duration="19s"></span>
+    <span class="network-node" data-x="650" data-y="48" data-dx="18" data-dy="8" data-duration="46s" data-accent="true"></span>
+    <span class="network-node" data-x="728" data-y="76" data-dx="-12" data-dy="18" data-duration="39s"></span>
+    <span class="network-node" data-x="812" data-y="34" data-dx="20" data-dy="-10" data-duration="54s"></span>
+    <span class="network-node" data-x="904" data-y="70" data-dx="-18" data-dy="16" data-duration="42s"></span>
+    <span class="network-node" data-x="1012" data-y="40" data-dx="14" data-dy="12" data-duration="61s"></span>
+    <span class="network-node" data-x="1114" data-y="86" data-dx="-16" data-dy="-8" data-duration="49s"></span>
+    <span class="network-node" data-x="620" data-y="128" data-dx="22" data-dy="-14" data-duration="55s"></span>
+    <span class="network-node" data-x="704" data-y="148" data-dx="-10" data-dy="16" data-duration="44s"></span>
+    <span class="network-node" data-x="790" data-y="118" data-dx="16" data-dy="-12" data-duration="50s"></span>
+    <span class="network-node" data-x="876" data-y="150" data-dx="-14" data-dy="12" data-duration="36s" data-accent="true"></span>
+    <span class="network-node" data-x="966" data-y="124" data-dx="20" data-dy="-16" data-duration="58s"></span>
+    <span class="network-node" data-x="1058" data-y="160" data-dx="-18" data-dy="14" data-duration="47s"></span>
+    <span class="network-node" data-x="1150" data-y="138" data-dx="12" data-dy="-12" data-duration="52s"></span>
+    <span class="network-node" data-x="672" data-y="214" data-dx="-16" data-dy="10" data-duration="64s"></span>
+    <span class="network-node" data-x="756" data-y="238" data-dx="18" data-dy="-18" data-duration="41s"></span>
+    <span class="network-node" data-x="842" data-y="206" data-dx="-12" data-dy="14" data-duration="57s"></span>
+    <span class="network-node" data-x="930" data-y="232" data-dx="18" data-dy="-12" data-duration="45s"></span>
+    <span class="network-node" data-x="1016" data-y="210" data-dx="-22" data-dy="18" data-duration="60s"></span>
+    <span class="network-node" data-x="1108" data-y="244" data-dx="14" data-dy="-18" data-duration="53s" data-accent="true"></span>
+    <span class="network-node" data-x="636" data-y="306" data-dx="14" data-dy="-12" data-duration="48s"></span>
+    <span class="network-node" data-x="724" data-y="332" data-dx="-20" data-dy="14" data-duration="66s"></span>
+    <span class="network-node" data-x="812" data-y="294" data-dx="16" data-dy="20" data-duration="43s"></span>
+    <span class="network-node" data-x="902" data-y="326" data-dx="-18" data-dy="-16" data-duration="59s"></span>
+    <span class="network-node" data-x="990" data-y="296" data-dx="12" data-dy="18" data-duration="51s"></span>
+    <span class="network-node" data-x="1082" data-y="340" data-dx="-14" data-dy="-14" data-duration="62s"></span>
+    <span class="network-node" data-x="1160" data-y="306" data-dx="10" data-dy="16" data-duration="46s"></span>
+    <span class="network-node" data-x="700" data-y="386" data-dx="-12" data-dy="-8" data-duration="56s" data-accent="true"></span>
+    <span class="network-node" data-x="790" data-y="374" data-dx="18" data-dy="10" data-duration="68s"></span>
+    <span class="network-node" data-x="888" data-y="390" data-dx="-16" data-dy="-12" data-duration="47s"></span>
+    <span class="network-node" data-x="982" data-y="366" data-dx="20" data-dy="10" data-duration="63s"></span>
+    <span class="network-node" data-x="1074" data-y="384" data-dx="-12" data-dy="-14" data-duration="42s"></span>
+    <span class="network-node" data-x="1144" data-y="376" data-dx="14" data-dy="12" data-duration="58s"></span>
+    <span class="network-node" data-x="606" data-y="372" data-dx="10" data-dy="-18" data-duration="54s"></span>
+    <span class="network-node" data-x="640" data-y="248" data-dx="-14" data-dy="16" data-duration="49s"></span>
+    <span class="network-node" data-x="736" data-y="276" data-dx="16" data-dy="-10" data-duration="39s"></span>
+    <span class="network-node" data-x="1038" data-y="92" data-dx="-12" data-dy="16" data-duration="65s"></span>
+    <span class="network-node" data-x="1130" data-y="206" data-dx="18" data-dy="-12" data-duration="44s" data-accent="true"></span>
+    <span class="network-node" data-x="960" data-y="56" data-dx="-18" data-dy="8" data-duration="70s"></span>
   </div>
 </div>
