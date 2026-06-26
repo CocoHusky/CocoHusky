@@ -31,28 +31,11 @@ jobs:
         with:
           node-version: '24'
 
-      - name: Install Playwright
-        run: |
-          npm install --no-save playwright
-          npx playwright install --with-deps chromium
-
-      - name: Render banner from editable HTML
+      - name: Render banner SVG from editable HTML
         run: node scripts/render-profile-banner.mjs
 
-      - name: Commit rendered banner image
-        run: |
-          set -euo pipefail
-
-          if [ -z "$(git status --porcelain -- assets/profile-banner.png)" ]; then
-            echo "No rendered banner changes to commit."
-            exit 0
-          fi
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add assets/profile-banner.png
-          git commit -m "Render profile banner from HTML"
-
-          git pull --rebase origin main
-          git push origin HEAD:main
+      - name: Commit rendered banner SVG
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Render profile banner SVG from HTML
+          file_pattern: assets/profile-banner.svg
