@@ -1,8 +1,15 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, writeFile, unlink } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
 const htmlPath = resolve('assets/profile-banner.html');
 const outputPath = resolve('assets/profile-banner.svg');
+
+try {
+  await unlink(outputPath);
+  console.log(`Removed existing ${outputPath}`);
+} catch (error) {
+  if (error.code !== 'ENOENT') throw error;
+}
 
 const html = await readFile(htmlPath, 'utf8');
 
