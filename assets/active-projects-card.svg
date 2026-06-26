@@ -1,113 +1,51 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="440" viewBox="0 0 1200 440" role="img">
-  <foreignObject x="0" y="0" width="1200" height="440">
-    <div xmlns="http://www.w3.org/1999/xhtml" style="width:1200px;height:440px;margin:0;padding:0;overflow:hidden;">
-<section class="asset active-projects" data-width="1200" data-height="440">
-  <style>
-    .active-projects {
-      width: 1200px;
-      height: 440px;
-      box-sizing: border-box;
-      overflow: hidden;
-      border-radius: 22px;
-      border: 1px solid rgba(232, 131, 74, 0.16);
-      background: linear-gradient(135deg, #010409 0%, #06101c 56%, #0d1117 100%);
-      color: #f5f7fb;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-      position: relative;
-    }
-    .asset-header {
-      position: absolute;
-      left: 36px;
-      top: 30px;
-    }
-    .asset-header h2 { margin: 0; font-size: 24px; line-height: 1; font-weight: 800; }
-    .asset-header p {
-      margin: 9px 0 0 0;
-      color: #7e8a9b;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-    }
-    .project-grid {
-      position: absolute;
-      left: 36px;
-      top: 96px;
-      display: grid;
-      grid-template-columns: 350px 350px 350px;
-      gap: 39px;
-    }
-    .project {
-      width: 350px;
-      height: 300px;
-      box-sizing: border-box;
-      padding: 24px;
-      border-radius: 18px;
-      background: rgba(17, 24, 33, 0.78);
-      border: 1px solid rgba(232, 131, 74, 0.18);
-    }
-    .status-row { display: flex; align-items: center; gap: 13px; margin-bottom: 27px; }
-    .dot { width: 10px; height: 10px; border-radius: 999px; background: #22c55e; flex: 0 0 auto; }
-    .dot.orange { background: #e8834a; }
-    .status { color: #7e8a9b; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; }
-    .project h3 { margin: 0; font-size: 21px; line-height: 1.15; font-weight: 760; }
-    .summary {
-      margin: 16px 0 30px 0;
-      color: #ffb26d;
-      font-size: 13.2px;
-      line-height: 1.25;
-      font-weight: 650;
-    }
-    .project ul { list-style: none; margin: 0; padding: 0; color: #d7dfec; font-size: 14.2px; line-height: 1.15; }
-    .project li { margin: 0 0 14px 0; }
-    .project li::before { content: "•"; margin-right: 8px; color: #ffb26d; }
-  </style>
-
-  <header class="asset-header">
-    <h2>Active Projects</h2>
-    <p>technical build focus · hardware · infra · web systems</p>
-  </header>
-
-  <div class="project-grid">
-    <article class="project" data-status="ACTIVE" data-dot="green">
-      <div class="status-row"><span class="dot"></span><span class="status">ACTIVE</span></div>
-      <h3>60 GHz mmWave Radar</h3>
-      <p class="summary">Contactless physiology for sleep/seated monitoring</p>
-      <ul>
-        <li>UART radar parser · checksum handling</li>
-        <li>HR/BR/presence/range telemetry</li>
-        <li>VisLog API · browser data stream</li>
-        <li>ESP32-C6 WiFi portal · captive setup</li>
-        <li>nRF52840 BLE bridge · ESP32 bring-up</li>
-      </ul>
-    </article>
-
-    <article class="project" data-status="FINALIZED" data-dot="orange">
-      <div class="status-row"><span class="dot orange"></span><span class="status">FINALIZED</span></div>
-      <h3>Home Lab Server</h3>
-      <p class="summary">Local-first storage, backups, services, private AI</p>
-      <ul>
-        <li>Proxmox VE · VM/LXC architecture</li>
-        <li>TrueNAS datasets · snapshots · backups</li>
-        <li>Nextcloud · Immich data organization</li>
-        <li>Docker Compose · ClawCode tooling</li>
-        <li>Raspberry Pi services</li>
-      </ul>
-    </article>
-
-    <article class="project" data-status="ACTIVE" data-dot="green">
-      <div class="status-row"><span class="dot"></span><span class="status">ACTIVE</span></div>
-      <h3>Professional Profile</h3>
-      <p class="summary">Recruiter-facing documentation and automation</p>
-      <ul>
-        <li>Astro · HTML/CSS · GitHub Pages</li>
-        <li>GitHub Actions CI/CD · releases</li>
-        <li>README SVG generation · cache busting</li>
-        <li>Plausible/referrer analytics pipeline</li>
-        <li>Portfolio traffic tracking · recruiting UX</li>
-      </ul>
-    </article>
-  </div>
-</section>
-    </div>
-  </foreignObject>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#010409"/><stop offset="0.56" stop-color="#06101c"/><stop offset="1" stop-color="#0d1117"/></linearGradient>
+  <radialGradient id="blueGlow" cx="82%" cy="28%" r="38%"><stop stop-color="#4c8dff" stop-opacity="0.16"/><stop offset="1" stop-color="#4c8dff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="orangeGlow" cx="10%" cy="96%" r="42%"><stop stop-color="#e8834a" stop-opacity="0.10"/><stop offset="1" stop-color="#e8834a" stop-opacity="0"/></radialGradient>
+  <filter id="orangeBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <style>.ui{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,system-ui,sans-serif}.heroTitle{fill:#f5f7fb;font-size:54px;font-weight:820;letter-spacing:-2.3px}.eyebrow{fill:#ffb26d;font-size:13px;font-weight:800;letter-spacing:3px}.body{fill:#b6c2d4;font-size:19px}.sectionTitle{fill:#f5f7fb;font-size:24px;font-weight:800}.subtle{fill:#7e8a9b;font-size:12px;font-weight:700;letter-spacing:1.5px}.projectTitle{fill:#f5f7fb;font-size:21px;font-weight:760}.summary{fill:#ffb26d;font-size:13.2px;font-weight:650}.bullet{fill:#d7dfec;font-size:14.2px}.card{fill:rgba(17,24,33,.78);stroke:rgba(232,131,74,.18);stroke-width:1}</style>
+</defs>
+<rect width="1200" height="440" rx="22" fill="url(#bg)"/>
+<rect x="0.5" y="0.5" width="1199" height="439" rx="22" fill="none" stroke="rgba(232,131,74,.16)"/>
+<g class="ui">
+  <text x="36" y="54" class="sectionTitle">Active Projects</text>
+  <text x="36" y="80" class="subtle">technical build focus · hardware · infra · web systems</text>
+</g>
+<g transform="translate(36 96)">
+  <rect width="350" height="300" rx="18" class="card"/>
+  <circle cx="28" cy="30" r="5" fill="#22c55e"/>
+  <text x="46" y="35" class="ui subtle">ACTIVE</text>
+  <text x="24" y="74" class="ui projectTitle">60 GHz mmWave Radar</text>
+  <text x="24" y="108" class="ui summary">Contactless physiology for sleep/seated monitoring</text>
+  <text x="24" y="152" class="ui bullet"><tspan fill="#ffb26d">•</tspan><tspan dx="8">UART radar parser · checksum handling</tspan></text>
+  <text x="24" y="182" class="ui bullet"><tspan fill="#ffb26d">•</tspan><tspan dx="8">HR/BR/presence/range telemetry</tspan></text>
+  <text x="24" y="212" class="ui bullet"><tspan fill="#ffb26d">•</tspan><tspan dx="8">VisLog API · browser data stream</tspan></text>
+  <text x="24" y="242" class="ui bullet"><tspan fill="#ffb26d">•</tspan><tspan dx="8">ESP32-C6 WiFi portal · captive setup</tspan></text>
+  <text x="24" y="272" class="ui bullet"><tspan fill="#ffb26d">•</tspan><tspan dx="8">nRF52840 BLE bridge · ESP32 bring-up</tspan></text>
+</g>
+<g transform="translate(425 96)">
+  <rect width="350" height="300" rx="18" class="card"/>
+  <circle cx="28" cy="30" r="5" fill="#e8834a"/>
+  <text x="46" y="35" class="ui subtle">FINALIZED</text>
+  <text x="24" y="74" class="ui projectTitle">Home Lab Server</text>
+  <text x="24" y="108" class="ui summary">Local-first storage, backups, services, private AI</text>
+  <text x="24" y="152" class="ui bullet"><tspan fill="#ffb26d">•</tspan><tspan dx="8">Proxmox VE · VM/LXC architecture</tspan></text>
+  <text x="24" y="182" class="ui bullet"><tspan fill="#ffb26d">•</tspan><tspan dx="8">TrueNAS datasets · snapshots · backups</tspan></text>
+  <text x="24" y="212" class="ui bullet"><tspan fill="#ffb26d">•</tspan><tspan dx="8">Nextcloud · Immich data organization</tspan></text>
+  <text x="24" y="242" class="ui bullet"><tspan fill="#ffb26d">•</tspan><tspan dx="8">Docker Compose · ClawCode tooling</tspan></text>
+  <text x="24" y="272" class="ui bullet"><tspan fill="#ffb26d">•</tspan><tspan dx="8">Raspberry Pi services</tspan></text>
+</g>
+<g transform="translate(814 96)">
+  <rect width="350" height="300" rx="18" class="card"/>
+  <circle cx="28" cy="30" r="5" fill="#22c55e"/>
+  <text x="46" y="35" class="ui subtle">ACTIVE</text>
+  <text x="24" y="74" class="ui projectTitle">Professional Profile</text>
+  <text x="24" y="108" class="ui summary">Recruiter-facing documentation and automation</text>
+  <text x="24" y="152" class="ui bullet"><tspan fill="#ffb26d">•</tspan><tspan dx="8">Astro · HTML/CSS · GitHub Pages</tspan></text>
+  <text x="24" y="182" class="ui bullet"><tspan fill="#ffb26d">•</tspan><tspan dx="8">GitHub Actions CI/CD · releases</tspan></text>
+  <text x="24" y="212" class="ui bullet"><tspan fill="#ffb26d">•</tspan><tspan dx="8">README SVG generation · cache busting</tspan></text>
+  <text x="24" y="242" class="ui bullet"><tspan fill="#ffb26d">•</tspan><tspan dx="8">Plausible/referrer analytics pipeline</tspan></text>
+  <text x="24" y="272" class="ui bullet"><tspan fill="#ffb26d">•</tspan><tspan dx="8">Portfolio traffic tracking · recruiting UX</tspan></text>
+</g>
 </svg>
