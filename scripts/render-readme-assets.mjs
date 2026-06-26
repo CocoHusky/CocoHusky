@@ -6,35 +6,22 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, '..');
 
-const width = Number(process.env.README_CARD_WIDTH ?? 1200);
-const height = Number(process.env.README_CARD_HEIGHT ?? 300);
-
 const sourcePath = path.join(repoRoot, 'src', 'profile-card.html');
 const outputDir = path.join(repoRoot, 'assets');
 const svgPath = path.join(outputDir, 'profile-card.svg');
 const archivedPngPath = path.join(outputDir, 'profile-card.png');
 
-function extractTagContent(html, tagName) {
-  const match = html.match(new RegExp(`<${tagName}[^>]*>([\\s\\S]*?)<\\/${tagName}>`, 'i'));
+function extractInlineSvg(html) {
+  const match = html.match(/<svg\b[\s\S]*<\/svg>/i);
   if (!match) {
-    throw new Error(`${sourcePath} must include a <${tagName}> element.`);
+    throw new Error(`${sourcePath} must include an inline <svg> element.`);
   }
-  return match[1].trim();
-}
 
-function svgDocument({ width, height, styles, body }) {
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="Alex Burton profile README banner">
-  <foreignObject x="0" y="0" width="${width}" height="${height}">
-    <div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;margin:0;padding:0;overflow:hidden;">
-      <style>
-${styles}
-      </style>
-${body}
-    </div>
-  </foreignObject>
-</svg>
-`;
+  const svg = match[0].trim();
+  if (!svg.includes('viewBox="0 0 1200 300"')) {
+    throw new Error('Profile SVG must keep viewBox="0 0 1200 300" for README scaling.');
+  }
+  return svg;
 }
 
 async function render() {
@@ -45,10 +32,8 @@ async function render() {
   ]);
 
   const sourceHtml = await readFile(sourcePath, 'utf8');
-  const styles = extractTagContent(sourceHtml, 'style');
-  const body = extractTagContent(sourceHtml, 'body');
-
-  await writeFile(svgPath, svgDocument({ width, height, styles, body }), 'utf8');
+  const svg = extractInlineSvg(sourceHtml);
+  await writeFile(svgPath, `<?xml version="1.0" encoding="UTF-8"?>\n${svg}\n`, 'utf8');
   console.log(`Rendered ${path.relative(repoRoot, svgPath)}`);
 }
 
