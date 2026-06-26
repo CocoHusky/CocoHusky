@@ -1,175 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-label="Alex Burton GitHub profile dashboard">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-label="Alex Burton GitHub profile dashboard">
   <defs>
     <style>
       .ui { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
-      .mono { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
-      .button { fill: #e6edf3; font-size: 22px; font-weight: 650; }
-      .buttonPrimary { fill: #3b82f6; font-size: 22px; font-weight: 650; }
-      .sectionLabel { fill: #6e7681; font-size: 17px; font-weight: 760; letter-spacing: 4px; }
-      .tagPrimary { fill: #93c5fd; font-size: 17px; font-weight: 650; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
-      .tagSignal { fill: #5eead4; font-size: 17px; font-weight: 650; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
-      .tagSupport { fill: #8b949e; font-size: 17px; font-weight: 650; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
-      .monthLabel { fill: #6e7681; font-size: 15px; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
-      .monoMuted { fill: #6e7681; font-size: 18px; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
-      .domainLabel { fill: #8b949e; font-size: 20px; font-weight: 600; }
-      .buildingTitle { fill: #e6edf3; font-size: 22px; font-weight: 750; }
+      .button { fill: #e6edf3; font-size: 20px; font-weight: 650; }
+      .buttonPrimary { fill: #e8834a; font-size: 20px; font-weight: 750; }
+      .sectionLabel { fill: #6e7681; font-size: 14px; font-weight: 760; letter-spacing: 3.4px; }
+      .tagPrimary { fill: #93c5fd; font-size: 13.5px; font-weight: 650; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+      .tagSignal { fill: #5eead4; font-size: 13.5px; font-weight: 650; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+      .tagSupport { fill: #8b949e; font-size: 13.5px; font-weight: 650; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+      .monthLabel { fill: #6e7681; font-size: 12px; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+      .monoMuted { fill: #6e7681; font-size: 14px; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+      .domainLabel { fill: #8b949e; font-size: 15px; font-weight: 620; }
+      .buildingTitle { fill: #e6edf3; font-size: 20px; font-weight: 760; }
+      .buildingSub { fill: #6e7681; font-size: 14px; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
     </style>
   </defs>
-
-  <rect width="1200" height="900" fill="#0d1117"/>
-  <rect x="0.75" y="0.75" width="1198.5" height="898.5" rx="14" fill="none" stroke="#30363d" stroke-width="1.5"/>
-
+  <rect width="1200" height="700" rx="14" fill="#0d1117"/>
+  <rect x="0.75" y="0.75" width="1198.5" height="698.5" rx="14" fill="none" stroke="#30363d" stroke-width="1.5"/>
   <g class="ui">
-    <a href="https://burtonmakes.github.io/" target="_blank">
-    <g transform="translate(54 58)">
-      <rect width="190" height="52" rx="8" fill="rgba(59,130,246,0.06)" stroke="#3b82f6" stroke-width="1.5"/>
-      <g transform="scale(0.62)"><path d="M24 20v18a4 4 0 0 0 4 4h18a4 4 0 0 0 4-4V27" fill="none" stroke="#3b82f6" stroke-width="2.2" stroke-linecap="round"/><path d="M38 14h16v16" fill="none" stroke="#3b82f6" stroke-width="2.2" stroke-linecap="round"/><path d="M33 35 54 14" fill="none" stroke="#3b82f6" stroke-width="2.2" stroke-linecap="round"/></g>
-      <text x="56" y="33" class="buttonPrimary">Portfolio →</text>
-    </g>
-  </a>
-    <a href="https://www.linkedin.com/in/draburton/" target="_blank">
-    <g transform="translate(262 58)">
-      <rect width="166" height="52" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
-      <g transform="scale(0.62)"><rect x="22" y="17" width="25" height="25" rx="2" fill="#e6edf3" opacity="0.95"/><text x="27" y="37" fill="#0d1117" font-size="18" font-weight="800" font-family="Arial, sans-serif">in</text></g>
-      <text x="56" y="33" class="button">LinkedIn</text>
-    </g>
-  </a>
-    <a href="https://scholar.google.com/citations?user=RAq9IoQAAAAJ" target="_blank">
-    <g transform="translate(446 58)">
-      <rect width="156" height="52" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
-      <g transform="scale(0.62)"><path d="M20 17h14a8 8 0 0 1 8 8v24a6 6 0 0 0-6-6H20z" fill="none" stroke="#e6edf3" stroke-width="2.2" stroke-linejoin="round"/><path d="M58 17H44a8 8 0 0 0-8 8v24a6 6 0 0 1 6-6h16z" fill="none" stroke="#e6edf3" stroke-width="2.2" stroke-linejoin="round"/></g>
-      <text x="56" y="33" class="button">Scholar</text>
-    </g>
-  </a>
+    <a href="https://burtonmakes.github.io/" target="_blank"><g transform="translate(54 42)">
+    <rect width="190" height="48" rx="9" fill="#211812" stroke="#e8834a" stroke-width="1.5"/>
+    <g transform="scale(0.58)"><path d="M20 18v18a4 4 0 0 0 4 4h18a4 4 0 0 0 4-4V27" fill="none" stroke="#e8834a" stroke-width="2.2" stroke-linecap="round"/><path d="M34 14h16v16" fill="none" stroke="#e8834a" stroke-width="2.2" stroke-linecap="round"/><path d="M29 35 50 14" fill="none" stroke="#e8834a" stroke-width="2.2" stroke-linecap="round"/></g>
+    <text x="50" y="31" class="buttonPrimary">Portfolio →</text>
+  </g></a>
+    <a href="https://www.linkedin.com/in/draburton/" target="_blank"><g transform="translate(264 42)">
+    <rect width="168" height="48" rx="9" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <g transform="scale(0.58)"><rect x="20" y="16" width="24" height="24" rx="2" fill="#e6edf3" opacity="0.95"/><text x="25" y="35" fill="#0d1117" font-size="17" font-weight="800" font-family="Arial, sans-serif">in</text></g>
+    <text x="50" y="31" class="button">LinkedIn</text>
+  </g></a>
+    <a href="https://scholar.google.com/citations?user=RAq9IoQAAAAJ" target="_blank"><g transform="translate(452 42)">
+    <rect width="158" height="48" rx="9" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <g transform="scale(0.58)"><path d="M18 17h14a8 8 0 0 1 8 8v22a6 6 0 0 0-6-6H18z" fill="none" stroke="#e6edf3" stroke-width="2.2" stroke-linejoin="round"/><path d="M56 17H42a8 8 0 0 0-8 8v22a6 6 0 0 1 6-6h16z" fill="none" stroke="#e6edf3" stroke-width="2.2" stroke-linejoin="round"/></g>
+    <text x="50" y="31" class="button">Scholar</text>
+  </g></a>
 
-    <g transform="translate(54 168)">
-    <rect width="534" height="302" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
-    <text x="32" y="46" class="sectionLabel">CORE SKILLS</text>
-    <g transform="translate(32 78)">
-      <rect width="186" height="34" rx="17" fill="rgba(59,130,246,0.08)" stroke="rgba(59,130,246,0.55)" stroke-width="1.4"/>
-      <text x="18" y="23" class="tagPrimary">Embedded C/C++</text>
-    </g>
-<g transform="translate(226 78)">
-      <rect width="230" height="34" rx="17" fill="rgba(59,130,246,0.08)" stroke="rgba(59,130,246,0.55)" stroke-width="1.4"/>
-      <text x="18" y="23" class="tagPrimary">ESP32 / BLE</text>
-    </g>
-<g transform="translate(32 124)">
-      <rect width="214" height="34" rx="17" fill="rgba(59,130,246,0.08)" stroke="rgba(59,130,246,0.55)" stroke-width="1.4"/>
-      <text x="18" y="23" class="tagPrimary">Sensor HW</text>
-    </g>
-<g transform="translate(258 124)">
-      <rect width="178" height="34" rx="17" fill="rgba(59,130,246,0.08)" stroke="rgba(59,130,246,0.55)" stroke-width="1.4"/>
-      <text x="18" y="23" class="tagPrimary">PCB bring-up</text>
-    </g>
-<g transform="translate(32 170)">
-      <rect width="190" height="34" rx="17" fill="rgba(20,184,166,0.08)" stroke="rgba(20,184,166,0.55)" stroke-width="1.4"/>
-      <text x="18" y="23" class="tagSignal">Python / ML</text>
-    </g>
-<g transform="translate(226 170)">
-      <rect width="226" height="34" rx="17" fill="rgba(20,184,166,0.08)" stroke="rgba(20,184,166,0.55)" stroke-width="1.4"/>
-      <text x="18" y="23" class="tagSignal">Signal proc.</text>
-    </g>
-<g transform="translate(32 216)">
-      <rect width="214" height="34" rx="17" fill="rgba(20,184,166,0.08)" stroke="rgba(20,184,166,0.55)" stroke-width="1.4"/>
-      <text x="18" y="23" class="tagSignal">Zephyr RTOS</text>
-    </g>
-<g transform="translate(258 216)">
-      <rect width="168" height="34" rx="17" fill="#21262d" stroke="#30363d" stroke-width="1.4"/>
-      <text x="18" y="23" class="tagSupport">FDA docs</text>
-    </g>
-<g transform="translate(32 262)">
-      <rect width="164" height="34" rx="17" fill="#21262d" stroke="#30363d" stroke-width="1.4"/>
-      <text x="18" y="23" class="tagSupport">Flex PCB</text>
-    </g>
-<g transform="translate(226 262)">
-      <rect width="228" height="34" rx="17" fill="#21262d" stroke="#30363d" stroke-width="1.4"/>
-      <text x="18" y="23" class="tagSupport">Homelab infra</text>
-    </g>
-  </g>
-    <g transform="translate(616 168)">
-    <rect width="530" height="302" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
-    <text x="32" y="46" class="sectionLabel">COMMIT ACTIVITY — LAST 12 MONTHS</text>
-    <rect x="32" y="138" width="36" height="16" rx="3" fill="rgba(59,130,246,0.24)"/>
-<rect x="76" y="138" width="36" height="16" rx="3" fill="rgba(59,130,246,0.24)"/>
-<rect x="120" y="138" width="36" height="16" rx="3" fill="rgba(59,130,246,0.24)"/>
-<rect x="164" y="138" width="36" height="16" rx="3" fill="rgba(59,130,246,0.24)"/>
-<rect x="208" y="138" width="36" height="16" rx="3" fill="rgba(59,130,246,0.24)"/>
-<rect x="252" y="138" width="36" height="16" rx="3" fill="rgba(59,130,246,0.24)"/>
-<rect x="296" y="138" width="36" height="16" rx="3" fill="rgba(59,130,246,0.24)"/>
-<rect x="340" y="138" width="36" height="16" rx="3" fill="rgba(59,130,246,0.24)"/>
-<rect x="384" y="138" width="36" height="16" rx="3" fill="rgba(59,130,246,0.24)"/>
-<rect x="428" y="138" width="36" height="16" rx="3" fill="rgba(59,130,246,0.24)"/>
-<rect x="472" y="137" width="36" height="17" rx="3" fill="rgba(59,130,246,0.24)"/>
-<rect x="516" y="46" width="36" height="108" rx="3" fill="#3b82f6"/>
-<text x="50" y="184" class="monthLabel" text-anchor="middle">Jul</text>
-<text x="94" y="184" class="monthLabel" text-anchor="middle">Aug</text>
-<text x="138" y="184" class="monthLabel" text-anchor="middle">Sep</text>
-<text x="182" y="184" class="monthLabel" text-anchor="middle">Oct</text>
-<text x="226" y="184" class="monthLabel" text-anchor="middle">Nov</text>
-<text x="270" y="184" class="monthLabel" text-anchor="middle">Dec</text>
-<text x="314" y="184" class="monthLabel" text-anchor="middle">Jan</text>
-<text x="358" y="184" class="monthLabel" text-anchor="middle">Feb</text>
-<text x="402" y="184" class="monthLabel" text-anchor="middle">Mar</text>
-<text x="446" y="184" class="monthLabel" text-anchor="middle">Apr</text>
-<text x="490" y="184" class="monthLabel" text-anchor="middle">May</text>
-<text x="534" y="184" class="monthLabel" text-anchor="middle">Jun</text>
-<text x="32" y="230" class="monoMuted">Active across mmWaveVizLog · CocoHusky · burtonmakes.github.io</text>
-  </g>
-    <g transform="translate(54 500)">
-    <rect width="350" height="350" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
-    <text x="32" y="46" class="sectionLabel">DOMAIN FOCUS</text>
-    <g transform="translate(32 78)">
-      <circle cx="7" cy="7" r="6" fill="#3b82f6"/>
-      <text x="32" y="13" class="domainLabel">Wearable sensing</text>
-      <rect x="222" y="4" width="100" height="6" rx="3" fill="#21262d"/>
-      <rect x="222" y="4" width="45" height="6" rx="3" fill="#3b82f6"/>
-    </g>
-<g transform="translate(32 128)">
-      <circle cx="7" cy="7" r="6" fill="#14b8a6"/>
-      <text x="32" y="13" class="domainLabel">Embedded firmware</text>
-      <rect x="222" y="4" width="100" height="6" rx="3" fill="#21262d"/>
-      <rect x="222" y="4" width="60" height="6" rx="3" fill="#14b8a6"/>
-    </g>
-<g transform="translate(32 178)">
-      <circle cx="7" cy="7" r="6" fill="#a78bfa"/>
-      <text x="32" y="13" class="domainLabel">ML / signal proc.</text>
-      <rect x="222" y="4" width="100" height="6" rx="3" fill="#21262d"/>
-      <rect x="222" y="4" width="90" height="6" rx="3" fill="#a78bfa"/>
-    </g>
-<g transform="translate(32 228)">
-      <circle cx="7" cy="7" r="6" fill="#e8834a"/>
-      <text x="32" y="13" class="domainLabel">V&amp;V / med-dev</text>
-      <rect x="222" y="4" width="100" height="6" rx="3" fill="#21262d"/>
-      <rect x="222" y="4" width="50" height="6" rx="3" fill="#e8834a"/>
-    </g>
-<g transform="translate(32 278)">
-      <circle cx="7" cy="7" r="6" fill="#6e7681"/>
-      <text x="32" y="13" class="domainLabel">Self-hosted infra</text>
-      <rect x="222" y="4" width="100" height="6" rx="3" fill="#21262d"/>
-      <rect x="222" y="4" width="65" height="6" rx="3" fill="#6e7681"/>
-    </g>
-  </g>
-    <g transform="translate(430 500)">
-    <rect width="716" height="350" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
-    <text x="32" y="46" class="sectionLabel">CURRENTLY BUILDING</text>
-    <g transform="translate(32 76)">
-      <circle cx="8" cy="8" r="7" fill="#22c55e" opacity="0.28"/>
-      <circle cx="8" cy="8" r="4.5" fill="#22c55e"/>
+    <g transform="translate(54 116)">
+    <rect width="680" height="300" rx="12" fill="#161b22" stroke="#30363d" stroke-width="1.35"/>
+    <text x="28" y="39" class="sectionLabel">CURRENTLY BUILDING</text>
+    <g transform="translate(28 70)">
+      <circle cx="8" cy="8" r="7" fill="#22c55e" opacity="0.24"/>
+      <circle cx="8" cy="8" r="4.3" fill="#22c55e"/>
       <text x="32" y="14" class="buildingTitle">60 GHz mmWave radar sensor system</text>
-      <text x="52" y="56" class="monoMuted">ESP32-C6 · dashboard · captive portal</text>
-    </g><line x1="0" y1="146" x2="640" y2="146" stroke="#30363d"/>
-<g transform="translate(32 168)">
-      <circle cx="8" cy="8" r="7" fill="#22c55e" opacity="0.28"/>
-      <circle cx="8" cy="8" r="4.5" fill="#22c55e"/>
+      <text x="32" y="39" class="buildingSub"><tspan x="32">ESP32-C6 · dashboard · captive portal</tspan></text>
+    </g><line x1="28" y1="132" x2="650" y2="132" stroke="#30363d"/>
+<g transform="translate(28 152)">
+      <circle cx="8" cy="8" r="7" fill="#22c55e" opacity="0.24"/>
+      <circle cx="8" cy="8" r="4.3" fill="#22c55e"/>
       <text x="32" y="14" class="buildingTitle">Proxmox homelab — self-hosted stack</text>
-      <text x="52" y="56" class="monoMuted">TrueNAS · Nextcloud · Immich · Tailscale</text>
-    </g><line x1="0" y1="238" x2="640" y2="238" stroke="#30363d"/>
-<g transform="translate(32 260)">
-      <circle cx="8" cy="8" r="7" fill="#f97316" opacity="0.28"/>
-      <circle cx="8" cy="8" r="4.5" fill="#f97316"/>
+      <text x="32" y="39" class="buildingSub"><tspan x="32">TrueNAS · Nextcloud · Immich · Tailscale</tspan></text>
+    </g><line x1="28" y1="214" x2="650" y2="214" stroke="#30363d"/>
+<g transform="translate(28 234)">
+      <circle cx="8" cy="8" r="7" fill="#e8834a" opacity="0.24"/>
+      <circle cx="8" cy="8" r="4.3" fill="#e8834a"/>
       <text x="32" y="14" class="buildingTitle">Portfolio rebuild — burtonmakes.github.io</text>
-      <text x="52" y="56" class="monoMuted">Astro · GitHub Pages · recruiter-first layout</text>
+      <text x="32" y="39" class="buildingSub"><tspan x="32">Astro · GitHub Pages · recruiter-first layout</tspan></text>
+    </g>
+  </g>
+    <g transform="translate(760 116)">
+    <rect width="386" height="300" rx="12" fill="#161b22" stroke="#30363d" stroke-width="1.35"/>
+    <text x="28" y="39" class="sectionLabel">CORE SKILLS</text>
+    <g transform="translate(28 68)"><rect width="158" height="30" rx="15" fill="#111d2e" stroke="#315fbd" stroke-width="1.2"/><text x="16" y="21" class="tagPrimary">Embedded C/C++</text></g>
+<g transform="translate(196 68)"><rect width="158" height="30" rx="15" fill="#111d2e" stroke="#315fbd" stroke-width="1.2"/><text x="16" y="21" class="tagPrimary">ESP32 / BLE</text></g>
+<g transform="translate(28 106)"><rect width="158" height="30" rx="15" fill="#111d2e" stroke="#315fbd" stroke-width="1.2"/><text x="16" y="21" class="tagPrimary">Sensor HW</text></g>
+<g transform="translate(196 106)"><rect width="158" height="30" rx="15" fill="#111d2e" stroke="#315fbd" stroke-width="1.2"/><text x="16" y="21" class="tagPrimary">PCB bring-up</text></g>
+<g transform="translate(28 144)"><rect width="158" height="30" rx="15" fill="#102420" stroke="#187d75" stroke-width="1.2"/><text x="16" y="21" class="tagSignal">Python / ML</text></g>
+<g transform="translate(196 144)"><rect width="158" height="30" rx="15" fill="#102420" stroke="#187d75" stroke-width="1.2"/><text x="16" y="21" class="tagSignal">Signal proc.</text></g>
+<g transform="translate(28 182)"><rect width="158" height="30" rx="15" fill="#102420" stroke="#187d75" stroke-width="1.2"/><text x="16" y="21" class="tagSignal">Zephyr RTOS</text></g>
+<g transform="translate(196 182)"><rect width="158" height="30" rx="15" fill="#21262d" stroke="#30363d" stroke-width="1.2"/><text x="16" y="21" class="tagSupport">FDA docs</text></g>
+<g transform="translate(28 220)"><rect width="158" height="30" rx="15" fill="#21262d" stroke="#30363d" stroke-width="1.2"/><text x="16" y="21" class="tagSupport">Flex PCB</text></g>
+<g transform="translate(196 220)"><rect width="158" height="30" rx="15" fill="#21262d" stroke="#30363d" stroke-width="1.2"/><text x="16" y="21" class="tagSupport">Homelab infra</text></g>
+  </g>
+    <g transform="translate(54 442)">
+    <rect width="535" height="200" rx="12" fill="#161b22" stroke="#30363d" stroke-width="1.35"/>
+    <text x="28" y="39" class="sectionLabel">COMMIT ACTIVITY — 12 MONTHS</text>
+    <rect x="28" y="108" width="30" height="12" rx="3" fill="#18345a"/>
+<rect x="67" y="108" width="30" height="12" rx="3" fill="#18345a"/>
+<rect x="106" y="108" width="30" height="12" rx="3" fill="#18345a"/>
+<rect x="145" y="108" width="30" height="12" rx="3" fill="#18345a"/>
+<rect x="184" y="108" width="30" height="12" rx="3" fill="#18345a"/>
+<rect x="223" y="108" width="30" height="12" rx="3" fill="#18345a"/>
+<rect x="262" y="108" width="30" height="12" rx="3" fill="#18345a"/>
+<rect x="301" y="108" width="30" height="12" rx="3" fill="#18345a"/>
+<rect x="340" y="108" width="30" height="12" rx="3" fill="#18345a"/>
+<rect x="379" y="108" width="30" height="12" rx="3" fill="#18345a"/>
+<rect x="418" y="108" width="30" height="12" rx="3" fill="#18345a"/>
+<rect x="457" y="46" width="30" height="74" rx="3" fill="#3b82f6"/>
+<text x="43" y="146" class="monthLabel" text-anchor="middle">Jul</text>
+<text x="82" y="146" class="monthLabel" text-anchor="middle">Aug</text>
+<text x="121" y="146" class="monthLabel" text-anchor="middle">Sep</text>
+<text x="160" y="146" class="monthLabel" text-anchor="middle">Oct</text>
+<text x="199" y="146" class="monthLabel" text-anchor="middle">Nov</text>
+<text x="238" y="146" class="monthLabel" text-anchor="middle">Dec</text>
+<text x="277" y="146" class="monthLabel" text-anchor="middle">Jan</text>
+<text x="316" y="146" class="monthLabel" text-anchor="middle">Feb</text>
+<text x="355" y="146" class="monthLabel" text-anchor="middle">Mar</text>
+<text x="394" y="146" class="monthLabel" text-anchor="middle">Apr</text>
+<text x="433" y="146" class="monthLabel" text-anchor="middle">May</text>
+<text x="472" y="146" class="monthLabel" text-anchor="middle">Jun</text>
+<text x="28" y="174" class="monoMuted"><tspan x="28">Active: mmWaveVizLog · CocoHusky · burtonmakes.github.io</tspan></text>
+  </g>
+    <g transform="translate(615 442)">
+    <rect width="531" height="200" rx="12" fill="#161b22" stroke="#30363d" stroke-width="1.35"/>
+    <text x="28" y="39" class="sectionLabel">DOMAIN FOCUS</text>
+    <g transform="translate(28 64)">
+      <circle cx="6" cy="6" r="5.5" fill="#3b82f6"/>
+      <text x="24" y="11" class="domainLabel">Wearable sensing</text>
+      <rect x="220" y="2.5" width="96" height="7" rx="3.5" fill="#21262d"/>
+      <rect x="220" y="2.5" width="44" height="7" rx="3.5" fill="#3b82f6"/>
+    </g>
+<g transform="translate(28 92)">
+      <circle cx="6" cy="6" r="5.5" fill="#14b8a6"/>
+      <text x="24" y="11" class="domainLabel">Embedded firmware</text>
+      <rect x="220" y="2.5" width="96" height="7" rx="3.5" fill="#21262d"/>
+      <rect x="220" y="2.5" width="59" height="7" rx="3.5" fill="#14b8a6"/>
+    </g>
+<g transform="translate(28 120)">
+      <circle cx="6" cy="6" r="5.5" fill="#a78bfa"/>
+      <text x="24" y="11" class="domainLabel">ML / signal proc.</text>
+      <rect x="220" y="2.5" width="96" height="7" rx="3.5" fill="#21262d"/>
+      <rect x="220" y="2.5" width="88" height="7" rx="3.5" fill="#a78bfa"/>
+    </g>
+<g transform="translate(28 148)">
+      <circle cx="6" cy="6" r="5.5" fill="#e8834a"/>
+      <text x="24" y="11" class="domainLabel">V&amp;V / med-dev</text>
+      <rect x="220" y="2.5" width="96" height="7" rx="3.5" fill="#21262d"/>
+      <rect x="220" y="2.5" width="49" height="7" rx="3.5" fill="#e8834a"/>
+    </g>
+<g transform="translate(28 176)">
+      <circle cx="6" cy="6" r="5.5" fill="#6e7681"/>
+      <text x="24" y="11" class="domainLabel">Self-hosted infra</text>
+      <rect x="220" y="2.5" width="96" height="7" rx="3.5" fill="#21262d"/>
+      <rect x="220" y="2.5" width="64" height="7" rx="3.5" fill="#6e7681"/>
     </g>
   </g>
   </g>
