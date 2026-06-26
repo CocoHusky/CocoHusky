@@ -6,6 +6,7 @@ on:
     branches:
       - main
     paths:
+      - assets-src/**
       - scripts/render-readme-assets.mjs
       - package.json
       - .github/workflows/render-profile-assets.yml
@@ -13,6 +14,7 @@ on:
     branches:
       - main
     paths:
+      - assets-src/**
       - scripts/render-readme-assets.mjs
       - package.json
       - .github/workflows/render-profile-assets.yml
@@ -41,7 +43,7 @@ jobs:
         with:
           node-version: 22
 
-      - name: Render README assets
+      - name: Render README assets from HTML sources
         run: npm run render:readme-assets
 
       - name: Upload rendered asset preview
