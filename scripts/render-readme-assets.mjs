@@ -83,18 +83,115 @@ ${body}
 </svg>`;
 }
 
-function heroNodes(width, height) {
-  let seed = 21;
-  const rand = () => { const x = Math.sin(seed++) * 10000; return x - Math.floor(x); };
-  return Array.from({ length: 42 }, (_, i) => ({
-    x: Math.round(width * (0.53 + rand() * 0.44)),
-    y: Math.round(height * (0.06 + rand() * 0.86)),
-    r: i % 9 === 0 ? 2.6 : 1.3 + rand() * 1.4,
-    hot: i % 9 === 0,
-    phase: rand() * 8,
-    dx: Math.round((rand() - 0.5) * 24),
-    dy: Math.round((rand() - 0.5) * 18)
+function seededRandomFactory(seed = 1027) {
+  return () => {
+    const x = Math.sin(seed++) * 10000;
+    return x - Math.floor(x);
+  };
+}
+
+function wrap01(value) {
+  return ((value % 1) + 1) % 1;
+}
+
+function buildOriginalHeroNodes() {
+  const random = seededRandomFactory();
+  return Array.from({ length: 38 }, (_, i) => ({
+    bx: random(),
+    by: random(),
+    r1: 30 + random() * 90,
+    r2: 15 + random() * 50,
+    s1: (random() * 0.0004 + 0.0001) * (random() < 0.5 ? 1 : -1),
+    s2: (random() * 0.0007 + 0.0002) * (random() < 0.5 ? 1 : -1),
+    a1: random() * Math.PI * 2,
+    a2: random() * Math.PI * 2,
+    dx: (random() - 0.5) * 0.04,
+    dy: (random() - 0.5) * 0.04,
+    isAccent: i % 9 === 0,
+    size: i % 9 === 0 ? 2.5 : 1.2 + random() * 1.6,
+    pulse: random() * Math.PI * 2,
+    pulseSpeed: 0.008 + random() * 0.012
   }));
+}
+
+function originalNodePosition(node, tMs, width, height) {
+  const frameEstimate = tMs / (1000 / 60);
+  const bx = wrap01(node.bx + node.dx * 0.0005 * frameEstimate);
+  const by = wrap01(node.by + node.dy * 0.0005 * frameEstimate);
+  const xBase = width * (0.52 + bx * 0.48);
+  const yBase = height * (0.05 + by * 0.90);
+  const a1 = node.a1 + node.s1 * tMs;
+  const a2 = node.a2 + node.s2 * tMs;
+  const pulse = node.pulse + node.pulseSpeed * frameEstimate;
+  const p = 0.7 + 0.3 * Math.sin(pulse);
+  return {
+    x: xBase + Math.cos(a1) * node.r1 + Math.cos(a2) * node.r2,
+    y: yBase + Math.sin(a1) * node.r1 * 0.6 + Math.sin(a2) * node.r2 * 0.7,
+    coreR: node.size * p,
+    glowR: node.size * p * 4,
+    opacity: node.isAccent ? 0.9 : 0.8,
+    color: node.isAccent ? C.orange : '#3b82f6'
+  };
+}
+
+function svgValues(values, precision = 1) {
+  return values.map((value) => Number(value).toFixed(precision)).join(';');
+}
+
+function edgeOpacity(distance) {
+  if (distance > 180) return 0;
+  return Math.pow(1 - distance / 180, 1.6) * 0.55;
+}
+
+function animatedHeroNetwork(width, height) {
+  const nodes = buildOriginalHeroNodes();
+  const duration = 26;
+  const sampleCount = 18;
+  const times = Array.from({ length: sampleCount }, (_, i) => (i / (sampleCount - 1)) * duration * 1000);
+  const positions = nodes.map((node) => times.map((time) => originalNodePosition(node, time, width, height)));
+  const nodeSvg = nodes.map((node, i) => {
+    const pos = positions[i];
+    const coreOpacity = node.isAccent ? 0.9 : 0.78;
+    return `<g>
+  <circle fill="${node.isAccent ? C.orange : '#3b82f6'}" opacity="0.18">
+    <animate attributeName="cx" values="${svgValues(pos.map((p) => p.x))}" dur="${duration}s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="${svgValues(pos.map((p) => p.y))}" dur="${duration}s" repeatCount="indefinite"/>
+    <animate attributeName="r" values="${svgValues(pos.map((p) => p.glowR))}" dur="${duration}s" repeatCount="indefinite"/>
+  </circle>
+  <circle fill="${node.isAccent ? C.orange : '#3b82f6'}" opacity="${coreOpacity}">
+    <animate attributeName="cx" values="${svgValues(pos.map((p) => p.x))}" dur="${duration}s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="${svgValues(pos.map((p) => p.y))}" dur="${duration}s" repeatCount="indefinite"/>
+    <animate attributeName="r" values="${svgValues(pos.map((p) => p.coreR))}" dur="${duration}s" repeatCount="indefinite"/>
+  </circle>
+</g>`;
+  }).join('\n');
+
+  const edgeCandidates = [];
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      const opacitySamples = times.map((_, k) => Math.hypot(positions[i][k].x - positions[j][k].x, positions[i][k].y - positions[j][k].y)).map(edgeOpacity);
+      const maxOpacity = Math.max(...opacitySamples);
+      if (maxOpacity > 0.04) edgeCandidates.push({ i, j, maxOpacity, opacitySamples });
+    }
+  }
+
+  const edgeSvg = edgeCandidates
+    .sort((a, b) => b.maxOpacity - a.maxOpacity)
+    .slice(0, 72)
+    .map(({ i, j, opacitySamples }) => {
+      const a = positions[i];
+      const b = positions[j];
+      const hot = nodes[i].isAccent || nodes[j].isAccent;
+      return `<line stroke="${hot ? C.orange : '#3b82f6'}" stroke-width="${hot ? 0.8 : 0.5}" stroke-linecap="round">
+  <animate attributeName="x1" values="${svgValues(a.map((p) => p.x))}" dur="${duration}s" repeatCount="indefinite"/>
+  <animate attributeName="y1" values="${svgValues(a.map((p) => p.y))}" dur="${duration}s" repeatCount="indefinite"/>
+  <animate attributeName="x2" values="${svgValues(b.map((p) => p.x))}" dur="${duration}s" repeatCount="indefinite"/>
+  <animate attributeName="y2" values="${svgValues(b.map((p) => p.y))}" dur="${duration}s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="${svgValues(opacitySamples, 2)}" dur="${duration}s" repeatCount="indefinite"/>
+</line>`;
+    }).join('\n');
+
+  return `${edgeSvg}\n${nodeSvg}`;
 }
 
 async function renderHeroWithBrowser(html, width, height) {
@@ -102,18 +199,7 @@ async function renderHeroWithBrowser(html, width, height) {
   const eyebrow = firstTag(html, 'p', 'eyebrow') || 'BIOMEDICAL ENGINEERING FULL STACK';
   const titleLines = tagLines(html, 'h1').slice(0, 2);
   const bodyLines = tagLines(html, 'p', 'body').slice(0, 2);
-  const nodes = heroNodes(width, height);
-  const edges = [];
-  for (let i = 0; i < nodes.length; i++) {
-    for (let j = i + 1; j < nodes.length; j++) {
-      const a = nodes[i], b = nodes[j];
-      const d = Math.hypot(a.x - b.x, a.y - b.y);
-      if (d < 150) edges.push({ a, b, hot: a.hot || b.hot, o: Math.max(0.08, 0.5 * (1 - d / 150)) });
-    }
-  }
-
-  const edgeSvg = edges.map(({ a, b, hot, o }, i) => `<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="${hot ? C.orange : '#3b82f6'}" stroke-width="${hot ? 0.8 : 0.55}" stroke-linecap="round" opacity="${o.toFixed(2)}"><animate attributeName="opacity" values="${(o * 0.45).toFixed(2)};${(o * 1.2).toFixed(2)};${(o * 0.45).toFixed(2)}" dur="${16 + (i % 7)}s" begin="${i % 5}s" repeatCount="indefinite"/></line>`).join('');
-  const nodeSvg = nodes.map((n, i) => `<circle cx="${n.x}" cy="${n.y}" r="${n.r.toFixed(1)}" fill="${n.hot ? C.orange : '#3b82f6'}" opacity="${n.hot ? 0.9 : 0.72}"><animate attributeName="r" values="${n.r.toFixed(1)};${(n.r * 1.55).toFixed(1)};${n.r.toFixed(1)}" dur="${9 + (i % 5)}s" begin="${n.phase.toFixed(1)}s" repeatCount="indefinite"/><animate attributeName="cx" values="${n.x};${n.x + n.dx};${n.x}" dur="${22 + (i % 6)}s" begin="${n.phase.toFixed(1)}s" repeatCount="indefinite"/><animate attributeName="cy" values="${n.y};${n.y + n.dy};${n.y}" dur="${24 + (i % 6)}s" begin="${n.phase.toFixed(1)}s" repeatCount="indefinite"/></circle>`).join('');
+  const networkSvg = animatedHeroNetwork(width, height);
   const titleSvg = titleLines.map((line, i) => `<text x="44" y="${96 + i * 48}" class="heroTitle">${escapeXml(line)}</text>`).join('');
   const bodySvg = bodyLines.map((line, i) => `<text x="44" y="${238 + i * 25}" class="heroBody">${escapeXml(line)}</text>`).join('');
 
@@ -131,7 +217,7 @@ async function renderHeroWithBrowser(html, width, height) {
   <rect width="${width}" height="${height}" fill="url(#heroBg)"/>
   <circle cx="${width - 85}" cy="40" r="240" fill="url(#blueGlow)"/>
   <circle cx="120" cy="${height + 40}" r="190" fill="url(#orangeGlow)"/>
-  <g opacity="0.82"><animateTransform attributeName="transform" type="translate" values="0 0;-8 5;6 -4;0 0" dur="28s" repeatCount="indefinite"/>${edgeSvg}${nodeSvg}</g>
+  <g opacity="0.86">${networkSvg}</g>
   <rect width="${Math.round(width * 0.62)}" height="${height}" fill="url(#textShade)"/>
   <rect x="24" y="44" width="2" height="248" rx="1" fill="url(#accentLine)"/>
   <g class="heroUi"><text x="44" y="52" class="heroEyebrow">${escapeXml(eyebrow)}</text>${titleSvg}${bodySvg}</g>
