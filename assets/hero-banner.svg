@@ -974,7 +974,7 @@
 </g></g>
   <rect width="744" height="360" fill="url(#textShade)"/>
   <rect x="24" y="44" width="2" height="248" rx="1" fill="url(#accentLine)"/>
-  <g class="heroUi"><text x="44" y="52" class="heroEyebrow">BIOMEDICAL ENGINEERING FULL STACK</text><text x="44" y="96" class="heroTitle">Medical sensor systems</text><text x="44" y="144" class="heroTitle">from prototype to study devices.</text><text x="44" y="238" class="heroBody">Hardware, firmware, data workflows, housings, and validation paths</text><text x="44" y="263" class="heroBody">for wearable and implantable medical sensing systems.</text></g>
+  <g class="heroUi"><text x="44" y="52" class="heroEyebrow">BIOMEDICAL ENGINEERING FULL STACK</text><text x="44" y="96" class="heroTitle">Medical sensor systems</text><text x="44" y="144" class="heroTitle">from prototype to study devices.</text><text x="44" y="238" class="heroBody">I like building devices that make health data easier to understand,</text><text x="44" y="263" class="heroBody">give people better tools, and help care feel less uncertain.</text></g>
   <image x="0" y="0" width="1" height="1" opacity="0"/>
 </g>
 <rect x="0.5" y="0.5" width="1199" height="359" rx="22" ry="22" fill="none" stroke="rgba(232,131,74,.16)"/>
