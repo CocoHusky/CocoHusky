@@ -39,6 +39,7 @@ jobs:
         asset:
           - hero-banner
           - active-projects-card
+          - section-divider
 
     steps:
       - name: Check out repository
@@ -70,6 +71,7 @@ jobs:
         asset:
           - hero-banner
           - active-projects-card
+          - section-divider
 
     steps:
       - name: Check out repository
@@ -94,8 +96,10 @@ jobs:
         run: |
           test -s "dist/profile-assets/${{ matrix.asset }}.svg"
           grep -q '<svg ' "dist/profile-assets/${{ matrix.asset }}.svg"
-          grep -q '<text ' "dist/profile-assets/${{ matrix.asset }}.svg"
           grep -q '</svg>' "dist/profile-assets/${{ matrix.asset }}.svg"
+          if [[ "${{ matrix.asset }}" != "section-divider" ]]; then
+            grep -q '<text ' "dist/profile-assets/${{ matrix.asset }}.svg"
+          fi
           if grep -q '<foreignObject ' "dist/profile-assets/${{ matrix.asset }}.svg"; then
             echo "Generated SVG must not use foreignObject; GitHub README images need pure SVG."
             exit 1
@@ -129,7 +133,7 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git pull --rebase --autostash origin "${GITHUB_REF_NAME:-main}"
-            git add assets/hero-banner.svg assets/active-projects-card.svg
+            git add assets/hero-banner.svg assets/active-projects-card.svg assets/section-divider.svg
             git commit -m "chore: publish generated profile SVG assets [skip ci]"
             git push
           else
