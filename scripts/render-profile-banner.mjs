@@ -46,18 +46,14 @@ function esc(value) {
 const focusText = textFor('focus', 'Novel sensors →\nclinical devices');
 const buildText = textFor('build', 'Miniature medical systems');
 const execText = textFor('exec', 'Risk · V&V\nFDA docs');
-
 const htmlIteration = attrFor('data-iteration', 'html-v000');
-const actionRun = process.env.GITHUB_RUN_NUMBER ? `run-${process.env.GITHUB_RUN_NUMBER}` : 'local-run';
-const actionSha = process.env.GITHUB_SHA ? process.env.GITHUB_SHA.slice(0, 7) : 'local';
-const debugStamp = `${htmlIteration} · ${actionRun} · ${actionSha}`;
 
 const [focusLine1 = 'Novel sensors →', focusLine2 = 'clinical devices'] = focusText.split('\n');
 const [execLine1 = 'Risk · V&V', execLine2 = 'FDA docs'] = execText.split('\n');
 
 const svg = `<svg width="1200" height="300" viewBox="0 0 1200 300" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
   <title id="title">Alex Burton profile banner</title>
-  <desc id="desc">Dark technical portfolio banner with torus geometry and three recruiter-focused capability windows. Render stamp: ${esc(debugStamp)}.</desc>
+  <desc id="desc">Dark technical portfolio banner with torus geometry and three recruiter-focused capability windows.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="300" gradientUnits="userSpaceOnUse"><stop stop-color="#010813"/><stop offset="0.56" stop-color="#06101C"/><stop offset="1" stop-color="#071321"/></linearGradient>
     <linearGradient id="cyan" x1="0" y1="96" x2="1130" y2="214" gradientUnits="userSpaceOnUse"><stop stop-color="#4A90E2"/><stop offset="0.48" stop-color="#5BD5F5"/><stop offset="1" stop-color="#3DD6C8"/></linearGradient>
@@ -109,11 +105,9 @@ const svg = `<svg width="1200" height="300" viewBox="0 0 1200 300" fill="none" x
     <text x="26" y="74" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="760" letter-spacing="-0.2">${esc(execLine1)}</text>
     <text x="26" y="94" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="760" letter-spacing="-0.2">${esc(execLine2)}</text>
   </g>
-
-  <text x="1148" y="286" text-anchor="end" fill="#9FB0C8" fill-opacity="0.72" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="800" letter-spacing="2">${esc(debugStamp)}</text>
 </svg>
 `;
 
 await writeFile(outputPath, svg);
 console.log(`Rendered ${outputPath}`);
-console.log(`Render stamp: ${debugStamp}`);
+console.log(`HTML source iteration: ${htmlIteration}`);
