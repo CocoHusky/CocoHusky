@@ -10,7 +10,7 @@
     position: relative;
     width: 1200px;
     max-width: 100%;
-    height: 420px;
+    height: 360px;
     overflow: hidden;
     border-radius: 22px;
     background: linear-gradient(135deg, #010409 0%, #06101c 56%, #0d1117 100%);
@@ -24,59 +24,72 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.85;
+    opacity: 0.9;
   }
 
   /* Subtle radial glows on top of canvas */
   .glow-blue {
     position: absolute;
-    top: -60px; right: -40px;
-    width: 420px; height: 420px;
+    top: -70px; right: -40px;
+    width: 440px; height: 440px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(59,130,246,0.13) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(59,130,246,0.14) 0%, transparent 70%);
     pointer-events: none;
   }
   .glow-coral {
     position: absolute;
-    bottom: -80px; left: 30px;
-    width: 320px; height: 320px;
+    bottom: -90px; left: 20px;
+    width: 340px; height: 340px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(232,131,74,0.09) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(232,131,74,0.10) 0%, transparent 70%);
     pointer-events: none;
+  }
+
+  .text-shade {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 62%;
+    background: linear-gradient(90deg, rgba(1,4,9,0.98) 0%, rgba(1,4,9,0.86) 56%, rgba(1,4,9,0) 100%);
+    pointer-events: none;
+    z-index: 1;
   }
 
   .hero-copy {
     position: absolute;
     left: 44px;
-    top: 52px;
-    width: 680px;
+    top: 44px;
+    width: 720px;
     z-index: 2;
   }
 
   .eyebrow {
-    margin: 0 0 24px 0;
+    margin: 0 0 20px 0;
     color: #ffb26d;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 800;
     letter-spacing: 3px;
+    white-space: nowrap;
   }
 
   h1 {
     margin: 0;
-    font-size: 50px;
-    line-height: 1.08;
+    font-size: 43px;
+    line-height: 1.06;
     font-weight: 820;
-    letter-spacing: -2.3px;
-    text-shadow: 0 2px 40px rgba(1,4,9,0.8);
+    letter-spacing: -1.8px;
+    text-shadow: 0 2px 40px rgba(1,4,9,0.85);
   }
 
-  h1 span, .body span { display: block; }
+  h1 span, .body span {
+    display: block;
+    white-space: nowrap;
+  }
 
   .body {
-    margin: 28px 0 0 0;
+    margin: 22px 0 0 0;
     color: #b6c2d4;
-    font-size: 17px;
-    line-height: 1.62;
+    font-size: 16px;
+    line-height: 1.55;
     text-shadow: 0 1px 20px rgba(1,4,9,0.9);
   }
 
@@ -95,20 +108,21 @@
 </head>
 <body>
 
-<div class="hero-banner" data-width="1200" data-height="420">
+<div class="hero-banner" data-width="1200" data-height="360">
   <canvas id="net"></canvas>
   <div class="glow-blue"></div>
   <div class="glow-coral"></div>
+  <div class="text-shade"></div>
 
   <div class="hero-copy">
     <p class="eyebrow">BIOMEDICAL ENGINEERING FULL STACK</p>
     <h1>
-      <span>Medical sensor systems from prototype</span>
-      <span>to real-world study devices.</span>
+      <span>Medical sensor systems</span>
+      <span>from prototype to study devices.</span>
     </h1>
     <p class="body">
-      <span>I build the hardware, firmware, data workflows, housings, and validation paths</span>
-      <span>that turn miniature sensing ideas into usable wearable and implantable medical systems.</span>
+      <span>Hardware, firmware, data workflows, housings, and validation paths</span>
+      <span>for wearable and implantable medical sensing systems.</span>
     </p>
   </div>
 </div>
