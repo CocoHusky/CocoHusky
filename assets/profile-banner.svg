@@ -1,0 +1,79 @@
+<svg width="1200" height="360" viewBox="0 0 1200 360" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Alex Burton biomedical sensing systems banner</title>
+  <desc id="desc">Dark technical banner with grid, sensor traces, medical-device cards, and portfolio-inspired accent colors.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="360" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#010914"/>
+      <stop offset="0.52" stop-color="#06101C"/>
+      <stop offset="1" stop-color="#081322"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="170" y1="42" x2="1050" y2="304" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4A90E2"/>
+      <stop offset="0.55" stop-color="#5BD5F5"/>
+      <stop offset="1" stop-color="#3DD6C8"/>
+    </linearGradient>
+    <linearGradient id="orange" x1="800" y1="70" x2="1090" y2="260" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F2C166"/>
+      <stop offset="1" stop-color="#E8834A"/>
+    </linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" stroke="#2A3D55" stroke-opacity="0.28" stroke-width="1"/>
+    </pattern>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.33 0 0 0 0 0.82 0 0 0 0 1 0 0 0 .42 0"/>
+      <feBlend in="SourceGraphic"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="360" rx="28" fill="url(#bg)"/>
+  <rect width="1200" height="360" rx="28" fill="url(#grid)" opacity="0.75"/>
+  <rect x="1" y="1" width="1198" height="358" rx="27" stroke="#1C2C43" stroke-width="2"/>
+
+  <circle cx="930" cy="96" r="190" stroke="#18324F" stroke-opacity="0.48"/>
+  <circle cx="1015" cy="242" r="92" stroke="#295E91" stroke-opacity="0.52"/>
+  <circle cx="1015" cy="242" r="48" stroke="#5BD5F5" stroke-opacity="0.22"/>
+
+  <path d="M64 238C152 204 196 116 290 136C380 155 370 236 462 232C548 228 568 152 646 142C746 130 778 235 874 216C952 200 998 127 1132 136" stroke="url(#blue)" stroke-width="3" stroke-linecap="round" opacity="0.9" filter="url(#glow)"/>
+  <path d="M64 258C156 232 214 180 292 190C372 200 394 270 480 264C554 260 594 210 654 202C742 190 790 260 872 252C966 242 1006 188 1132 204" stroke="#E8834A" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
+
+  <g opacity="0.95">
+    <rect x="64" y="68" width="486" height="132" rx="22" fill="#071321" fill-opacity="0.82" stroke="#24364D"/>
+    <text x="96" y="114" fill="#5BD5F5" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="800" letter-spacing="5">BIOMEDICAL SYSTEMS ENGINEER</text>
+    <text x="96" y="156" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="900">Alex Burton</text>
+    <text x="98" y="184" fill="#B7C4D6" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="650">Medical devices · sensing · AI/ML workflows</text>
+  </g>
+
+  <g transform="translate(676 74)">
+    <rect width="198" height="132" rx="20" fill="#071321" fill-opacity="0.74" stroke="#24364D"/>
+    <circle cx="30" cy="30" r="6" fill="#4A90E2"/>
+    <circle cx="52" cy="30" r="6" fill="#5BD5F5"/>
+    <circle cx="74" cy="30" r="6" fill="#E8834A"/>
+    <text x="30" y="78" fill="#B7C4D6" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="800" letter-spacing="2">FOCUS</text>
+    <text x="30" y="108" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="900">Medical</text>
+    <text x="30" y="134" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="900">devices</text>
+  </g>
+
+  <g transform="translate(900 74)">
+    <rect width="236" height="132" rx="20" fill="#071321" fill-opacity="0.74" stroke="#24364D"/>
+    <rect x="28" y="36" width="142" height="20" rx="10" fill="url(#blue)"/>
+    <rect x="28" y="74" width="108" height="20" rx="10" fill="url(#orange)"/>
+    <rect x="28" y="112" width="86" height="20" rx="10" fill="#5BD5F5"/>
+  </g>
+
+  <g transform="translate(676 230)">
+    <rect width="198" height="82" rx="18" fill="#071321" fill-opacity="0.74" stroke="#24364D"/>
+    <text x="30" y="36" fill="#B7C4D6" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="800" letter-spacing="2">SYSTEMS RANGE</text>
+    <text x="30" y="68" fill="#F2C166" font-family="Inter, Arial, sans-serif" font-size="36" font-weight="900">R&amp;D</text>
+  </g>
+
+  <g opacity="0.42">
+    <circle cx="116" cy="294" r="3" fill="#5BD5F5"/>
+    <circle cx="208" cy="54" r="2" fill="#E8834A"/>
+    <circle cx="430" cy="276" r="2" fill="#5BD5F5"/>
+    <circle cx="594" cy="92" r="2" fill="#E8834A"/>
+    <circle cx="777" cy="36" r="3" fill="#5BD5F5"/>
+    <circle cx="1070" cy="292" r="2" fill="#E8834A"/>
+    <circle cx="1128" cy="64" r="2" fill="#5BD5F5"/>
+  </g>
+</svg>
