@@ -1,33 +1,49 @@
-import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, '..');
-
-const dataPath = path.join(repoRoot, 'src', 'profile-card-data.json');
 const outputDir = path.join(repoRoot, 'assets');
 const svgPath = path.join(outputDir, 'profile-card.svg');
 const archivedPngPath = path.join(outputDir, 'profile-card.png');
 
 const WIDTH = 1200;
-const HEIGHT = 700;
+const HEIGHT = 1580;
+const USERNAME = 'CocoHusky';
 
-const palette = {
-  navy: '#0d1117',
-  navy2: '#161b22',
-  navy3: '#21262d',
-  border: '#30363d',
-  accent: '#3b82f6',
+const colors = {
+  navy: '#010409',
+  navy2: '#06101c',
+  navy3: '#0d1117',
+  panel: '#0d1117',
+  border: '#2a3a4d',
+  blue: '#4c8dff',
+  cyan: '#6fd3ff',
   orange: '#e8834a',
-  orangeSoft: '#211812',
-  teal: '#14b8a6',
-  text: '#e6edf3',
-  text2: '#8b949e',
-  text3: '#6e7681',
+  orange2: '#ffae72',
   green: '#22c55e',
-  amber: '#e8834a'
+  text: '#f4f7fb',
+  text2: '#aab8cc',
+  text3: '#738198'
+};
+
+const projects = [
+  ['active', '60 GHz mmWave radar sensor system', 'ESP32-C6 · live dashboard · WiFi provisioning · sensor testing'],
+  ['active', 'Proxmox homelab and self-hosted stack', 'TrueNAS · Nextcloud · Immich · containers · virtual machines'],
+  ['wip', 'Portfolio rebuild and GitHub profile system', 'Astro · GitHub Pages · automated SVG generation · recruiter-first UX']
+];
+
+const tech = [
+  ['TypeScript', 'hot'], ['JavaScript', 'hot'], ['Python', 'blue'], ['C++', 'blue'], ['C', 'blue'], ['JSON', ''],
+  ['Git', ''], ['GitHub', ''], ['Docker', ''], ['SQL', ''], ['Proxmox', ''], ['TrueNAS', ''],
+  ['Containers', ''], ['Virtual Machines', ''], ['Networking', ''], ['Embedded C', ''], ['BLE / NFC', ''], ['PCB Bring-up', '']
+];
+
+const languageColors = {
+  Python: '#3572a5', JavaScript: '#f1e05a', TypeScript: '#3178c6', 'C++': '#f34b7d', C: '#555555',
+  HTML: '#e34c26', CSS: '#563d7c', Shell: '#89e051', Dockerfile: '#384d54', Other: '#6e7681'
 };
 
 function esc(value = '') {
@@ -38,20 +54,16 @@ function esc(value = '') {
     .replace(/"/g, '&quot;');
 }
 
-function clamp(value, min, max) {
-  return Math.max(min, Math.min(max, value));
+function compactNumber(value) {
+  const n = Number(value ?? 0);
+  if (!Number.isFinite(n)) return '0';
+  return n >= 1000 ? `${(n / 1000).toFixed(n >= 10000 ? 0 : 1)}k` : String(n);
 }
 
-function truncate(value, max = 64) {
-  const text = String(value ?? '');
-  return text.length > max ? `${text.slice(0, max - 1)}…` : text;
-}
-
-function wrapWords(value, max = 58, maxLines = 2) {
-  const words = String(value ?? '').split(/\s+/).filter(Boolean);
+function wrap(value, max = 55, maxLines = 3) {
+  const words = String(value).split(/\s+/).filter(Boolean);
   const lines = [];
   let line = '';
-
   for (const word of words) {
     const next = line ? `${line} ${word}` : word;
     if (next.length > max && line) {
@@ -62,328 +74,217 @@ function wrapWords(value, max = 58, maxLines = 2) {
     }
   }
   if (line) lines.push(line);
-
-  return lines.slice(0, maxLines).map((line, index, visible) => {
-    if (index === maxLines - 1 && visible.length < lines.length) return truncate(line, max - 1);
-    return line;
-  });
+  return lines.slice(0, maxLines);
 }
 
-function monthWindows(count = 12, now = new Date()) {
-  const formatter = new Intl.DateTimeFormat('en-US', { month: 'short', timeZone: 'UTC' });
-  const windows = [];
-  const cursor = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
-  cursor.setUTCMonth(cursor.getUTCMonth() - (count - 1));
-
-  for (let i = 0; i < count; i += 1) {
-    const start = new Date(Date.UTC(cursor.getUTCFullYear(), cursor.getUTCMonth(), 1));
-    const end = new Date(Date.UTC(cursor.getUTCFullYear(), cursor.getUTCMonth() + 1, 1));
-    windows.push({ label: formatter.format(start), start, end, count: 0 });
-    cursor.setUTCMonth(cursor.getUTCMonth() + 1);
-  }
-  return windows;
+function text(x, y, body, cls, attrs = '') {
+  return `<text x="${x}" y="${y}" class="${cls}"${attrs}>${esc(body)}</text>`;
 }
 
-function fallbackCommits(config) {
-  const fallback = config.commitFallback ?? {};
-  return {
-    labels: fallback.months ?? monthWindows().map((month) => month.label),
-    counts: fallback.counts ?? [18, 25, 12, 30, 22, 35, 28, 45, 52, 38, 60, 48],
-    activeRepos: fallback.activeRepos ?? []
-  };
+function multiText(x, y, lines, cls, lineHeight = 24) {
+  return `<text x="${x}" y="${y}" class="${cls}">${lines.map((line, i) => `<tspan x="${x}"${i ? ` dy="${lineHeight}"` : ''}>${esc(line)}</tspan>`).join('')}</text>`;
 }
 
-async function githubJson(url) {
+async function githubJson(url, fallback = null) {
   const headers = {
     Accept: 'application/vnd.github+json',
     'X-GitHub-Api-Version': '2022-11-28'
   };
   if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
-
-  const response = await fetch(url, { headers });
-  if (!response.ok) throw new Error(`GitHub API ${response.status}: ${url}`);
-  return response.json();
-}
-
-async function fetchCommitData(config) {
-  const username = config.username;
-  if (!username) return fallbackCommits(config);
-
   try {
-    const windows = monthWindows(12);
-    const since = windows[0].start.toISOString().slice(0, 10);
-    const repoCounts = new Map();
-    let page = 1;
-
-    while (page <= 5) {
-      const query = encodeURIComponent(`author:${username} committer-date:>=${since}`);
-      const data = await githubJson(`https://api.github.com/search/commits?q=${query}&per_page=100&page=${page}`);
-      const items = data.items ?? [];
-
-      for (const item of items) {
-        const dateValue = item.commit?.author?.date ?? item.commit?.committer?.date;
-        const date = dateValue ? new Date(dateValue) : null;
-        if (!date || Number.isNaN(date.getTime())) continue;
-
-        const match = windows.find((window) => date >= window.start && date < window.end);
-        if (match) match.count += 1;
-
-        const repoName = item.repository?.name;
-        if (repoName) repoCounts.set(repoName, (repoCounts.get(repoName) ?? 0) + 1);
-      }
-
-      if (items.length < 100) break;
-      page += 1;
-    }
-
-    const counts = windows.map((window) => window.count);
-    if (!counts.some((count) => count > 0)) return fallbackCommits(config);
-
-    const activeRepos = [...repoCounts.entries()]
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 3)
-      .map(([name]) => name);
-
-    return {
-      labels: windows.map((window) => window.label),
-      counts,
-      activeRepos: activeRepos.length ? activeRepos : fallbackCommits(config).activeRepos
-    };
+    const response = await fetch(url, { headers });
+    if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
+    return await response.json();
   } catch (error) {
-    console.warn(`Using fallback commit data: ${error.message}`);
-    return fallbackCommits(config);
-  }
-}
-
-function fallbackDomains(config) {
-  return (config.domains ?? []).map((domain) => ({
-    label: domain.label,
-    color: domain.color,
-    value: domain.fallback ?? 50
-  }));
-}
-
-function categorizeRepo(repo, languages) {
-  const name = `${repo.name ?? ''} ${repo.description ?? ''}`.toLowerCase();
-  const languageNames = Object.keys(languages).map((language) => language.toLowerCase());
-  const hasLanguage = (...needles) => needles.some((needle) => languageNames.includes(needle));
-  const score = {
-    'Wearable sensing': 0,
-    'Embedded firmware': 0,
-    'ML / signal proc.': 0,
-    'V&V / med-dev': 0,
-    'Self-hosted infra': 0
-  };
-
-  if (/mmwave|sensor|radar|wearable|implant|medical|device|vizlog/.test(name)) score['Wearable sensing'] += 3;
-  if (/esp32|xiao|zephyr|firmware|arduino|ble|nfc|embedded/.test(name)) score['Embedded firmware'] += 3;
-  if (/signal|ml|ai|model|analytics|python|data/.test(name)) score['ML / signal proc.'] += 2;
-  if (/validation|test|fda|iso|docs|quality|requirement|risk/.test(name)) score['V&V / med-dev'] += 2;
-  if (/homelab|proxmox|truenas|server|infra|zfs|docker|self-host/.test(name)) score['Self-hosted infra'] += 3;
-
-  if (hasLanguage('c', 'c++', 'arduino', 'cmake')) {
-    score['Embedded firmware'] += 2;
-    score['Wearable sensing'] += 1;
-  }
-  if (hasLanguage('python', 'jupyter notebook', 'r', 'matlab')) score['ML / signal proc.'] += 2;
-  if (hasLanguage('shell', 'dockerfile', 'hcl', 'nix')) score['Self-hosted infra'] += 2;
-  if (hasLanguage('markdown', 'html', 'css', 'javascript', 'typescript')) score['V&V / med-dev'] += 1;
-
-  return score;
-}
-
-async function fetchDomainData(config) {
-  const username = config.username;
-  const fallback = fallbackDomains(config);
-  if (!username) return fallback;
-
-  try {
-    const repos = await githubJson(`https://api.github.com/users/${username}/repos?per_page=30&sort=updated&type=owner`);
-    const totals = Object.fromEntries(fallback.map((domain) => [domain.label, 0]));
-
-    for (const repo of repos.slice(0, 18)) {
-      if (repo.fork) continue;
-      let languages = {};
-      try {
-        languages = await githubJson(repo.languages_url);
-      } catch {
-        languages = {};
-      }
-      const scores = categorizeRepo(repo, languages);
-      for (const [label, score] of Object.entries(scores)) {
-        if (label in totals) totals[label] += score;
-      }
-    }
-
-    const max = Math.max(...Object.values(totals), 1);
-    return fallback.map((domain) => {
-      const score = totals[domain.label] ?? 0;
-      const value = score > 0 ? clamp(Math.round((score / max) * 88), 22, 88) : domain.value;
-      return { ...domain, value };
-    });
-  } catch (error) {
-    console.warn(`Using fallback domain data: ${error.message}`);
+    console.warn(`GitHub API fallback for ${url}: ${error.message}`);
     return fallback;
   }
 }
 
-function text(x, y, content, className, extra = '') {
-  return `<text x="${x}" y="${y}" class="${className}"${extra}>${esc(content)}</text>`;
+async function searchCount(endpoint, query) {
+  const data = await githubJson(`https://api.github.com/search/${endpoint}?q=${encodeURIComponent(query)}&per_page=1`, { total_count: 0 });
+  return data?.total_count ?? 0;
 }
 
-function tspans(x, y, lines, className, dy = 18) {
-  return `<text x="${x}" y="${y}" class="${className}">${lines
-    .map((line, i) => `<tspan x="${x}"${i ? ` dy="${dy}"` : ''}>${esc(line)}</tspan>`)
-    .join('')}</text>`;
+async function collectStats() {
+  const since = new Date(Date.now() - 365 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+  const repos = await githubJson(`https://api.github.com/users/${USERNAME}/repos?per_page=100&type=owner&sort=updated`, []);
+  const ownedRepos = (repos ?? []).filter((repo) => !repo.fork);
+  const stars = ownedRepos.reduce((sum, repo) => sum + (repo.stargazers_count ?? 0), 0);
+
+  const [commits, yearCommits, prs, issues] = await Promise.all([
+    searchCount('commits', `author:${USERNAME}`),
+    searchCount('commits', `author:${USERNAME} committer-date:>=${since}`),
+    searchCount('issues', `author:${USERNAME} type:pr`),
+    searchCount('issues', `author:${USERNAME} type:issue`)
+  ]);
+
+  const languageTotals = new Map();
+  for (const repo of ownedRepos.slice(0, 35)) {
+    const langs = await githubJson(repo.languages_url, {});
+    for (const [name, bytes] of Object.entries(langs ?? {})) {
+      languageTotals.set(name, (languageTotals.get(name) ?? 0) + bytes);
+    }
+  }
+
+  const totalBytes = [...languageTotals.values()].reduce((sum, value) => sum + value, 0) || 1;
+  let languages = [...languageTotals.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([name, bytes]) => ({ name, value: Math.round((bytes / totalBytes) * 100), color: languageColors[name] ?? languageColors.Other }));
+
+  if (languages.length === 0) {
+    languages = [
+      { name: 'Python', value: 34, color: languageColors.Python },
+      { name: 'JavaScript', value: 20, color: languageColors.JavaScript },
+      { name: 'C++', value: 14, color: languageColors['C++'] },
+      { name: 'TypeScript', value: 12, color: languageColors.TypeScript },
+      { name: 'HTML/CSS', value: 10, color: languageColors.HTML }
+    ];
+  }
+
+  const used = languages.reduce((sum, item) => sum + item.value, 0);
+  languages.push({ name: 'Other', value: Math.max(0, 100 - used), color: languageColors.Other });
+
+  return { stars, commits, yearCommits, prs, issues, languages };
 }
 
-function linkButton(link, x, y, width, type) {
-  const primary = link.primary;
-  const stroke = primary ? palette.orange : palette.border;
-  const fill = primary ? palette.orangeSoft : palette.navy2;
-  const color = primary ? palette.orange : palette.text;
-  const icon = type === 'portfolio'
-    ? `<path d="M20 18v18a4 4 0 0 0 4 4h18a4 4 0 0 0 4-4V27" fill="none" stroke="${color}" stroke-width="2.2" stroke-linecap="round"/><path d="M34 14h16v16" fill="none" stroke="${color}" stroke-width="2.2" stroke-linecap="round"/><path d="M29 35 50 14" fill="none" stroke="${color}" stroke-width="2.2" stroke-linecap="round"/>`
-    : type === 'linkedin'
-      ? `<rect x="20" y="16" width="24" height="24" rx="2" fill="${color}" opacity="0.95"/><text x="25" y="35" fill="${palette.navy}" font-size="17" font-weight="800" font-family="Arial, sans-serif">in</text>`
-      : `<path d="M18 17h14a8 8 0 0 1 8 8v22a6 6 0 0 0-6-6H18z" fill="none" stroke="${color}" stroke-width="2.2" stroke-linejoin="round"/><path d="M56 17H42a8 8 0 0 0-8 8v22a6 6 0 0 1 6-6h16z" fill="none" stroke="${color}" stroke-width="2.2" stroke-linejoin="round"/>`;
-
-  return `<a href="${esc(link.url)}" target="_blank"><g transform="translate(${x} ${y})">
-    <rect width="${width}" height="48" rx="9" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
-    <g transform="scale(0.58)">${icon}</g>
-    ${text(50, 31, link.label + (primary ? ' →' : ''), primary ? 'buttonPrimary' : 'button')}
-  </g></a>`;
+function icon(kind, x, y) {
+  const paths = {
+    active: '<path d="M4 12h4l2-7 4 14 2-7h4"/><path d="M3 20h18"/>',
+    about: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h6M7 16h8"/>',
+    stack: '<path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/>',
+    stats: '<path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 17v-5"/><path d="M12 17V8"/><path d="M16 17v-7"/>',
+    connect: '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>'
+  };
+  return `<g transform="translate(${x} ${y})" class="icon" fill="none" stroke="currentColor" stroke-width="2">${paths[kind]}</g>`;
 }
 
-function section(x, y, width, height, title, body) {
+function heading(label, kind, y) {
+  return `<g>${icon(kind, 470, y - 22)}${text(506, y, label, 'heading')}</g>`;
+}
+
+function projectCard(project, x, y) {
+  const [status, title, subtitle] = project;
+  const dot = status === 'active' ? colors.green : colors.orange;
   return `<g transform="translate(${x} ${y})">
-    <rect width="${width}" height="${height}" rx="12" fill="${palette.navy2}" stroke="${palette.border}" stroke-width="1.35"/>
-    ${text(28, 39, title, 'sectionLabel')}
-    ${body}
+    <rect width="350" height="170" rx="16" class="panel"/>
+    <circle cx="28" cy="29" r="5" fill="${dot}"><animate attributeName="opacity" values="0.65;1;0.65" dur="5s" repeatCount="indefinite"/></circle>
+    ${text(46, 34, status === 'active' ? 'ACTIVE' : 'IN PROGRESS', 'tiny')}
+    ${multiText(24, 78, wrap(title, 28, 2), 'cardTitle', 25)}
+    ${multiText(24, 132, wrap(subtitle, 34, 2), 'mono', 18)}
   </g>`;
 }
 
-function renderSkills(skills) {
-  const rowH = 38;
-  const colW = 158;
-  const pieces = [];
-
-  for (const skill of (skills ?? []).slice(0, 10)) {
-    const label = truncate(skill.label, 22);
-    const width = colW;
-    const col = pieces.length % 2;
-    const row = Math.floor(pieces.length / 2);
-    const x = 28 + col * 168;
-    const y = 68 + row * rowH;
-    const tier = skill.tier ?? 'support';
-    const stroke = tier === 'primary' ? '#315fbd' : tier === 'signal' ? '#187d75' : palette.border;
-    const fill = tier === 'primary' ? '#111d2e' : tier === 'signal' ? '#102420' : palette.navy3;
-    const cls = tier === 'primary' ? 'tagPrimary' : tier === 'signal' ? 'tagSignal' : 'tagSupport';
-    pieces.push(`<g transform="translate(${x} ${y})"><rect width="${width}" height="30" rx="15" fill="${fill}" stroke="${stroke}" stroke-width="1.2"/>${text(16, 21, label, cls)}</g>`);
-  }
-  return pieces.join('\n');
+function techTile(item, i) {
+  const [label, tier] = item;
+  const size = 108;
+  const gap = 14;
+  const x = 56 + (i % 9) * (size + gap);
+  const y = 900 + Math.floor(i / 9) * (size + gap);
+  const cls = tier === 'hot' ? 'tile hot' : tier === 'blue' ? 'tile blue' : 'tile';
+  return `<g transform="translate(${x} ${y})"><rect width="${size}" height="${size}" rx="16" class="${cls}"/>${multiText(size / 2, 58, wrap(label, 12, 2), 'tileText', 16).replaceAll(`x="${size / 2}"`, `x="${size / 2}" text-anchor="middle"`)}</g>`;
 }
 
-function renderCommitActivity(commitData) {
-  const max = Math.max(...commitData.counts, 1);
-  const barWidth = 30;
-  const gap = 9;
-  const bars = commitData.counts.slice(0, 12).map((count, i) => {
-    const h = clamp(Math.round((count / max) * 74), 12, 74);
-    const x = 28 + i * (barWidth + gap);
-    const y = 120 - h;
-    const fill = h > 54 ? palette.accent : h > 32 ? '#31599a' : '#18345a';
-    return `<rect x="${x}" y="${y}" width="${barWidth}" height="${h}" rx="3" fill="${fill}"/>`;
-  }).join('\n');
-
-  const labels = commitData.labels
-    .slice(0, 12)
-    .map((label, i) => text(43 + i * (barWidth + gap), 146, label, 'monthLabel', ' text-anchor="middle"'))
-    .join('\n');
-
-  const repoLine = `Active: ${(commitData.activeRepos ?? []).slice(0, 3).join(' · ') || 'hardware · infra · tooling'}`;
-  return `${bars}\n${labels}\n${tspans(28, 174, wrapWords(repoLine, 56, 2), 'monoMuted', 18)}`;
+function statsCard(stats) {
+  const rows = [
+    ['Stars earned', compactNumber(stats.stars)],
+    ['Total commits', compactNumber(stats.commits)],
+    ['Total PRs', compactNumber(stats.prs)],
+    ['Total issues', compactNumber(stats.issues)],
+    ['Contributed last year', compactNumber(stats.yearCommits)]
+  ];
+  return `<g transform="translate(56 1212)">
+    <rect width="618" height="230" rx="16" class="panel"/>
+    ${text(28, 44, `CocoHusky's GitHub Stats`, 'statTitle')}
+    ${rows.map(([label, value], i) => `${text(30, 84 + i * 27, label, 'statLabel')}${text(340, 84 + i * 27, value, 'statValue')}`).join('')}
+    <circle cx="520" cy="118" r="45" fill="none" stroke="rgba(232,131,74,.28)" stroke-width="8"/>
+    <path d="M520 73a45 45 0 0 1 45 45a45 45 0 0 1-18 36" fill="none" stroke="${colors.orange}" stroke-width="8" stroke-linecap="round"><animate attributeName="stroke" values="${colors.orange};${colors.blue};${colors.orange}" dur="8s" repeatCount="indefinite"/></path>
+    ${text(520, 128, 'B+', 'grade', ' text-anchor="middle"')}
+  </g>`;
 }
 
-function renderDomains(domains) {
-  return (domains ?? []).slice(0, 5).map((domain, i) => {
-    const y = 64 + i * 28;
-    const fillWidth = clamp(domain.value ?? domain.fallback ?? 50, 0, 100);
-    return `<g transform="translate(28 ${y})">
-      <circle cx="6" cy="6" r="5.5" fill="${domain.color}"/>
-      ${text(24, 11, domain.label, 'domainLabel')}
-      <rect x="220" y="2.5" width="96" height="7" rx="3.5" fill="${palette.navy3}"/>
-      <rect x="220" y="2.5" width="${fillWidth}" height="7" rx="3.5" fill="${domain.color}"/>
-    </g>`;
-  }).join('\n');
+function languagesCard(stats) {
+  let x = 0;
+  const bars = stats.languages.map((lang) => {
+    const width = Math.max(lang.value * 4.6, lang.value ? 8 : 0);
+    const part = `<rect x="${x}" y="0" width="${width}" height="10" fill="${lang.color}"/>`;
+    x += width;
+    return part;
+  }).join('');
+
+  const list = stats.languages.slice(0, 6).map((lang, i) => {
+    const lx = 28 + (i % 2) * 220;
+    const ly = 108 + Math.floor(i / 2) * 30;
+    return `${text(lx, ly, `${lang.name} ${lang.value}%`, 'languageText')}`;
+  }).join('');
+
+  return `<g transform="translate(700 1212)">
+    <rect width="444" height="230" rx="16" class="panel"/>
+    ${text(28, 44, 'Most Used Languages', 'statTitle')}
+    <g transform="translate(28 68)"><rect width="388" height="10" rx="5" fill="${colors.navy3}"/>${bars}</g>
+    ${list}
+  </g>`;
 }
 
-function renderBuilding(items) {
-  return (items ?? []).slice(0, 3).map((item, i) => {
-    const y = 70 + i * 82;
-    const dot = item.status === 'active' ? palette.green : palette.amber;
-    const subtitleLines = wrapWords(item.subtitle, 58, 2);
-    const divider = i < 2 ? `<line x1="28" y1="${y + 62}" x2="650" y2="${y + 62}" stroke="${palette.border}"/>` : '';
-    return `<g transform="translate(28 ${y})">
-      <circle cx="8" cy="8" r="7" fill="${dot}" opacity="0.24"/>
-      <circle cx="8" cy="8" r="4.3" fill="${dot}"/>
-      ${text(32, 14, truncate(item.title, 52), 'buildingTitle')}
-      ${tspans(32, 39, subtitleLines, 'buildingSub', 17)}
-    </g>${divider}`;
-  }).join('\n');
-}
-
-function renderSvg(config, commitData, domains) {
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 ${WIDTH} ${HEIGHT}" role="img" aria-label="Alex Burton GitHub profile dashboard">
+function svg(stats) {
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 ${WIDTH} ${HEIGHT}" role="img" aria-label="Alex Burton biomedical engineering profile">
   <defs>
-    <style>
-      .ui { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
-      .button { fill: ${palette.text}; font-size: 20px; font-weight: 650; }
-      .buttonPrimary { fill: ${palette.orange}; font-size: 20px; font-weight: 750; }
-      .sectionLabel { fill: ${palette.text3}; font-size: 14px; font-weight: 760; letter-spacing: 3.4px; }
-      .tagPrimary { fill: #93c5fd; font-size: 13.5px; font-weight: 650; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
-      .tagSignal { fill: #5eead4; font-size: 13.5px; font-weight: 650; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
-      .tagSupport { fill: ${palette.text2}; font-size: 13.5px; font-weight: 650; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
-      .monthLabel { fill: ${palette.text3}; font-size: 12px; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
-      .monoMuted { fill: ${palette.text3}; font-size: 14px; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
-      .domainLabel { fill: ${palette.text2}; font-size: 15px; font-weight: 620; }
-      .buildingTitle { fill: ${palette.text}; font-size: 20px; font-weight: 760; }
-      .buildingSub { fill: ${palette.text3}; font-size: 14px; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
-    </style>
+    <style><![CDATA[
+      .ui{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif}.mono{fill:${colors.text3};font:14px "SFMono-Regular",Consolas,monospace}.title{fill:${colors.text};font-size:58px;font-weight:820;letter-spacing:-2.6px}.body{fill:${colors.text2};font-size:21px}.eyebrow{fill:${colors.orange2};font-size:13px;font-weight:800;letter-spacing:3.1px}.heading{fill:${colors.text};font-size:26px;font-weight:820}.icon{color:${colors.orange};animation:iconShift 7s ease-in-out infinite}.panel{fill:rgba(13,17,23,.76);stroke:${colors.border};stroke-width:1}.tiny{fill:${colors.text3};font:12px "SFMono-Regular",Consolas,monospace;font-weight:700;letter-spacing:1.6px}.cardTitle{fill:${colors.text};font-size:21px;font-weight:760}.tile{fill:rgba(13,17,23,.76);stroke:${colors.border};stroke-width:1}.tile.hot{stroke:rgba(232,131,74,.46);fill:rgba(232,131,74,.08)}.tile.blue{stroke:rgba(76,141,255,.42);fill:rgba(76,141,255,.07)}.tileText{fill:${colors.text2};font:13px "SFMono-Regular",Consolas,monospace;font-weight:700}.statTitle{fill:${colors.orange2};font-size:22px;font-weight:800}.statLabel{fill:${colors.text2};font-size:15px;font-weight:650}.statValue{fill:${colors.text};font-size:15px;font-weight:800}.grade{fill:${colors.text};font-size:24px;font-weight:850}.languageText{fill:${colors.text2};font-size:14px}.torus{fill:none;stroke-linecap:round;stroke-linejoin:round;animation:trace 12s linear infinite}.pulse{animation:pulseColor 8s ease-in-out infinite}@keyframes iconShift{0%,100%{color:${colors.orange}}50%{color:${colors.blue}}}@keyframes trace{to{stroke-dashoffset:-860}}@keyframes pulseColor{0%,100%{opacity:.42}50%{opacity:.78}}
+    ]]></style>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#010409"/><stop offset=".55" stop-color="#06101c"/><stop offset="1" stop-color="#0d1117"/></linearGradient>
+    <linearGradient id="rule" x1="0" y1="0" x2="1" y2="0"><stop stop-color="${colors.orange}" stop-opacity=".12"><animate attributeName="stop-opacity" values=".12;.9;.12" dur="5s" repeatCount="indefinite"/></stop><stop offset=".48" stop-color="${colors.orange}"/><stop offset=".7" stop-color="${colors.blue}"/><stop offset="1" stop-color="${colors.orange}" stop-opacity=".12"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
   </defs>
-  <rect width="${WIDTH}" height="${HEIGHT}" rx="14" fill="${palette.navy}"/>
-  <rect x="0.75" y="0.75" width="${WIDTH - 1.5}" height="${HEIGHT - 1.5}" rx="14" fill="none" stroke="${palette.border}" stroke-width="1.5"/>
+  <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#bg)"/>
+  <circle cx="860" cy="170" r="280" fill="${colors.blue}" opacity=".08"/>
+  <circle cx="170" cy="310" r="220" fill="${colors.cyan}" opacity=".07"/>
+  <circle cx="1000" cy="1030" r="240" fill="${colors.orange}" opacity=".06"/>
+  <g opacity=".35">${Array.from({ length: 24 }, (_, i) => `<path d="M0 ${i * 52}H1200" stroke="${colors.cyan}" opacity=".06"/>`).join('')}${Array.from({ length: 24 }, (_, i) => `<path d="M${i * 52} 0V1580" stroke="${colors.cyan}" opacity=".06"/>`).join('')}</g>
+  <g transform="translate(650 8) rotate(-9)" opacity=".66">
+    <path class="torus pulse" d="M62 202 C96 96 232 88 298 168 C350 232 292 310 190 286 C86 262 86 142 188 102 C332 46 484 126 500 222 C514 310 402 334 326 260 C250 186 300 96 404 104 C502 112 548 206 484 274 C404 360 202 334 142 238" stroke="${colors.blue}" stroke-width="2.1" stroke-dasharray="860" filter="url(#glow)"/>
+    <path class="torus" d="M86 210 C122 132 232 126 286 184 C330 232 288 282 208 268 C130 252 136 168 216 136 C334 90 454 144 468 220 C480 286 398 304 338 248 C278 190 320 132 402 138 C476 144 508 210 460 258 C396 322 236 306 176 236" stroke="${colors.cyan}" stroke-width="1.4" stroke-opacity=".34" stroke-dasharray="620"/>
+    <path class="torus" d="M34 184 C150 260 292 92 408 158 C518 222 438 342 286 302 C124 260 136 76 304 96 C472 116 544 300 362 326 C206 348 66 282 92 188" stroke="${colors.orange}" stroke-width="1.3" stroke-opacity=".28" stroke-dasharray="720"/>
+  </g>
   <g class="ui">
-    ${linkButton(config.links?.[0] ?? { label: 'Portfolio', url: 'https://burtonmakes.github.io/', primary: true }, 54, 42, 190, 'portfolio')}
-    ${linkButton(config.links?.[1] ?? { label: 'LinkedIn', url: '#', primary: false }, 264, 42, 168, 'linkedin')}
-    ${linkButton(config.links?.[2] ?? { label: 'Scholar', url: '#', primary: false }, 452, 42, 158, 'scholar')}
+    ${text(56, 92, 'BIOMEDICAL ENGINEERING FULL STACK', 'eyebrow')}
+    ${multiText(56, 165, ['Medical sensor systems from prototype', 'to real-world study devices.'], 'title', 62)}
+    ${multiText(56, 305, wrap('I build the hardware, firmware, data workflows, housings, and validation paths that turn miniature sensing ideas into usable wearable and implantable medical systems.', 78, 2), 'body', 30)}
+    <rect x="56" y="374" width="1088" height="3" rx="2" fill="url(#rule)" filter="url(#glow)"/>
 
-    ${section(54, 116, 680, 300, 'CURRENTLY BUILDING', renderBuilding(config.building))}
-    ${section(760, 116, 386, 300, 'CORE SKILLS', renderSkills(config.skills))}
-    ${section(54, 442, 535, 200, 'COMMIT ACTIVITY — 12 MONTHS', renderCommitActivity(commitData))}
-    ${section(615, 442, 531, 200, 'DOMAIN FOCUS', renderDomains(domains))}
+    ${heading('Active Projects', 'active', 458)}
+    ${projects.map((project, i) => projectCard(project, 56 + i * 369, 488)).join('')}
+
+    ${heading('About Me', 'about', 750)}
+    <rect x="56" y="778" width="1088" height="142" rx="18" class="panel" stroke="rgba(232,131,74,.26)"/>
+    ${multiText(92, 828, wrap('I am a biomedical engineer from the University of Arizona focused on implantable and wearable medical systems, miniature device design, and the full stack of biomedical product development. I care about building tools that help people collect better data about themselves and use that data to improve their lives.', 110, 2), 'body', 29)}
+    ${multiText(92, 887, wrap('I enjoy hands-on work across electronics, mechanical housings, embedded programming, applications, data pipelines, and validation — taking complex sensing problems and reducing them into simple, buildable systems.', 112, 2), 'body', 29)}
+
+    ${heading('Tech Stack', 'stack', 980)}
+    ${tech.map(techTile).join('')}
+
+    ${heading('GitHub Stats', 'stats', 1186)}
+    ${statsCard(stats)}
+    ${languagesCard(stats)}
+
+    ${heading('Connect With Me', 'connect', 1504)}
+    <rect x="322" y="1525" width="556" height="1" rx="1" fill="url(#rule)" opacity=".8"/>
+    ${text(600, 1556, 'LinkedIn · Website · Scholar', 'body', ' text-anchor="middle"')}
   </g>
 </svg>`;
 }
 
-async function render() {
+async function main() {
   await mkdir(outputDir, { recursive: true });
-  const config = JSON.parse(await readFile(dataPath, 'utf8'));
-  const [commitData, domains] = await Promise.all([
-    fetchCommitData(config),
-    fetchDomainData(config)
-  ]);
-  const svg = renderSvg(config, commitData, domains);
-
-  await Promise.all([
-    rm(svgPath, { force: true }),
-    rm(archivedPngPath, { force: true })
-  ]);
-  await writeFile(svgPath, `${svg}\n`, 'utf8');
-  console.log(`Rendered ${path.relative(repoRoot, svgPath)}`);
+  const stats = await collectStats();
+  await Promise.all([rm(svgPath, { force: true }), rm(archivedPngPath, { force: true })]);
+  await writeFile(svgPath, `${svg(stats)}\n`, 'utf8');
+  console.log(`Rendered ${path.relative(repoRoot, svgPath)} with live GitHub stats`);
 }
 
-render().catch((error) => {
+main().catch((error) => {
   console.error(error);
   process.exit(1);
 });
