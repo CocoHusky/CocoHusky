@@ -98,6 +98,7 @@ function heroNodes(width, height) {
 }
 
 async function renderHeroWithBrowser(html, width, height) {
+  const radius = 22;
   const eyebrow = firstTag(html, 'p', 'eyebrow') || 'BIOMEDICAL ENGINEERING FULL STACK';
   const titleLines = tagLines(html, 'h1').slice(0, 2);
   const bodyLines = tagLines(html, 'p', 'body').slice(0, 2);
@@ -111,13 +112,14 @@ async function renderHeroWithBrowser(html, width, height) {
     }
   }
 
-  const edgeSvg = edges.map(({ a, b, hot, o }, i) => `<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="${hot ? C.orange : '#3b82f6'}" stroke-width="${hot ? 0.8 : 0.55}" opacity="${o.toFixed(2)}"><animate attributeName="opacity" values="${(o * 0.45).toFixed(2)};${(o * 1.2).toFixed(2)};${(o * 0.45).toFixed(2)}" dur="${16 + (i % 7)}s" begin="${i % 5}s" repeatCount="indefinite"/></line>`).join('');
+  const edgeSvg = edges.map(({ a, b, hot, o }, i) => `<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="${hot ? C.orange : '#3b82f6'}" stroke-width="${hot ? 0.8 : 0.55}" stroke-linecap="round" opacity="${o.toFixed(2)}"><animate attributeName="opacity" values="${(o * 0.45).toFixed(2)};${(o * 1.2).toFixed(2)};${(o * 0.45).toFixed(2)}" dur="${16 + (i % 7)}s" begin="${i % 5}s" repeatCount="indefinite"/></line>`).join('');
   const nodeSvg = nodes.map((n, i) => `<circle cx="${n.x}" cy="${n.y}" r="${n.r.toFixed(1)}" fill="${n.hot ? C.orange : '#3b82f6'}" opacity="${n.hot ? 0.9 : 0.72}"><animate attributeName="r" values="${n.r.toFixed(1)};${(n.r * 1.55).toFixed(1)};${n.r.toFixed(1)}" dur="${9 + (i % 5)}s" begin="${n.phase.toFixed(1)}s" repeatCount="indefinite"/><animate attributeName="cx" values="${n.x};${n.x + n.dx};${n.x}" dur="${22 + (i % 6)}s" begin="${n.phase.toFixed(1)}s" repeatCount="indefinite"/><animate attributeName="cy" values="${n.y};${n.y + n.dy};${n.y}" dur="${24 + (i % 6)}s" begin="${n.phase.toFixed(1)}s" repeatCount="indefinite"/></circle>`).join('');
   const titleSvg = titleLines.map((line, i) => `<text x="44" y="${96 + i * 48}" class="heroTitle">${escapeXml(line)}</text>`).join('');
   const bodySvg = bodyLines.map((line, i) => `<text x="44" y="${238 + i * 25}" class="heroBody">${escapeXml(line)}</text>`).join('');
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img">
 <defs>
+  <clipPath id="heroClip"><rect width="${width}" height="${height}" rx="${radius}" ry="${radius}"/></clipPath>
   <linearGradient id="heroBg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="${C.bg0}"/><stop offset="0.58" stop-color="${C.bg1}"/><stop offset="1" stop-color="${C.bg2}"/></linearGradient>
   <radialGradient id="blueGlow"><stop stop-color="#3b82f6" stop-opacity="0.15"/><stop offset="1" stop-color="#3b82f6" stop-opacity="0"/></radialGradient>
   <radialGradient id="orangeGlow"><stop stop-color="${C.orange}" stop-opacity="0.11"/><stop offset="1" stop-color="${C.orange}" stop-opacity="0"/></radialGradient>
@@ -125,15 +127,17 @@ async function renderHeroWithBrowser(html, width, height) {
   <linearGradient id="accentLine" x1="0" y1="0" x2="0" y2="1"><stop stop-color="${C.orange}" stop-opacity="0"/><stop offset="0.3" stop-color="${C.orange}" stop-opacity="0.55"/><stop offset="0.7" stop-color="#3b82f6" stop-opacity="0.55"/><stop offset="1" stop-color="#3b82f6" stop-opacity="0"/></linearGradient>
   <style>.heroUi{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,system-ui,sans-serif}.heroEyebrow{fill:${C.orange2};font-size:12px;font-weight:800;letter-spacing:3px}.heroTitle{fill:${C.text};font-size:43px;font-weight:820;letter-spacing:-1.8px}.heroBody{fill:#b6c2d4;font-size:16px;font-weight:450}</style>
 </defs>
-<rect width="${width}" height="${height}" rx="22" fill="url(#heroBg)"/>
-<rect x="0.5" y="0.5" width="${width - 1}" height="${height - 1}" rx="22" fill="none" stroke="rgba(232,131,74,.16)"/>
-<circle cx="${width - 85}" cy="40" r="240" fill="url(#blueGlow)"/>
-<circle cx="120" cy="${height + 40}" r="190" fill="url(#orangeGlow)"/>
-<g opacity="0.82"><animateTransform attributeName="transform" type="translate" values="0 0;-8 5;6 -4;0 0" dur="28s" repeatCount="indefinite"/>${edgeSvg}${nodeSvg}</g>
-<rect width="${Math.round(width * 0.62)}" height="${height}" fill="url(#textShade)"/>
-<rect x="24" y="44" width="2" height="248" rx="1" fill="url(#accentLine)"/>
-<g class="heroUi"><text x="44" y="52" class="heroEyebrow">${escapeXml(eyebrow)}</text>${titleSvg}${bodySvg}</g>
-<image x="0" y="0" width="1" height="1" opacity="0"/>
+<g clip-path="url(#heroClip)">
+  <rect width="${width}" height="${height}" fill="url(#heroBg)"/>
+  <circle cx="${width - 85}" cy="40" r="240" fill="url(#blueGlow)"/>
+  <circle cx="120" cy="${height + 40}" r="190" fill="url(#orangeGlow)"/>
+  <g opacity="0.82"><animateTransform attributeName="transform" type="translate" values="0 0;-8 5;6 -4;0 0" dur="28s" repeatCount="indefinite"/>${edgeSvg}${nodeSvg}</g>
+  <rect width="${Math.round(width * 0.62)}" height="${height}" fill="url(#textShade)"/>
+  <rect x="24" y="44" width="2" height="248" rx="1" fill="url(#accentLine)"/>
+  <g class="heroUi"><text x="44" y="52" class="heroEyebrow">${escapeXml(eyebrow)}</text>${titleSvg}${bodySvg}</g>
+  <image x="0" y="0" width="1" height="1" opacity="0"/>
+</g>
+<rect x="0.5" y="0.5" width="${width - 1}" height="${height - 1}" rx="${radius}" ry="${radius}" fill="none" stroke="rgba(232,131,74,.16)"/>
 </svg>`;
 }
 
@@ -184,7 +188,8 @@ function validateSvg(name, svg) {
   if (!svg.startsWith('<svg ')) fail(`${name}.svg did not render as SVG.`);
   if (svg.includes('<foreignObject')) fail(`${name}.svg must not use foreignObject.`);
   if (!svg.includes('</svg>')) fail(`${name}.svg is missing the closing SVG tag.`);
-  if (name === 'hero-banner' && !svg.includes('<image ')) fail(`${name}.svg must include the browser-rendered hero image.`);
+  if (name === 'hero-banner' && !svg.includes('<animate')) fail(`${name}.svg must include native SVG animation.`);
+  if (name === 'hero-banner' && !svg.includes('clip-path="url(#heroClip)"')) fail(`${name}.svg must clip content to rounded corners.`);
   if (name === 'active-projects-card' && !svg.includes('<text ')) fail(`${name}.svg is missing rendered text.`);
 }
 
