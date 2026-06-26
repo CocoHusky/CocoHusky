@@ -43,8 +43,6 @@ jobs:
 
       - name: Render README assets
         run: npm run render:readme-assets
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload rendered asset preview
         uses: actions/upload-artifact@v4
@@ -53,9 +51,6 @@ jobs:
           path: |
             assets/hero-banner.svg
             assets/section-divider.svg
-            assets/cta-portfolio.svg
-            assets/cta-linkedin.svg
-            assets/cta-scholar.svg
             assets/active-projects-card.svg
 
       - name: Commit generated assets
@@ -66,8 +61,8 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git pull --rebase --autostash origin "${GITHUB_REF_NAME:-main}"
-            git add assets/hero-banner.svg assets/section-divider.svg assets/cta-portfolio.svg assets/cta-linkedin.svg assets/cta-scholar.svg assets/active-projects-card.svg
-            git rm -f --ignore-unmatch assets/profile-card.svg assets/profile-card.png assets/github-stats-card.svg assets/activity-card.svg
+            git add assets/hero-banner.svg assets/section-divider.svg assets/active-projects-card.svg
+            git rm -f --ignore-unmatch assets/profile-card.svg assets/profile-card.png assets/github-stats-card.svg assets/activity-card.svg assets/cta-portfolio.svg assets/cta-linkedin.svg assets/cta-scholar.svg
             git commit -m "chore: render profile README assets [skip ci]"
             git push
           else
