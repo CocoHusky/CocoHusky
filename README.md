@@ -4,6 +4,8 @@
   </a>
 </p>
 
+<br />
+
 <div align="center">
   <strong>🧬 Main Page</strong><br />
   <img src="./assets/section-divider.svg?v=profile-assets-v7" alt="" width="100%" />
