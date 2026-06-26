@@ -3,124 +3,247 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Alex Burton Profile Banner</title>
+<title>CocoHusky GitHub Profile Dashboard</title>
 <style>
-  html, body {
-    width: 1200px;
-    height: 300px;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background: #050b16;
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0d1117;
+    --navy-2: #161b22;
+    --navy-3: #21262d;
+    --accent: #3b82f6;
+    --teal: #14b8a6;
+    --coral: #f97316;
+    --text: #e6edf3;
+    --text-2: #8b949e;
+    --text-3: #6e7681;
+    --border: rgba(48, 54, 61, 0.9);
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   }
+
+  html,
+  body {
+    width: 1200px;
+    height: 900px;
+    overflow: hidden;
+    background: var(--navy);
+    color: var(--text);
+    font-family: var(--font);
+  }
+
+  .card {
+    width: 1200px;
+    height: 900px;
+    padding: 54px 54px 50px;
+    background: var(--navy);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+
+  .links-row {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 58px;
+  }
+
+  .link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+    height: 52px;
+    padding: 0 24px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    background: var(--navy-2);
+    color: var(--text);
+    font-size: 22px;
+    font-weight: 650;
+    text-decoration: none;
+  }
+
+  .link-btn.primary {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: rgba(59, 130, 246, 0.06);
+  }
+
+  .grid-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-bottom: 30px;
+  }
+
+  .grid-bottom {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 28px;
+  }
+
+  .section {
+    min-height: 302px;
+    padding: 32px;
+    background: var(--navy-2);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+  }
+
+  .section-label {
+    margin-bottom: 26px;
+    color: var(--text-3);
+    font-size: 17px;
+    font-weight: 760;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+
+  .skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .tag {
+    padding: 7px 18px;
+    border: 1.4px solid var(--border);
+    border-radius: 18px;
+    background: var(--navy-3);
+    color: var(--text-2);
+    font-family: var(--mono);
+    font-size: 17px;
+    font-weight: 650;
+  }
+
+  .tag.primary { border-color: rgba(59, 130, 246, 0.55); background: rgba(59, 130, 246, 0.08); color: #93c5fd; }
+  .tag.signal { border-color: rgba(20, 184, 166, 0.55); background: rgba(20, 184, 166, 0.08); color: #5eead4; }
+
+  .commit-bars {
+    display: flex;
+    align-items: end;
+    gap: 8px;
+    height: 108px;
+    margin: 8px 0 16px;
+  }
+
+  .bar {
+    width: 36px;
+    min-height: 16px;
+    border-radius: 3px 3px 0 0;
+    background: rgba(59, 130, 246, 0.24);
+  }
+
+  .bar.medium { background: rgba(59, 130, 246, 0.66); }
+  .bar.active { background: var(--accent); }
+
+  .months {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 8px;
+    color: var(--text-3);
+    font-family: var(--mono);
+    font-size: 15px;
+    text-align: center;
+  }
+
+  .repo-note {
+    margin-top: 24px;
+    color: var(--text-3);
+    font-family: var(--mono);
+    font-size: 18px;
+    line-height: 1.4;
+  }
+
+  .repo-note span { color: var(--accent); }
+
+  .domain-items { display: flex; flex-direction: column; gap: 25px; }
+  .domain-row { display: grid; grid-template-columns: 12px 1fr 100px; gap: 20px; align-items: center; }
+  .domain-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .domain-label { color: var(--text-2); font-size: 20px; font-weight: 600; }
+  .domain-track { height: 6px; overflow: hidden; background: var(--navy-3); border-radius: 3px; }
+  .domain-fill { height: 6px; border-radius: 3px; }
+
+  .building-item {
+    display: grid;
+    grid-template-columns: 16px 1fr;
+    gap: 16px;
+    padding: 0 0 24px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .building-item:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
+  .building-dot { width: 13px; height: 13px; margin-top: 6px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.18); }
+  .building-dot.wip { background: var(--coral); box-shadow: 0 0 0 5px rgba(249, 115, 22, 0.18); }
+  .building-title { font-size: 22px; font-weight: 750; color: var(--text); }
+  .building-sub { margin-top: 8px; color: var(--text-3); font-family: var(--mono); font-size: 18px; line-height: 1.35; }
 </style>
 </head>
 <body>
-<svg id="profile-card" xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-label="Alex Burton profile README banner">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#010813"/>
-      <stop offset="56%" stop-color="#06101c"/>
-      <stop offset="100%" stop-color="#071321"/>
-    </linearGradient>
+  <main class="card">
+    <nav class="links-row" aria-label="Profile links">
+      <a class="link-btn primary" href="https://burtonmakes.github.io/">↗ Portfolio →</a>
+      <a class="link-btn" href="https://www.linkedin.com/in/draburton/">in LinkedIn</a>
+      <a class="link-btn" href="https://scholar.google.com/citations?user=RAq9IoQAAAAJ">▱ Scholar</a>
+    </nav>
 
-    <pattern id="grid" width="52" height="52" patternUnits="userSpaceOnUse">
-      <path d="M52 0H0V52" fill="none" stroke="#5bd5f5" stroke-opacity="0.09" stroke-width="1"/>
-    </pattern>
+    <section class="grid-top">
+      <div class="section">
+        <div class="section-label">Core skills</div>
+        <div class="skills">
+          <span class="tag primary">Embedded C/C++</span>
+          <span class="tag primary">ESP32 / BLE / NFC</span>
+          <span class="tag primary">Sensor hardware</span>
+          <span class="tag primary">PCB bring-up</span>
+          <span class="tag signal">Python · ML/AI</span>
+          <span class="tag signal">Signal processing</span>
+          <span class="tag signal">Zephyr / FreeRTOS</span>
+          <span class="tag">V&amp;V / FDA docs</span>
+          <span class="tag">Flex circuits</span>
+          <span class="tag">ZFS / homelab infra</span>
+        </div>
+      </div>
 
-    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#0c1a2c" stop-opacity="0.92"/>
-      <stop offset="100%" stop-color="#050d19" stop-opacity="0.80"/>
-    </linearGradient>
+      <div class="section">
+        <div class="section-label">Commit activity — last 12 months</div>
+        <div class="commit-bars" aria-hidden="true">
+          <div class="bar" style="height:32px"></div>
+          <div class="bar" style="height:46px"></div>
+          <div class="bar" style="height:22px"></div>
+          <div class="bar medium" style="height:54px"></div>
+          <div class="bar" style="height:40px"></div>
+          <div class="bar medium" style="height:63px"></div>
+          <div class="bar medium" style="height:50px"></div>
+          <div class="bar active" style="height:81px"></div>
+          <div class="bar active" style="height:94px"></div>
+          <div class="bar medium" style="height:68px"></div>
+          <div class="bar active" style="height:108px"></div>
+          <div class="bar active" style="height:86px"></div>
+        </div>
+        <div class="months"><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span></div>
+        <p class="repo-note">Active across <span>mmWaveVizLog</span> · <span>homelab-guide</span> · <span>Obsidian plugins</span></p>
+      </div>
+    </section>
 
-    <linearGradient id="panelSoft" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#0c1a2c" stop-opacity="0.88"/>
-      <stop offset="100%" stop-color="#050d19" stop-opacity="0.76"/>
-    </linearGradient>
+    <section class="grid-bottom">
+      <div class="section" style="min-height:350px">
+        <div class="section-label">Domain focus</div>
+        <div class="domain-items">
+          <div class="domain-row"><div class="domain-dot" style="background:#3b82f6"></div><div class="domain-label">Wearable sensing</div><div class="domain-track"><div class="domain-fill" style="width:90%;background:#3b82f6"></div></div></div>
+          <div class="domain-row"><div class="domain-dot" style="background:#14b8a6"></div><div class="domain-label">Embedded firmware</div><div class="domain-track"><div class="domain-fill" style="width:75%;background:#14b8a6"></div></div></div>
+          <div class="domain-row"><div class="domain-dot" style="background:#a78bfa"></div><div class="domain-label">ML / signal proc.</div><div class="domain-track"><div class="domain-fill" style="width:65%;background:#a78bfa"></div></div></div>
+          <div class="domain-row"><div class="domain-dot" style="background:#f97316"></div><div class="domain-label">V&amp;V / med-dev</div><div class="domain-track"><div class="domain-fill" style="width:60%;background:#f97316"></div></div></div>
+          <div class="domain-row"><div class="domain-dot" style="background:#6e7681"></div><div class="domain-label">Self-hosted infra</div><div class="domain-track"><div class="domain-fill" style="width:40%;background:#6e7681"></div></div></div>
+        </div>
+      </div>
 
-    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="5" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-
-    <style>
-      .ui { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-      .eyebrow { fill: #9fb0c8; font-size: 12px; font-weight: 850; letter-spacing: 2.1px; text-transform: uppercase; }
-      .headline { fill: #f4f7fb; font-size: 33px; font-weight: 900; letter-spacing: -0.9px; }
-      .subline { fill: #dce8f7; font-size: 18px; font-weight: 720; letter-spacing: -0.15px; }
-      .label { fill: #9fb0c8; font-size: 12px; font-weight: 850; letter-spacing: 1.8px; text-transform: uppercase; }
-      .cardText { fill: #f4f7fb; font-size: 21px; font-weight: 850; letter-spacing: -0.28px; }
-      .buttonText { fill: #fff7ef; font-size: 16px; font-weight: 850; letter-spacing: -0.1px; }
-    </style>
-  </defs>
-
-  <rect width="1200" height="300" fill="url(#bg)"/>
-  <circle cx="170" cy="120" r="220" fill="#5bd5f5" opacity="0.055"/>
-  <circle cx="860" cy="292" r="260" fill="#4a90e2" opacity="0.08"/>
-  <rect width="1200" height="300" fill="url(#grid)" opacity="0.9"/>
-  <rect x="0.5" y="0.5" width="1199" height="299" fill="none" stroke="#5bd5f5" stroke-opacity="0.16"/>
-
-  <g opacity="0.95">
-    <ellipse cx="190" cy="120" rx="205" ry="78" fill="none" stroke="#5bd5f5" stroke-opacity="0.42" stroke-width="2" transform="rotate(8 190 120)"/>
-    <ellipse cx="190" cy="120" rx="126" ry="50" fill="none" stroke="#5bd5f5" stroke-opacity="0.28" stroke-width="1.2" transform="rotate(8 190 120)"/>
-    <ellipse cx="190" cy="120" rx="244" ry="94" fill="none" stroke="#5bd5f5" stroke-opacity="0.13" stroke-width="1" transform="rotate(8 190 120)"/>
-    <path d="M-80 191 C190 142 355 154 565 118 C760 85 970 74 1280 70" fill="none" stroke="#5bd5f5" stroke-opacity="0.74" stroke-width="3" filter="url(#softGlow)"/>
-    <path d="M-80 151 C160 140 360 145 578 150 C780 154 955 162 1280 198" fill="none" stroke="#e8834a" stroke-opacity="0.52" stroke-width="2"/>
-    <circle cx="98" cy="135" r="4" fill="#5bd5f5" filter="url(#softGlow)"/>
-    <circle cx="292" cy="85" r="4" fill="#e8834a" filter="url(#softGlow)"/>
-    <circle cx="424" cy="188" r="4" fill="#4a90e2" filter="url(#softGlow)"/>
-  </g>
-
-  <g class="ui" transform="translate(44 238)">
-    <rect x="0" y="0" width="170" height="42" rx="13" fill="#e8834a"/>
-    <rect x="0.5" y="0.5" width="169" height="41" rx="12.5" fill="none" stroke="#ffc08f" stroke-opacity="0.55"/>
-    <text class="buttonText" x="22" y="27">Open Portfolio</text>
-    <path d="M138 21H151" stroke="#fff7ef" stroke-width="2.2" stroke-linecap="round"/>
-    <path d="M145 15L152 21L145 27" fill="none" stroke="#fff7ef" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-  </g>
-
-  <g class="ui" transform="translate(340 36)">
-    <rect x="0" y="0" width="820" height="118" rx="22" fill="url(#panel)" stroke="#5bd5f5" stroke-opacity="0.30"/>
-    <circle cx="28" cy="28" r="5" fill="#4a90e2"/>
-    <circle cx="52" cy="28" r="5" fill="#5bd5f5"/>
-    <circle cx="76" cy="28" r="5" fill="#e8834a"/>
-    <text class="eyebrow" x="104" y="33">MEDICAL DEVICE R&amp;D ENGINEER</text>
-
-    <text class="headline" x="28" y="78">Miniature medical sensors</text>
-    <text class="subline" x="28" y="106">Wearables · implants · clinical validation · data tools</text>
-  </g>
-
-  <g class="ui" transform="translate(340 178)">
-    <g>
-      <rect x="0" y="0" width="260" height="80" rx="18" fill="url(#panelSoft)" stroke="#5bd5f5" stroke-opacity="0.28"/>
-      <circle cx="22" cy="22" r="4" fill="#4a90e2"/>
-      <circle cx="42" cy="22" r="4" fill="#5bd5f5"/>
-      <circle cx="62" cy="22" r="4" fill="#e8834a"/>
-      <text class="label" x="82" y="27">BUILD</text>
-      <text class="cardText" x="22" y="61">Sensor hardware</text>
-    </g>
-
-    <g transform="translate(280 0)">
-      <rect x="0" y="0" width="260" height="80" rx="18" fill="url(#panelSoft)" stroke="#e8834a" stroke-opacity="0.36"/>
-      <circle cx="22" cy="22" r="4" fill="#4a90e2"/>
-      <circle cx="42" cy="22" r="4" fill="#5bd5f5"/>
-      <circle cx="62" cy="22" r="4" fill="#e8834a"/>
-      <text class="label" x="82" y="27">VALIDATE</text>
-      <text class="cardText" x="22" y="61">Study devices</text>
-    </g>
-
-    <g transform="translate(560 0)">
-      <rect x="0" y="0" width="260" height="80" rx="18" fill="url(#panelSoft)" stroke="#5bd5f5" stroke-opacity="0.28"/>
-      <circle cx="22" cy="22" r="4" fill="#4a90e2"/>
-      <circle cx="42" cy="22" r="4" fill="#5bd5f5"/>
-      <circle cx="62" cy="22" r="4" fill="#e8834a"/>
-      <text class="label" x="82" y="27">TRANSLATE</text>
-      <text class="cardText" x="22" y="61">FDA + data</text>
-    </g>
-  </g>
-</svg>
+      <div class="section" style="min-height:350px">
+        <div class="section-label">Currently building</div>
+        <div class="building-item"><div class="building-dot"></div><div><div class="building-title">60 GHz mmWave radar sensor system</div><div class="building-sub">ESP32-C6 · real-time web dashboard · WiFi captive-portal provisioning</div></div></div>
+        <div class="building-item"><div class="building-dot"></div><div><div class="building-title">Proxmox homelab — full self-hosted stack</div><div class="building-sub">TrueNAS · Nextcloud · Immich · Nginx PM · Tailscale remote access</div></div></div>
+        <div class="building-item"><div class="building-dot wip"></div><div><div class="building-title">Portfolio site rebuild — burtonmakes.github.io</div><div class="building-sub">Astro · page-by-page rebuild · branding + nav fixes in progress</div></div></div>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
