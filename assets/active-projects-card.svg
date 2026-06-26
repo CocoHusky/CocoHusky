@@ -4,8 +4,8 @@
 <section class="asset active-projects" data-width="1200" data-height="430">
   <style>
     .active-projects {
-      width: 1200px;
-      height: 430px;
+      width: 100%;
+      height: 100%;
       box-sizing: border-box;
       overflow: hidden;
       border-radius: 22px;
@@ -19,22 +19,6 @@
       position: absolute;
       left: 36px;
       top: 30px;
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
-    .pulse-icon { width: 34px; height: 42px; position: relative; }
-    .pulse-icon::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 6px;
-      width: 34px;
-      height: 28px;
-      border-left: 2px solid #e8834a;
-      border-bottom: 2px solid #e8834a;
-      transform: skewX(-18deg);
-      filter: drop-shadow(0 0 6px rgba(232, 131, 74, 0.8));
     }
     .asset-header h2 { margin: 0; font-size: 24px; line-height: 1; font-weight: 800; }
     .asset-header p {
@@ -47,13 +31,14 @@
     .project-grid {
       position: absolute;
       left: 36px;
+      right: 36px;
       top: 96px;
       display: grid;
-      grid-template-columns: 350px 350px 350px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 39px;
     }
     .project {
-      width: 350px;
+      min-width: 0;
       height: 285px;
       box-sizing: border-box;
       padding: 24px;
@@ -62,7 +47,7 @@
       border: 1px solid rgba(232, 131, 74, 0.18);
     }
     .status-row { display: flex; align-items: center; gap: 13px; margin-bottom: 27px; }
-    .dot { width: 10px; height: 10px; border-radius: 999px; background: #22c55e; }
+    .dot { width: 10px; height: 10px; border-radius: 999px; background: #22c55e; flex: 0 0 auto; }
     .dot.orange { background: #e8834a; }
     .status { color: #7e8a9b; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; }
     .project h3 { margin: 0; font-size: 21px; line-height: 1.15; font-weight: 760; }
@@ -72,19 +57,15 @@
       font-size: 13.2px;
       line-height: 1.25;
       font-weight: 650;
-      white-space: nowrap;
     }
     .project ul { list-style: none; margin: 0; padding: 0; color: #d7dfec; font-size: 14.2px; line-height: 1.15; }
-    .project li { margin: 0 0 14px 0; white-space: nowrap; }
+    .project li { margin: 0 0 14px 0; }
     .project li::before { content: "•"; margin-right: 8px; color: #ffb26d; }
   </style>
 
   <header class="asset-header">
-    <div class="pulse-icon"></div>
-    <div>
-      <h2>Active Projects</h2>
-      <p>technical build focus · hardware · infra · web systems</p>
-    </div>
+    <h2>Active Projects</h2>
+    <p>technical build focus · hardware · infra · web systems</p>
   </header>
 
   <div class="project-grid">
