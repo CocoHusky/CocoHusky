@@ -32,10 +32,10 @@ function esc(value) {
 
 const focusText = textFor('focus', 'Novel sensors →\nclinical devices');
 const buildText = textFor('build', 'Miniature medical systems');
-const execText = textFor('exec', 'Requirements · risk · V&V\nFDA documentation');
+const execText = textFor('exec', 'Risk · V&V\nFDA docs');
 
 const [focusLine1 = 'Novel sensors →', focusLine2 = 'clinical devices'] = focusText.split('\n');
-const [execLine1 = 'Requirements · risk · V&V', execLine2 = 'FDA documentation'] = execText.split('\n');
+const [execLine1 = 'Risk · V&V', execLine2 = 'FDA docs'] = execText.split('\n');
 
 const svg = `<svg width="1200" height="300" viewBox="0 0 1200 300" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
   <title id="title">Alex Burton profile banner</title>
@@ -66,30 +66,30 @@ const svg = `<svg width="1200" height="300" viewBox="0 0 1200 300" fill="none" x
 
   <g opacity="0.48"><circle cx="62" cy="70" r="2.5" fill="#5BD5F5"/><circle cx="112" cy="160" r="5" fill="#5BD5F5"/><circle cx="292" cy="74" r="3" fill="#E8834A"/><circle cx="425" cy="226" r="2.5" fill="#4A90E2"/><circle cx="620" cy="92" r="2" fill="#E8834A"/><circle cx="1080" cy="246" r="2" fill="#5BD5F5"/><path d="M56 242h12M62 236v12M1002 72h12M1008 66v12" stroke="#5BD5F5" stroke-opacity="0.42" stroke-width="1.5"/></g>
 
-  <g transform="translate(355 45)">
-    <rect width="390" height="205" rx="20" fill="url(#panel)" stroke="#5BD5F5" stroke-opacity="0.34"/>
-    <path d="M0 205H390" stroke="#4A90E2" stroke-opacity="0.5"/>
+  <g transform="translate(350 45)">
+    <rect width="395" height="205" rx="20" fill="url(#panel)" stroke="#5BD5F5" stroke-opacity="0.34"/>
+    <path d="M0 205H395" stroke="#4A90E2" stroke-opacity="0.5"/>
     <circle cx="30" cy="30" r="5.5" fill="#4A90E2"/><circle cx="52" cy="30" r="5.5" fill="#5BD5F5"/><circle cx="74" cy="30" r="5.5" fill="#E8834A"/>
     <text x="30" y="92" fill="#9FB0C8" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="800" letter-spacing="6">FOCUS</text>
-    <text x="30" y="139" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="41" font-weight="900" letter-spacing="-1.2">${esc(focusLine1).replace('→', '<tspan fill="#E8834A">→</tspan>')}</text>
-    <text x="30" y="187" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="41" font-weight="900" letter-spacing="-1.2">${esc(focusLine2)}</text>
+    <text x="30" y="139" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="900" letter-spacing="-1.2">${esc(focusLine1).replace('→', '<tspan fill="#E8834A">→</tspan>')}</text>
+    <text x="30" y="187" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="900" letter-spacing="-1.2">${esc(focusLine2)}</text>
   </g>
 
   <g transform="translate(760 45)">
     <rect width="385" height="90" rx="18" fill="url(#panel)" stroke="#E8834A" stroke-opacity="0.34"/>
     <path d="M0 90H385" stroke="#E8834A" stroke-opacity="0.48"/>
     <circle cx="26" cy="28" r="5" fill="#4A90E2"/><circle cx="47" cy="28" r="5" fill="#5BD5F5"/><circle cx="68" cy="28" r="5" fill="#E8834A"/>
-    <text x="26" y="54" fill="#9FB0C8" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="800" letter-spacing="5">BUILD</text>
-    <text x="26" y="80" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="850" letter-spacing="-0.4">${esc(buildText)}</text>
+    <text x="26" y="54" fill="#9FB0C8" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="800" letter-spacing="5">BUILD</text>
+    <text x="26" y="80" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="850" letter-spacing="-0.4">${esc(buildText)}</text>
   </g>
 
   <g transform="translate(760 160)">
     <rect width="385" height="90" rx="18" fill="url(#panel)" stroke="#5BD5F5" stroke-opacity="0.34"/>
     <path d="M0 90H385" stroke="#4A90E2" stroke-opacity="0.52"/>
     <circle cx="26" cy="28" r="5" fill="#4A90E2"/><circle cx="47" cy="28" r="5" fill="#5BD5F5"/><circle cx="68" cy="28" r="5" fill="#E8834A"/>
-    <text x="26" y="54" fill="#9FB0C8" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="800" letter-spacing="5">EXECUTION</text>
-    <text x="26" y="75" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="760" letter-spacing="-0.2">${esc(execLine1)}</text>
-    <text x="26" y="96" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="760" letter-spacing="-0.2">${esc(execLine2)}</text>
+    <text x="26" y="54" fill="#9FB0C8" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="800" letter-spacing="5">EXECUTION</text>
+    <text x="26" y="74" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="760" letter-spacing="-0.2">${esc(execLine1)}</text>
+    <text x="26" y="94" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="760" letter-spacing="-0.2">${esc(execLine2)}</text>
   </g>
 </svg>
 `;
