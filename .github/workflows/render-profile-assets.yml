@@ -2,11 +2,14 @@ name: Render profile README SVG
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '17 7 * * *'
   pull_request:
     branches:
       - main
     paths:
       - src/profile-card.html
+      - src/profile-card-data.json
       - scripts/render-readme-assets.mjs
       - package.json
       - .github/workflows/render-profile-assets.yml
@@ -16,6 +19,7 @@ on:
       - main
     paths:
       - src/profile-card.html
+      - src/profile-card-data.json
       - scripts/render-readme-assets.mjs
       - package.json
       - .github/workflows/render-profile-assets.yml
@@ -25,7 +29,7 @@ permissions:
 
 jobs:
   render:
-    name: Render HTML to SVG
+    name: Render dynamic profile SVG
     runs-on: ubuntu-latest
 
     steps:
@@ -39,6 +43,8 @@ jobs:
 
       - name: Render README SVG
         run: npm run render:readme-assets
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload rendered SVG preview
         uses: actions/upload-artifact@v4
@@ -55,7 +61,7 @@ jobs:
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add assets/profile-card.svg
             git rm -f --ignore-unmatch assets/profile-card.png
-            git commit -m "chore: render profile README SVG"
+            git commit -m "chore: render dynamic profile README SVG"
             git push
           else
             echo "No generated SVG changes to commit."
