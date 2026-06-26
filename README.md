@@ -4,12 +4,6 @@
 
 <br>
 
-### Biomedical sensing systems from prototype to clinical use.
-
-Biomedical systems engineer building medical-device hardware, AI/ML data workflows, and local-first engineering tools.
-
-<br>
-
 <a href="https://burtonmakes.github.io">
   <img src="https://img.shields.io/badge/Portfolio-burtonmakes.github.io-5BD5F5?style=for-the-badge&logo=githubpages&logoColor=white" alt="Portfolio" />
 </a>
