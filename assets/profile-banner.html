@@ -109,11 +109,11 @@
     backdrop-filter: blur(12px);
   }
   .panel.orange { border-color: rgba(232,131,74,.34); box-shadow: inset 0 -20px 55px rgba(232,131,74,.09), 0 22px 60px rgba(0,0,0,.24); }
-  .panel.focus { left: 355px; top: 46px; width: 390px; height: 198px; }
-  .panel.build { left: 760px; top: 46px; width: 385px; height: 88px; }
-  .panel.exec { left: 760px; top: 156px; width: 385px; height: 88px; }
+  .panel.focus { left: 350px; top: 46px; width: 395px; height: 198px; }
+  .panel.build { left: 760px; top: 46px; width: 390px; height: 88px; }
+  .panel.exec { left: 760px; top: 156px; width: 390px; height: 88px; }
 
-  .dots { display: flex; gap: 10px; position: absolute; left: 26px; top: 24px; }
+  .dots { display: flex; gap: 10px; position: absolute; left: 24px; top: 22px; }
   .dot { width: 10px; height: 10px; border-radius: 999px; }
   .dot.blue { background: var(--blue); }
   .dot.cyan { background: var(--cyan); }
@@ -121,8 +121,8 @@
 
   .label {
     position: absolute;
-    left: 26px;
-    top: 74px;
+    left: 24px;
+    top: 72px;
     color: var(--muted);
     font-size: 12px;
     font-weight: 850;
@@ -130,19 +130,19 @@
   }
   .title {
     position: absolute;
-    left: 26px;
-    right: 22px;
+    left: 24px;
+    right: 26px;
     bottom: 30px;
     color: var(--text);
     font-weight: 900;
     line-height: 1.08;
     letter-spacing: -.035em;
   }
-  .focus .title { font-size: 38px; }
+  .focus .title { font-size: 36px; }
   .build .label,
-  .exec .label { top: 46px; font-size: 11px; }
-  .build .title { bottom: 20px; font-size: 24px; letter-spacing: -.02em; }
-  .exec .title { bottom: 17px; font-size: 19px; line-height: 1.05; letter-spacing: -.02em; }
+  .exec .label { top: 44px; font-size: 10px; letter-spacing: .32em; }
+  .build .title { bottom: 19px; font-size: 23px; letter-spacing: -.02em; }
+  .exec .title { bottom: 14px; font-size: 17px; line-height: 1.04; letter-spacing: -.01em; font-weight: 760; }
   .arrow { color: var(--orange); }
 </style>
 </head>
@@ -170,7 +170,7 @@
     <section class="panel exec">
       <div class="dots"><span class="dot blue"></span><span class="dot cyan"></span><span class="dot orange"></span></div>
       <div class="label">EXECUTION</div>
-      <div class="title">Requirements · risk · V&amp;V<br />FDA documentation</div>
+      <div class="title">Requirements · risk<br />V&amp;V · FDA docs</div>
     </section>
   </main>
 </body>
