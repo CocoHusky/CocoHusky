@@ -110,7 +110,8 @@ jobs:
           grep -q '<svg ' "dist/profile-assets/${{ matrix.asset }}.svg"
           grep -q '</svg>' "dist/profile-assets/${{ matrix.asset }}.svg"
           if [[ "${{ matrix.asset }}" == "hero-banner" ]]; then
-            grep -q '<image ' "dist/profile-assets/${{ matrix.asset }}.svg"
+            grep -q '<animate' "dist/profile-assets/${{ matrix.asset }}.svg"
+            grep -q 'clip-path="url(#heroClip)"' "dist/profile-assets/${{ matrix.asset }}.svg"
           fi
           if [[ "${{ matrix.asset }}" == "active-projects-card" ]]; then
             grep -q '<text ' "dist/profile-assets/${{ matrix.asset }}.svg"
