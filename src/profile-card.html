@@ -5,316 +5,136 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Alex Burton Profile Banner</title>
 <style>
-  :root {
-    color-scheme: dark;
-    --bg0: #010813;
-    --bg1: #06101c;
-    --bg2: #071321;
-    --blue: #4a90e2;
-    --cyan: #5bd5f5;
-    --orange: #e8834a;
-    --text: #f4f7fb;
-    --muted: #9fb0c8;
-    --grid: rgba(91, 213, 245, 0.09);
-    --panel-border: rgba(91, 213, 245, 0.28);
-  }
-
-  * { box-sizing: border-box; }
-
-  html,
-  body {
+  html, body {
     width: 1200px;
     height: 300px;
     margin: 0;
     padding: 0;
     overflow: hidden;
     background: #050b16;
-    color: var(--text);
-    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  }
-
-  .banner {
-    position: relative;
-    width: 1200px;
-    height: 300px;
-    overflow: hidden;
-    background:
-      radial-gradient(circle at 14% 40%, rgba(91, 213, 245, 0.17), transparent 25%),
-      radial-gradient(circle at 72% 88%, rgba(74, 144, 226, 0.17), transparent 30%),
-      linear-gradient(115deg, var(--bg0), var(--bg1) 56%, var(--bg2));
-    border: 1px solid rgba(91, 213, 245, 0.16);
-  }
-
-  .banner::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(var(--grid) 1px, transparent 1px),
-      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-    background-size: 52px 52px;
-    opacity: 0.82;
-  }
-
-  .torus {
-    position: absolute;
-    left: 42px;
-    top: 58px;
-    width: 300px;
-    height: 138px;
-    border-radius: 50%;
-    border: 2px solid rgba(91, 213, 245, 0.48);
-    transform: rotate(10deg) skewX(-18deg);
-    box-shadow: 0 0 28px rgba(91, 213, 245, 0.26), inset 0 0 34px rgba(91, 213, 245, 0.12);
-  }
-
-  .torus::before,
-  .torus::after {
-    content: "";
-    position: absolute;
-    border-radius: 50%;
-    border: 1px solid rgba(91, 213, 245, 0.28);
-  }
-
-  .torus::before { inset: 22px 52px; box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.55); }
-  .torus::after { inset: -18px -38px; opacity: 0.34; }
-
-  .wave {
-    position: absolute;
-    left: -80px;
-    width: 1320px;
-    height: 120px;
-    border-radius: 50%;
-    pointer-events: none;
-  }
-
-  .wave.cyan {
-    top: 116px;
-    border-top: 3px solid rgba(91, 213, 245, 0.76);
-    transform: rotate(-8deg);
-    filter: drop-shadow(0 0 10px rgba(91, 213, 245, 0.36));
-  }
-
-  .wave.orange {
-    top: 154px;
-    border-top: 2px solid rgba(232, 131, 74, 0.55);
-    transform: rotate(5deg);
-  }
-
-  .node {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    border-radius: 999px;
-    box-shadow: 0 0 16px currentColor;
-  }
-
-  .n1 { left: 98px; top: 135px; color: var(--cyan); background: var(--cyan); }
-  .n2 { left: 292px; top: 85px; color: var(--orange); background: var(--orange); }
-  .n3 { left: 424px; top: 188px; color: var(--blue); background: var(--blue); }
-
-  .portfolio {
-    position: absolute;
-    left: 44px;
-    bottom: 30px;
-    z-index: 3;
-    color: rgba(244, 247, 251, 0.88);
-    font-size: 19px;
-    font-weight: 800;
-    letter-spacing: -0.01em;
-  }
-
-  .portfolio span { color: var(--orange); }
-
-  .content {
-    position: relative;
-    z-index: 2;
-    width: 820px;
-    margin-left: 340px;
-    margin-top: 30px;
-  }
-
-  .hero {
-    position: relative;
-    height: 104px;
-    padding: 17px 24px 16px;
-    overflow: hidden;
-    border-radius: 20px;
-    background: linear-gradient(180deg, rgba(12, 26, 44, 0.92), rgba(5, 13, 25, 0.80));
-    border: 1px solid rgba(91, 213, 245, 0.30);
-    box-shadow: inset 0 -26px 70px rgba(74, 144, 226, 0.10), 0 22px 60px rgba(0, 0, 0, 0.30);
-  }
-
-  .hero::after,
-  .card::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 92% 12%, rgba(91, 213, 245, 0.13), transparent 34%), linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 40%);
-    pointer-events: none;
-  }
-
-  .topline {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    min-height: 10px;
-  }
-
-  .dots { display: flex; gap: 9px; flex: 0 0 auto; }
-  .dot { width: 9px; height: 9px; border-radius: 999px; }
-  .dot.blue { background: var(--blue); }
-  .dot.cyan { background: var(--cyan); }
-  .dot.orange { background: var(--orange); }
-
-  .label {
-    color: var(--muted);
-    font-size: 10px;
-    font-weight: 850;
-    line-height: 1;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  .hero-title {
-    position: relative;
-    z-index: 2;
-    margin-top: 13px;
-    color: var(--text);
-    font-size: 29px;
-    font-weight: 900;
-    line-height: 1.04;
-    letter-spacing: -0.045em;
-  }
-
-  .hero-title span { color: var(--orange); }
-
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 10px;
-    margin-top: 12px;
-  }
-
-  .card {
-    position: relative;
-    height: 120px;
-    padding: 14px 14px 12px;
-    overflow: hidden;
-    border-radius: 17px;
-    background: linear-gradient(180deg, rgba(12, 26, 44, 0.88), rgba(5, 13, 25, 0.76));
-    border: 1px solid var(--panel-border);
-    box-shadow: inset 0 -22px 58px rgba(74, 144, 226, 0.09), 0 20px 48px rgba(0, 0, 0, 0.24);
-  }
-
-  .card.orange {
-    border-color: rgba(232, 131, 74, 0.34);
-    box-shadow: inset 0 -22px 58px rgba(232, 131, 74, 0.08), 0 20px 48px rgba(0, 0, 0, 0.24);
-  }
-
-  .card .topline { gap: 9px; }
-  .card .dots { gap: 7px; }
-  .card .dot { width: 7px; height: 7px; }
-
-  .card-list {
-    position: relative;
-    z-index: 2;
-    display: grid;
-    gap: 4px;
-    margin-top: 11px;
-    color: var(--text);
-    font-size: 11.5px;
-    font-weight: 720;
-    line-height: 1.08;
-    letter-spacing: -0.01em;
-  }
-
-  .card-list div {
-    min-width: 0;
-    white-space: normal;
-    overflow-wrap: normal;
   }
 </style>
 </head>
 <body>
-  <main class="banner" data-iteration="svg-html-fit-v002" aria-label="Alex Burton profile banner">
-    <div class="torus" aria-hidden="true"></div>
-    <div class="wave cyan" aria-hidden="true"></div>
-    <div class="wave orange" aria-hidden="true"></div>
-    <span class="node n1" aria-hidden="true"></span>
-    <span class="node n2" aria-hidden="true"></span>
-    <span class="node n3" aria-hidden="true"></span>
-    <div class="portfolio">burtonmakes.github.io <span>→</span></div>
+<svg id="profile-card" xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-label="Alex Burton profile README banner">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#010813"/>
+      <stop offset="56%" stop-color="#06101c"/>
+      <stop offset="100%" stop-color="#071321"/>
+    </linearGradient>
+    <pattern id="grid" width="52" height="52" patternUnits="userSpaceOnUse">
+      <path d="M52 0H0V52" fill="none" stroke="#5bd5f5" stroke-opacity="0.09" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0c1a2c" stop-opacity="0.92"/>
+      <stop offset="100%" stop-color="#050d19" stop-opacity="0.80"/>
+    </linearGradient>
+    <linearGradient id="panelSoft" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0c1a2c" stop-opacity="0.88"/>
+      <stop offset="100%" stop-color="#050d19" stop-opacity="0.76"/>
+    </linearGradient>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <style>
+      .ui { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .label { fill: #9fb0c8; font-size: 10px; font-weight: 850; letter-spacing: 2.4px; text-transform: uppercase; }
+      .hero { fill: #f4f7fb; font-size: 28px; font-weight: 900; letter-spacing: -1.2px; }
+      .item { fill: #f4f7fb; font-size: 12.2px; font-weight: 720; letter-spacing: -0.1px; }
+      .site { fill: rgba(244, 247, 251, 0.88); font-size: 19px; font-weight: 800; letter-spacing: -0.2px; }
+    </style>
+  </defs>
 
-    <section class="content">
-      <article class="hero">
-        <div class="topline">
-          <div class="dots"><span class="dot blue"></span><span class="dot cyan"></span><span class="dot orange"></span></div>
-          <div class="label">Medical-device translation</div>
-        </div>
-        <div class="hero-title">
-          Miniature sensor integration <span>→</span> clinical validation<br />
-          FDA-ready systems <span>→</span> commercialization
-        </div>
-      </article>
+  <rect width="1200" height="300" fill="url(#bg)"/>
+  <circle cx="170" cy="120" r="220" fill="#5bd5f5" opacity="0.055"/>
+  <circle cx="860" cy="292" r="260" fill="#4a90e2" opacity="0.08"/>
+  <rect width="1200" height="300" fill="url(#grid)" opacity="0.9"/>
+  <rect x="0.5" y="0.5" width="1199" height="299" fill="none" stroke="#5bd5f5" stroke-opacity="0.16"/>
 
-      <section class="cards">
-        <article class="card">
-          <div class="topline">
-            <div class="dots"><span class="dot blue"></span><span class="dot cyan"></span><span class="dot orange"></span></div>
-            <div class="label">Integrate</div>
-          </div>
-          <div class="card-list">
-            <div>Wearability</div>
-            <div>Low-power design</div>
-            <div>Sensor packaging</div>
-            <div>Skin/device interface</div>
-          </div>
-        </article>
+  <g opacity="0.95">
+    <ellipse cx="190" cy="120" rx="205" ry="78" fill="none" stroke="#5bd5f5" stroke-opacity="0.42" stroke-width="2" transform="rotate(8 190 120)"/>
+    <ellipse cx="190" cy="120" rx="126" ry="50" fill="none" stroke="#5bd5f5" stroke-opacity="0.28" stroke-width="1.2" transform="rotate(8 190 120)"/>
+    <ellipse cx="190" cy="120" rx="244" ry="94" fill="none" stroke="#5bd5f5" stroke-opacity="0.13" stroke-width="1" transform="rotate(8 190 120)"/>
+    <path d="M-80 191 C190 142 355 154 565 118 C760 85 970 74 1280 70" fill="none" stroke="#5bd5f5" stroke-opacity="0.74" stroke-width="3" filter="url(#softGlow)"/>
+    <path d="M-80 151 C160 140 360 145 578 150 C780 154 955 162 1280 198" fill="none" stroke="#e8834a" stroke-opacity="0.52" stroke-width="2"/>
+    <circle cx="98" cy="135" r="4" fill="#5bd5f5" filter="url(#softGlow)"/>
+    <circle cx="292" cy="85" r="4" fill="#e8834a" filter="url(#softGlow)"/>
+    <circle cx="424" cy="188" r="4" fill="#4a90e2" filter="url(#softGlow)"/>
+  </g>
 
-        <article class="card orange">
-          <div class="topline">
-            <div class="dots"><span class="dot blue"></span><span class="dot cyan"></span><span class="dot orange"></span></div>
-            <div class="label">Validate</div>
-          </div>
-          <div class="card-list">
-            <div>Test fixtures</div>
-            <div>Preclinical/clinical</div>
-            <div>User feedback</div>
-            <div>Reliability studies</div>
-          </div>
-        </article>
+  <g class="ui">
+    <text class="site" x="44" y="258">burtonmakes.github.io</text>
+    <path d="M265 252H283" stroke="#e8834a" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M278 246L284 252L278 258" fill="none" stroke="#e8834a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
 
-        <article class="card">
-          <div class="topline">
-            <div class="dots"><span class="dot blue"></span><span class="dot cyan"></span><span class="dot orange"></span></div>
-            <div class="label">Document</div>
-          </div>
-          <div class="card-list">
-            <div>DHF + design docs</div>
-            <div>Risk + requirements</div>
-            <div>Build/test records</div>
-            <div>DV/V&amp;V · FDA/ISO</div>
-          </div>
-        </article>
+  <g class="ui" transform="translate(340 30)">
+    <rect x="0" y="0" width="820" height="104" rx="20" fill="url(#panel)" stroke="#5bd5f5" stroke-opacity="0.30"/>
+    <circle cx="24" cy="27" r="5" fill="#4a90e2"/>
+    <circle cx="47" cy="27" r="5" fill="#5bd5f5"/>
+    <circle cx="70" cy="27" r="5" fill="#e8834a"/>
+    <text class="label" x="94" y="31">MEDICAL-DEVICE TRANSLATION</text>
+    <text class="hero" x="24" y="70">Miniature sensor integration</text>
+    <path d="M390 62H421" stroke="#e8834a" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M414 55L422 62L414 69" fill="none" stroke="#e8834a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text class="hero" x="440" y="70">clinical validation</text>
+    <text class="hero" x="24" y="101">FDA-ready systems</text>
+    <path d="M282 93H313" stroke="#e8834a" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M306 86L314 93L306 100" fill="none" stroke="#e8834a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text class="hero" x="332" y="101">commercialization</text>
+  </g>
 
-        <article class="card">
-          <div class="topline">
-            <div class="dots"><span class="dot blue"></span><span class="dot cyan"></span><span class="dot orange"></span></div>
-            <div class="label">ML/AI Native</div>
-          </div>
-          <div class="card-list">
-            <div>Data workflows</div>
-            <div>Signal pipelines</div>
-            <div>Model validation</div>
-            <div>Explainable outputs</div>
-          </div>
-        </article>
-      </section>
-    </section>
-  </main>
+  <g class="ui" transform="translate(340 146)">
+    <g>
+      <rect x="0" y="0" width="197" height="120" rx="17" fill="url(#panelSoft)" stroke="#5bd5f5" stroke-opacity="0.28"/>
+      <circle cx="17" cy="19" r="3.5" fill="#4a90e2"/><circle cx="34" cy="19" r="3.5" fill="#5bd5f5"/><circle cx="51" cy="19" r="3.5" fill="#e8834a"/>
+      <text class="label" x="65" y="22">INTEGRATE</text>
+      <text class="item" x="17" y="50">
+        <tspan x="17">Wearability</tspan>
+        <tspan x="17" dy="15">Low-power design</tspan>
+        <tspan x="17" dy="15">Sensor packaging</tspan>
+        <tspan x="17" dy="15">Skin/device interface</tspan>
+      </text>
+    </g>
+    <g transform="translate(207 0)">
+      <rect x="0" y="0" width="197" height="120" rx="17" fill="url(#panelSoft)" stroke="#e8834a" stroke-opacity="0.34"/>
+      <circle cx="17" cy="19" r="3.5" fill="#4a90e2"/><circle cx="34" cy="19" r="3.5" fill="#5bd5f5"/><circle cx="51" cy="19" r="3.5" fill="#e8834a"/>
+      <text class="label" x="65" y="22">VALIDATE</text>
+      <text class="item" x="17" y="50">
+        <tspan x="17">Test fixtures</tspan>
+        <tspan x="17" dy="15">Preclinical/clinical</tspan>
+        <tspan x="17" dy="15">User feedback</tspan>
+        <tspan x="17" dy="15">Reliability studies</tspan>
+      </text>
+    </g>
+    <g transform="translate(414 0)">
+      <rect x="0" y="0" width="197" height="120" rx="17" fill="url(#panelSoft)" stroke="#5bd5f5" stroke-opacity="0.28"/>
+      <circle cx="17" cy="19" r="3.5" fill="#4a90e2"/><circle cx="34" cy="19" r="3.5" fill="#5bd5f5"/><circle cx="51" cy="19" r="3.5" fill="#e8834a"/>
+      <text class="label" x="65" y="22">DOCUMENT</text>
+      <text class="item" x="17" y="50">
+        <tspan x="17">DHF + design docs</tspan>
+        <tspan x="17" dy="15">Risk + requirements</tspan>
+        <tspan x="17" dy="15">Build/test records</tspan>
+        <tspan x="17" dy="15">DV/V&amp;V · FDA/ISO</tspan>
+      </text>
+    </g>
+    <g transform="translate(621 0)">
+      <rect x="0" y="0" width="197" height="120" rx="17" fill="url(#panelSoft)" stroke="#5bd5f5" stroke-opacity="0.28"/>
+      <circle cx="17" cy="19" r="3.5" fill="#4a90e2"/><circle cx="34" cy="19" r="3.5" fill="#5bd5f5"/><circle cx="51" cy="19" r="3.5" fill="#e8834a"/>
+      <text class="label" x="65" y="22">ML/AI NATIVE</text>
+      <text class="item" x="17" y="50">
+        <tspan x="17">Data workflows</tspan>
+        <tspan x="17" dy="15">Signal pipelines</tspan>
+        <tspan x="17" dy="15">Model validation</tspan>
+        <tspan x="17" dy="15">Explainable outputs</tspan>
+      </text>
+    </g>
+  </g>
+</svg>
 </body>
 </html>
