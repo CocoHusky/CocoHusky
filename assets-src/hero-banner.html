@@ -1,4 +1,4 @@
-<div class="asset hero-banner" data-width="1200" data-height="420">
+<div class="asset hero-banner" data-width="1200" data-height="420" data-orbit-duration="64s">
   <style>
     .hero-banner {
       position: relative;
@@ -13,16 +13,6 @@
       border: 1px solid rgba(232, 131, 74, 0.16);
       color: #f5f7fb;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-    }
-
-    .hero-banner::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      opacity: 0.22;
-      background-image: linear-gradient(rgba(111, 211, 255, 0.08) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(111, 211, 255, 0.08) 1px, transparent 1px);
-      background-size: 52px 52px;
     }
 
     .hero-copy {
@@ -59,46 +49,6 @@
       font-size: 19px;
       line-height: 1.58;
     }
-
-    .orbit {
-      position: absolute;
-      right: 40px;
-      top: 58px;
-      width: 390px;
-      height: 260px;
-      border-radius: 50%;
-      border: 1.4px solid rgba(76, 141, 255, 0.28);
-      transform: rotate(-18deg);
-      box-shadow: 0 0 26px rgba(232, 131, 74, 0.16);
-    }
-
-    .orbit::before,
-    .orbit::after {
-      content: "";
-      position: absolute;
-      inset: 34px 8px;
-      border-radius: 50%;
-      border: 1px solid rgba(111, 211, 255, 0.22);
-      transform: rotate(38deg);
-    }
-
-    .orbit::after {
-      inset: 74px -10px;
-      border-color: rgba(232, 131, 74, 0.32);
-      transform: rotate(-56deg);
-    }
-
-    .node {
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: #e8834a;
-      box-shadow: 0 0 14px #e8834a;
-    }
-
-    .node.a { right: 300px; top: 132px; }
-    .node.b { right: 94px; top: 144px; }
   </style>
 
   <div class="hero-copy">
@@ -112,7 +62,21 @@
       <span>that turn miniature sensing ideas into usable wearable and implantable medical systems.</span>
     </p>
   </div>
-  <div class="orbit"></div>
-  <div class="node a"></div>
-  <div class="node b"></div>
+
+  <div class="network" aria-hidden="true">
+    <span class="network-node" data-x="890" data-y="126" data-dx="14" data-dy="-8" data-duration="31s"></span>
+    <span class="network-node" data-x="1008" data-y="84" data-dx="-12" data-dy="10" data-duration="43s"></span>
+    <span class="network-node" data-x="1110" data-y="154" data-dx="10" data-dy="12" data-duration="37s"></span>
+    <span class="network-node" data-x="972" data-y="236" data-dx="-16" data-dy="-10" data-duration="52s"></span>
+    <span class="network-node" data-x="1074" data-y="306" data-dx="12" data-dy="-12" data-duration="47s"></span>
+    <span class="network-node" data-x="836" data-y="292" data-dx="-10" data-dy="8" data-duration="56s"></span>
+    <span class="network-node" data-x="1138" data-y="252" data-dx="-8" data-dy="-14" data-duration="45s"></span>
+
+    <span class="network-link" data-from="0" data-to="1" data-delay="0s" data-duration="13s"></span>
+    <span class="network-link" data-from="1" data-to="2" data-delay="2s" data-duration="15s"></span>
+    <span class="network-link" data-from="2" data-to="3" data-delay="4s" data-duration="17s"></span>
+    <span class="network-link" data-from="3" data-to="4" data-delay="1s" data-duration="16s"></span>
+    <span class="network-link" data-from="4" data-to="6" data-delay="5s" data-duration="18s"></span>
+    <span class="network-link" data-from="3" data-to="5" data-delay="3s" data-duration="19s"></span>
+  </div>
 </div>
