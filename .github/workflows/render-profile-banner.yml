@@ -39,3 +39,4 @@ jobs:
         with:
           commit_message: Render profile banner SVG from HTML
           file_pattern: assets/profile-banner.svg
+          status_options: --short
