@@ -31,11 +31,11 @@
 
     <style>
       .ui { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-      .eyebrow { fill: #9fb0c8; font-size: 14px; font-weight: 850; letter-spacing: 2.2px; text-transform: uppercase; }
-      .headline { fill: #f4f7fb; font-size: 36px; font-weight: 900; letter-spacing: -1px; }
-      .subline { fill: #dce8f7; font-size: 21px; font-weight: 760; letter-spacing: -0.25px; }
-      .label { fill: #9fb0c8; font-size: 13px; font-weight: 850; letter-spacing: 2px; text-transform: uppercase; }
-      .cardText { fill: #f4f7fb; font-size: 22px; font-weight: 850; letter-spacing: -0.35px; }
+      .eyebrow { fill: #9fb0c8; font-size: 12px; font-weight: 850; letter-spacing: 2.1px; text-transform: uppercase; }
+      .headline { fill: #f4f7fb; font-size: 33px; font-weight: 900; letter-spacing: -0.9px; }
+      .subline { fill: #dce8f7; font-size: 18px; font-weight: 720; letter-spacing: -0.15px; }
+      .label { fill: #9fb0c8; font-size: 12px; font-weight: 850; letter-spacing: 1.8px; text-transform: uppercase; }
+      .cardText { fill: #f4f7fb; font-size: 21px; font-weight: 850; letter-spacing: -0.28px; }
       .site { fill: rgba(244, 247, 251, 0.88); font-size: 19px; font-weight: 800; letter-spacing: -0.2px; }
     </style>
   </defs>
@@ -63,43 +63,43 @@
     <path d="M278 246L284 252L278 258" fill="none" stroke="#e8834a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
 
-  <g class="ui" transform="translate(340 32)">
-    <rect x="0" y="0" width="820" height="130" rx="22" fill="url(#panel)" stroke="#5bd5f5" stroke-opacity="0.30"/>
-    <circle cx="28" cy="29" r="5" fill="#4a90e2"/>
-    <circle cx="52" cy="29" r="5" fill="#5bd5f5"/>
-    <circle cx="76" cy="29" r="5" fill="#e8834a"/>
-    <text class="eyebrow" x="104" y="34">MEDICAL DEVICE SENSOR ENGINEER</text>
+  <g class="ui" transform="translate(340 36)">
+    <rect x="0" y="0" width="820" height="118" rx="22" fill="url(#panel)" stroke="#5bd5f5" stroke-opacity="0.30"/>
+    <circle cx="28" cy="28" r="5" fill="#4a90e2"/>
+    <circle cx="52" cy="28" r="5" fill="#5bd5f5"/>
+    <circle cx="76" cy="28" r="5" fill="#e8834a"/>
+    <text class="eyebrow" x="104" y="33">MEDICAL DEVICE R&amp;D ENGINEER</text>
 
-    <text class="headline" x="28" y="82">Wearable + implantable sensors</text>
-    <text class="subline" x="28" y="114">Hardware integration · validation · FDA/ISO · data/ML</text>
+    <text class="headline" x="28" y="78">Miniature medical sensors</text>
+    <text class="subline" x="28" y="106">Wearables · implants · clinical validation · data tools</text>
   </g>
 
-  <g class="ui" transform="translate(340 180)">
+  <g class="ui" transform="translate(340 178)">
     <g>
-      <rect x="0" y="0" width="260" height="78" rx="18" fill="url(#panelSoft)" stroke="#5bd5f5" stroke-opacity="0.28"/>
+      <rect x="0" y="0" width="260" height="80" rx="18" fill="url(#panelSoft)" stroke="#5bd5f5" stroke-opacity="0.28"/>
       <circle cx="22" cy="22" r="4" fill="#4a90e2"/>
       <circle cx="42" cy="22" r="4" fill="#5bd5f5"/>
       <circle cx="62" cy="22" r="4" fill="#e8834a"/>
-      <text class="label" x="82" y="27">HARDWARE</text>
-      <text class="cardText" x="22" y="60">Miniature systems</text>
+      <text class="label" x="82" y="27">BUILD</text>
+      <text class="cardText" x="22" y="61">Sensor hardware</text>
     </g>
 
     <g transform="translate(280 0)">
-      <rect x="0" y="0" width="260" height="78" rx="18" fill="url(#panelSoft)" stroke="#e8834a" stroke-opacity="0.36"/>
+      <rect x="0" y="0" width="260" height="80" rx="18" fill="url(#panelSoft)" stroke="#e8834a" stroke-opacity="0.36"/>
       <circle cx="22" cy="22" r="4" fill="#4a90e2"/>
       <circle cx="42" cy="22" r="4" fill="#5bd5f5"/>
       <circle cx="62" cy="22" r="4" fill="#e8834a"/>
-      <text class="label" x="82" y="27">VALIDATION</text>
-      <text class="cardText" x="22" y="60">Clinical-ready testing</text>
+      <text class="label" x="82" y="27">VALIDATE</text>
+      <text class="cardText" x="22" y="61">Study devices</text>
     </g>
 
     <g transform="translate(560 0)">
-      <rect x="0" y="0" width="260" height="78" rx="18" fill="url(#panelSoft)" stroke="#5bd5f5" stroke-opacity="0.28"/>
+      <rect x="0" y="0" width="260" height="80" rx="18" fill="url(#panelSoft)" stroke="#5bd5f5" stroke-opacity="0.28"/>
       <circle cx="22" cy="22" r="4" fill="#4a90e2"/>
       <circle cx="42" cy="22" r="4" fill="#5bd5f5"/>
       <circle cx="62" cy="22" r="4" fill="#e8834a"/>
-      <text class="label" x="82" y="27">PRODUCT</text>
-      <text class="cardText" x="22" y="60">FDA/ISO + data</text>
+      <text class="label" x="82" y="27">TRANSLATE</text>
+      <text class="cardText" x="22" y="61">FDA + data</text>
     </g>
   </g>
 </svg>
