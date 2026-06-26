@@ -57,7 +57,7 @@
     <g transform="translate(56 1212)">
     <rect width="618" height="230" rx="16" class="panel"/>
     <text x="28" y="44" class="statTitle">CocoHusky's GitHub Stats</text>
-    <text x="30" y="84" class="statLabel">Stars earned</text><text x="340" y="84" class="statValue">6</text><text x="30" y="111" class="statLabel">Total commits</text><text x="340" y="111" class="statValue">367</text><text x="30" y="138" class="statLabel">Total PRs</text><text x="340" y="138" class="statValue">45</text><text x="30" y="165" class="statLabel">Total issues</text><text x="340" y="165" class="statValue">0</text><text x="30" y="192" class="statLabel">Contributed last year</text><text x="340" y="192" class="statValue">364</text>
+    <text x="30" y="84" class="statLabel">Stars earned</text><text x="340" y="84" class="statValue">6</text><text x="30" y="111" class="statLabel">Total commits</text><text x="340" y="111" class="statValue">369</text><text x="30" y="138" class="statLabel">Total PRs</text><text x="340" y="138" class="statValue">45</text><text x="30" y="165" class="statLabel">Total issues</text><text x="340" y="165" class="statValue">0</text><text x="30" y="192" class="statLabel">Contributed last year</text><text x="340" y="192" class="statValue">366</text>
     <circle cx="520" cy="118" r="45" fill="none" stroke="rgba(232,131,74,.28)" stroke-width="8"/>
     <path d="M520 73a45 45 0 0 1 45 45a45 45 0 0 1-18 36" fill="none" stroke="#e8834a" stroke-width="8" stroke-linecap="round"><animate attributeName="stroke" values="#e8834a;#4c8dff;#e8834a" dur="8s" repeatCount="indefinite"/></path>
     <text x="520" y="128" class="grade" text-anchor="middle">B+</text>
