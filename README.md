@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://burtonmakes.github.io">
-    <img src="./assets/hero-banner.svg?v=profile-assets-v17" alt="Alex Burton — medical sensor systems from prototype to real-world study devices" width="100%" />
+    <img src="./assets/hero-banner.svg?v=profile-assets-v17" alt="Alex Burton — biomedical engineer building wearable and implantable medical sensor systems.." width="100%" />
   </a>
 </p>
 
@@ -12,11 +12,11 @@
 </div>
 
 <p align="center">
-  Biomedical engineer from the University of Arizona focused on implantable and wearable medical systems, miniaturized sensing devices, and full-stack biomedical product development.
+  Biomedical engineer with a Ph.D. from the University of Arizona focused on wearable and implantable medical devices, miniature sensing systems, and full-stack biomedical product development.
 </p>
 
 <p align="center">
-  I build across electronics, housings, embedded firmware, applications, data pipelines, and validation so complex sensing ideas become simple, usable systems.
+  I like building devices that help people better understand their health and feel more in control of their care.
 </p>
 
 <br />
