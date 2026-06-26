@@ -1,0 +1,55 @@
+<svg width="1200" height="300" viewBox="0 0 1200 300" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Alex Burton profile banner</title>
+  <desc id="desc">Dark technical portfolio banner with torus geometry and three recruiter-focused capability windows.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="300" gradientUnits="userSpaceOnUse"><stop stop-color="#010813"/><stop offset="0.56" stop-color="#06101C"/><stop offset="1" stop-color="#071321"/></linearGradient>
+    <linearGradient id="cyan" x1="0" y1="96" x2="1130" y2="214" gradientUnits="userSpaceOnUse"><stop stop-color="#4A90E2"/><stop offset="0.48" stop-color="#5BD5F5"/><stop offset="1" stop-color="#3DD6C8"/></linearGradient>
+    <linearGradient id="warm" x1="115" y1="94" x2="1128" y2="218" gradientUnits="userSpaceOnUse"><stop stop-color="#F2C166"/><stop offset="1" stop-color="#E8834A"/></linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0B1727" stop-opacity="0.92"/><stop offset="1" stop-color="#08111F" stop-opacity="0.74"/></linearGradient>
+    <radialGradient id="softBlue" cx="50%" cy="50%" r="50%"><stop stop-color="#5BD5F5" stop-opacity="0.20"/><stop offset="1" stop-color="#5BD5F5" stop-opacity="0"/></radialGradient>
+    <pattern id="grid" width="52" height="52" patternUnits="userSpaceOnUse"><path d="M52 0H0V52" stroke="#263B55" stroke-opacity="0.24" stroke-width="1"/></pattern>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="5" result="blur"/><feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.35 0 0 0 0 0.84 0 0 0 0 1 0 0 0 .34 0"/><feBlend in="SourceGraphic"/></filter>
+  </defs>
+
+  <rect width="1200" height="300" rx="30" fill="url(#bg)"/>
+  <rect width="1200" height="300" rx="30" fill="url(#grid)" opacity="0.82"/>
+  <rect x="1" y="1" width="1198" height="298" rx="29" stroke="#1C2B40" stroke-width="2"/>
+
+  <circle cx="260" cy="142" r="180" fill="url(#softBlue)"/>
+  <ellipse cx="210" cy="135" rx="170" ry="63" transform="rotate(9 210 135)" stroke="#5BD5F5" stroke-opacity="0.46" stroke-width="2"/>
+  <ellipse cx="210" cy="135" rx="124" ry="43" transform="rotate(9 210 135)" stroke="#2A6EA3" stroke-opacity="0.34" stroke-width="1.2"/>
+  <ellipse cx="210" cy="135" rx="74" ry="24" transform="rotate(9 210 135)" stroke="#5BD5F5" stroke-opacity="0.24" stroke-width="1.2"/>
+  <ellipse cx="210" cy="135" rx="226" ry="92" transform="rotate(9 210 135)" stroke="#274E78" stroke-opacity="0.16" stroke-dasharray="3 8"/>
+  <ellipse cx="210" cy="135" rx="110" ry="230" transform="rotate(76 210 135)" stroke="#274E78" stroke-opacity="0.14" stroke-dasharray="3 9"/>
+
+  <path d="M0 130C108 154 164 185 268 171C398 154 462 88 592 100C744 114 798 208 940 194C1040 184 1090 134 1200 148" stroke="url(#cyan)" stroke-width="3" stroke-linecap="round" opacity="0.86" filter="url(#glow)"/>
+  <path d="M0 188C118 204 226 234 342 204C474 170 542 112 672 120C814 128 892 206 1014 220C1100 230 1155 206 1200 184" stroke="url(#warm)" stroke-width="2" stroke-linecap="round" opacity="0.54"/>
+
+  <g opacity="0.48"><circle cx="62" cy="70" r="2.5" fill="#5BD5F5"/><circle cx="112" cy="160" r="5" fill="#5BD5F5"/><circle cx="292" cy="74" r="3" fill="#E8834A"/><circle cx="425" cy="226" r="2.5" fill="#4A90E2"/><circle cx="620" cy="92" r="2" fill="#E8834A"/><circle cx="1080" cy="246" r="2" fill="#5BD5F5"/><path d="M56 242h12M62 236v12M1002 72h12M1008 66v12" stroke="#5BD5F5" stroke-opacity="0.42" stroke-width="1.5"/></g>
+
+  <g transform="translate(350 45)">
+    <rect width="395" height="205" rx="20" fill="url(#panel)" stroke="#5BD5F5" stroke-opacity="0.34"/>
+    <path d="M0 205H395" stroke="#4A90E2" stroke-opacity="0.5"/>
+    <circle cx="30" cy="30" r="5.5" fill="#4A90E2"/><circle cx="52" cy="30" r="5.5" fill="#5BD5F5"/><circle cx="74" cy="30" r="5.5" fill="#E8834A"/>
+    <text x="30" y="92" fill="#9FB0C8" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="800" letter-spacing="6">FOCUS</text>
+    <text x="30" y="139" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="900" letter-spacing="-1.2">Novel sensors <tspan fill="#E8834A">→</tspan></text>
+    <text x="30" y="187" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="900" letter-spacing="-1.2">clinical devices</text>
+  </g>
+
+  <g transform="translate(760 45)">
+    <rect width="385" height="90" rx="18" fill="url(#panel)" stroke="#E8834A" stroke-opacity="0.34"/>
+    <path d="M0 90H385" stroke="#E8834A" stroke-opacity="0.48"/>
+    <circle cx="26" cy="28" r="5" fill="#4A90E2"/><circle cx="47" cy="28" r="5" fill="#5BD5F5"/><circle cx="68" cy="28" r="5" fill="#E8834A"/>
+    <text x="26" y="54" fill="#9FB0C8" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="800" letter-spacing="5">BUILD</text>
+    <text x="26" y="80" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="850" letter-spacing="-0.4">Miniature medical systems</text>
+  </g>
+
+  <g transform="translate(760 160)">
+    <rect width="385" height="90" rx="18" fill="url(#panel)" stroke="#5BD5F5" stroke-opacity="0.34"/>
+    <path d="M0 90H385" stroke="#4A90E2" stroke-opacity="0.52"/>
+    <circle cx="26" cy="28" r="5" fill="#4A90E2"/><circle cx="47" cy="28" r="5" fill="#5BD5F5"/><circle cx="68" cy="28" r="5" fill="#E8834A"/>
+    <text x="26" y="54" fill="#9FB0C8" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="800" letter-spacing="5">EXECUTION</text>
+    <text x="26" y="74" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="760" letter-spacing="-0.2">Risk · V&amp;V</text>
+    <text x="26" y="94" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="760" letter-spacing="-0.2">FDA docs</text>
+  </g>
+</svg>
