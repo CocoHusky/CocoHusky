@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://burtonmakes.github.io">
-    <img src="./assets/hero-banner.svg?v=profile-assets-v13" alt="Alex Burton — medical sensor systems from prototype to real-world study devices" width="100%" />
+    <img src="./assets/hero-banner.svg?v=profile-assets-v14" alt="Alex Burton — medical sensor systems from prototype to real-world study devices" width="100%" />
   </a>
 </p>
 
@@ -8,7 +8,7 @@
 
 <div align="center">
   <strong>🧬 Main Page</strong><br />
-  <img src="./assets/section-divider.svg?v=profile-assets-v13" alt="" width="100%" />
+  <img src="./assets/section-divider.svg?v=profile-assets-v14" alt="" width="100%" />
 </div>
 
 <p align="center">
@@ -22,19 +22,19 @@
 <br />
 
 <div align="center">
-  <strong>Active Projects</strong><br />
-  <img src="./assets/section-divider.svg?v=profile-assets-v13" alt="" width="100%" />
+  <strong>⚡ Active Projects</strong><br />
+  <img src="./assets/section-divider.svg?v=profile-assets-v14" alt="" width="100%" />
 </div>
 
 <p align="center">
-  <img src="./assets/active-projects-card.svg?v=profile-assets-v13" alt="Active projects" width="100%" />
+  <img src="./assets/active-projects-card.svg?v=profile-assets-v14" alt="Active projects" width="100%" />
 </p>
 
 <br />
 
 <div align="center">
   <strong>📊 GitHub Details</strong><br />
-  <img src="./assets/section-divider.svg?v=profile-assets-v13" alt="" width="100%" />
+  <img src="./assets/section-divider.svg?v=profile-assets-v14" alt="" width="100%" />
 </div>
 
 <div align="center">
@@ -46,7 +46,7 @@
 
 <div align="center">
   <strong>🔗 Links</strong><br />
-  <img src="./assets/section-divider.svg?v=profile-assets-v13" alt="" width="100%" />
+  <img src="./assets/section-divider.svg?v=profile-assets-v14" alt="" width="100%" />
 </div>
 
 <div align="center">
