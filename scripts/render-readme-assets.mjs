@@ -49,6 +49,14 @@ function firstTag(html, tag, className = null) {
   return match ? clean(match[1]) : '';
 }
 
+function tagLines(html, tag, className = null) {
+  const classPattern = className ? `[^>]*class="[^"]*${className}[^"]*"[^>]*` : '[^>]*';
+  const match = html.match(new RegExp(`<${tag}${classPattern}>([\\s\\S]*?)<\/${tag}>`, 'i'));
+  if (!match) return [];
+  const spans = [...match[1].matchAll(/<span[^>]*>([\s\S]*?)<\/span>/gi)].map((span) => clean(span[1])).filter(Boolean);
+  return spans.length ? spans : [clean(match[1])].filter(Boolean);
+}
+
 function validateHtml(name, html) {
   if (name === 'hero-banner') {
     if (!html.includes('class="hero-banner"')) fail('hero-banner.html must contain .hero-banner.');
@@ -75,24 +83,57 @@ ${body}
 </svg>`;
 }
 
+function heroNodes(width, height) {
+  let seed = 21;
+  const rand = () => { const x = Math.sin(seed++) * 10000; return x - Math.floor(x); };
+  return Array.from({ length: 42 }, (_, i) => ({
+    x: Math.round(width * (0.53 + rand() * 0.44)),
+    y: Math.round(height * (0.06 + rand() * 0.86)),
+    r: i % 9 === 0 ? 2.6 : 1.3 + rand() * 1.4,
+    hot: i % 9 === 0,
+    phase: rand() * 8,
+    dx: Math.round((rand() - 0.5) * 24),
+    dy: Math.round((rand() - 0.5) * 18)
+  }));
+}
+
 async function renderHeroWithBrowser(html, width, height) {
-  let chromium;
-  try {
-    ({ chromium } = await import('playwright'));
-  } catch {
-    fail('hero-banner.html uses canvas/script. Install Playwright before rendering.');
+  const eyebrow = firstTag(html, 'p', 'eyebrow') || 'BIOMEDICAL ENGINEERING FULL STACK';
+  const titleLines = tagLines(html, 'h1').slice(0, 2);
+  const bodyLines = tagLines(html, 'p', 'body').slice(0, 2);
+  const nodes = heroNodes(width, height);
+  const edges = [];
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      const a = nodes[i], b = nodes[j];
+      const d = Math.hypot(a.x - b.x, a.y - b.y);
+      if (d < 150) edges.push({ a, b, hot: a.hot || b.hot, o: Math.max(0.08, 0.5 * (1 - d / 150)) });
+    }
   }
 
-  const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage({ viewport: { width: width + 40, height: height + 40 }, deviceScaleFactor: 1 });
-  await page.setContent(html, { waitUntil: 'domcontentloaded' });
-  await page.waitForSelector('.hero-banner');
-  await page.waitForTimeout(900);
-  const png = await page.locator('.hero-banner').first().screenshot({ type: 'png' });
-  await browser.close();
+  const edgeSvg = edges.map(({ a, b, hot, o }, i) => `<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="${hot ? C.orange : '#3b82f6'}" stroke-width="${hot ? 0.8 : 0.55}" opacity="${o.toFixed(2)}"><animate attributeName="opacity" values="${(o * 0.45).toFixed(2)};${(o * 1.2).toFixed(2)};${(o * 0.45).toFixed(2)}" dur="${16 + (i % 7)}s" begin="${i % 5}s" repeatCount="indefinite"/></line>`).join('');
+  const nodeSvg = nodes.map((n, i) => `<circle cx="${n.x}" cy="${n.y}" r="${n.r.toFixed(1)}" fill="${n.hot ? C.orange : '#3b82f6'}" opacity="${n.hot ? 0.9 : 0.72}"><animate attributeName="r" values="${n.r.toFixed(1)};${(n.r * 1.55).toFixed(1)};${n.r.toFixed(1)}" dur="${9 + (i % 5)}s" begin="${n.phase.toFixed(1)}s" repeatCount="indefinite"/><animate attributeName="cx" values="${n.x};${n.x + n.dx};${n.x}" dur="${22 + (i % 6)}s" begin="${n.phase.toFixed(1)}s" repeatCount="indefinite"/><animate attributeName="cy" values="${n.y};${n.y + n.dy};${n.y}" dur="${24 + (i % 6)}s" begin="${n.phase.toFixed(1)}s" repeatCount="indefinite"/></circle>`).join('');
+  const titleSvg = titleLines.map((line, i) => `<text x="44" y="${96 + i * 48}" class="heroTitle">${escapeXml(line)}</text>`).join('');
+  const bodySvg = bodyLines.map((line, i) => `<text x="44" y="${238 + i * 25}" class="heroBody">${escapeXml(line)}</text>`).join('');
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img">
-  <image href="data:image/png;base64,${png.toString('base64')}" x="0" y="0" width="${width}" height="${height}" preserveAspectRatio="xMidYMid slice"/>
+<defs>
+  <linearGradient id="heroBg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="${C.bg0}"/><stop offset="0.58" stop-color="${C.bg1}"/><stop offset="1" stop-color="${C.bg2}"/></linearGradient>
+  <radialGradient id="blueGlow"><stop stop-color="#3b82f6" stop-opacity="0.15"/><stop offset="1" stop-color="#3b82f6" stop-opacity="0"/></radialGradient>
+  <radialGradient id="orangeGlow"><stop stop-color="${C.orange}" stop-opacity="0.11"/><stop offset="1" stop-color="${C.orange}" stop-opacity="0"/></radialGradient>
+  <linearGradient id="textShade" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#010409" stop-opacity="0.98"/><stop offset="0.58" stop-color="#010409" stop-opacity="0.86"/><stop offset="1" stop-color="#010409" stop-opacity="0"/></linearGradient>
+  <linearGradient id="accentLine" x1="0" y1="0" x2="0" y2="1"><stop stop-color="${C.orange}" stop-opacity="0"/><stop offset="0.3" stop-color="${C.orange}" stop-opacity="0.55"/><stop offset="0.7" stop-color="#3b82f6" stop-opacity="0.55"/><stop offset="1" stop-color="#3b82f6" stop-opacity="0"/></linearGradient>
+  <style>.heroUi{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,system-ui,sans-serif}.heroEyebrow{fill:${C.orange2};font-size:12px;font-weight:800;letter-spacing:3px}.heroTitle{fill:${C.text};font-size:43px;font-weight:820;letter-spacing:-1.8px}.heroBody{fill:#b6c2d4;font-size:16px;font-weight:450}</style>
+</defs>
+<rect width="${width}" height="${height}" rx="22" fill="url(#heroBg)"/>
+<rect x="0.5" y="0.5" width="${width - 1}" height="${height - 1}" rx="22" fill="none" stroke="rgba(232,131,74,.16)"/>
+<circle cx="${width - 85}" cy="40" r="240" fill="url(#blueGlow)"/>
+<circle cx="120" cy="${height + 40}" r="190" fill="url(#orangeGlow)"/>
+<g opacity="0.82"><animateTransform attributeName="transform" type="translate" values="0 0;-8 5;6 -4;0 0" dur="28s" repeatCount="indefinite"/>${edgeSvg}${nodeSvg}</g>
+<rect width="${Math.round(width * 0.62)}" height="${height}" fill="url(#textShade)"/>
+<rect x="24" y="44" width="2" height="248" rx="1" fill="url(#accentLine)"/>
+<g class="heroUi"><text x="44" y="52" class="heroEyebrow">${escapeXml(eyebrow)}</text>${titleSvg}${bodySvg}</g>
+<image x="0" y="0" width="1" height="1" opacity="0"/>
 </svg>`;
 }
 
