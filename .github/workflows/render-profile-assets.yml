@@ -2,6 +2,15 @@ name: Render profile README assets
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - src/profile-card.html
+      - scripts/render-readme-assets.mjs
+      - package.json
+      - .github/workflows/render-profile-assets.yml
+      - README.md
   push:
     branches:
       - main
@@ -37,7 +46,16 @@ jobs:
       - name: Render README assets
         run: npm run render:readme-assets
 
+      - name: Upload rendered preview artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: profile-readme-assets
+          path: |
+            assets/profile-card.png
+            assets/profile-card.svg
+
       - name: Commit generated assets
+        if: github.event_name != 'pull_request'
         shell: bash
         run: |
           if [[ -n "$(git status --porcelain assets/profile-card.png assets/profile-card.svg)" ]]; then
