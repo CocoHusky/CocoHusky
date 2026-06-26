@@ -2,17 +2,12 @@
 <defs>
   <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#010409"/><stop offset="0.56" stop-color="#06101c"/><stop offset="1" stop-color="#0d1117"/></linearGradient>
   <linearGradient id="dividerLine" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#e8834a" stop-opacity="0.04"/><stop offset="0.5" stop-color="#ffb26d" stop-opacity="1"/><stop offset="1" stop-color="#e8834a" stop-opacity="0.04"/></linearGradient>
-  <radialGradient id="blueGlow" cx="82%" cy="28%" r="38%"><stop stop-color="#4c8dff" stop-opacity="0.16"/><stop offset="1" stop-color="#4c8dff" stop-opacity="0"/></radialGradient>
-  <radialGradient id="orangeGlow" cx="10%" cy="96%" r="42%"><stop stop-color="#e8834a" stop-opacity="0.10"/><stop offset="1" stop-color="#e8834a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="blueGlow" cx="88%" cy="8%" r="42%"><stop stop-color="#3b82f6" stop-opacity="0.13"/><stop offset="1" stop-color="#3b82f6" stop-opacity="0"/></radialGradient>
+  <radialGradient id="orangeGlow" cx="18%" cy="100%" r="34%"><stop stop-color="#e8834a" stop-opacity="0.09"/><stop offset="1" stop-color="#e8834a" stop-opacity="0"/></radialGradient>
   <filter id="orangeBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <filter id="blueBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
   <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-  <style>.ui{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,system-ui,sans-serif}.heroTitle{fill:#f5f7fb;font-size:54px;font-weight:820;letter-spacing:-2.3px}.eyebrow{fill:#ffb26d;font-size:13px;font-weight:800;letter-spacing:3px}.body{fill:#b6c2d4;font-size:19px}.sectionTitle{fill:#f5f7fb;font-size:24px;font-weight:800}.subtle{fill:#7e8a9b;font-size:12px;font-weight:700;letter-spacing:1.5px}.projectTitle{fill:#f5f7fb;font-size:21px;font-weight:760}.summary{fill:#ffb26d;font-size:13.2px;font-weight:650}.bullet{fill:#d7dfec;font-size:14.2px}.card{fill:rgba(17,24,33,.78);stroke:rgba(232,131,74,.18);stroke-width:1}.networkLine{stroke:#6fd3ff;stroke-width:1;stroke-linecap:round}.networkNode{fill:#e8834a;filter:url(#orangeBlur)}</style>
+  <style>.ui{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,system-ui,sans-serif}.eyebrow{fill:#ffb26d;font-size:13px;font-weight:800;letter-spacing:3px}.heroTitle{fill:#f5f7fb;font-weight:820;letter-spacing:-2.3px}.body{fill:#b6c2d4}.sectionTitle{fill:#f5f7fb;font-size:24px;font-weight:800}.subtle{fill:#7e8a9b;font-size:12px;font-weight:700;letter-spacing:1.5px}.projectTitle{fill:#f5f7fb;font-size:21px;font-weight:760}.summary{fill:#ffb26d;font-size:13.2px;font-weight:650}.bullet{fill:#d7dfec;font-size:14.2px}.card{fill:rgba(17,24,33,.78);stroke:rgba(232,131,74,.18);stroke-width:1}.networkLine{stroke-width:.65;stroke-linecap:round}.networkNodeBlue{fill:#3b82f6;filter:url(#blueBlur)}.networkNodeOrange{fill:#e8834a;filter:url(#orangeBlur)}</style>
 </defs>
-<rect width="1200" height="36" fill="transparent"/>
-<rect x="64" y="17" width="1072" height="2" rx="1" fill="url(#dividerLine)" filter="url(#softGlow)"/>
-<circle cx="64" cy="18" r="2.2" fill="#e8834a" filter="url(#orangeBlur)" opacity="0.35">
-  <animate attributeName="cx" values="64;600;1136;600;64" dur="22s" repeatCount="indefinite"/>
-  <animate attributeName="r" values="2.1;4.2;2.1;4.2;2.1" dur="22s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.20;0.95;0.20;0.95;0.20" dur="22s" repeatCount="indefinite"/>
-</circle>
+<rect width="1200" height="36" fill="transparent"/><rect x="64" y="17" width="1072" height="2" rx="1" fill="url(#dividerLine)" filter="url(#softGlow)"/><circle cx="64" cy="18" r="2.2" fill="#e8834a" filter="url(#orangeBlur)" opacity="0.35"><animate attributeName="cx" values="64;600;1136;600;64" dur="22s" repeatCount="indefinite"/><animate attributeName="r" values="2.1;4.2;2.1;4.2;2.1" dur="22s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.20;0.95;0.20;0.95;0.20" dur="22s" repeatCount="indefinite"/></circle>
 </svg>

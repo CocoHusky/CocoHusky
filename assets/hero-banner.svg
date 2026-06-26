@@ -2,227 +2,391 @@
 <defs>
   <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#010409"/><stop offset="0.56" stop-color="#06101c"/><stop offset="1" stop-color="#0d1117"/></linearGradient>
   <linearGradient id="dividerLine" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#e8834a" stop-opacity="0.04"/><stop offset="0.5" stop-color="#ffb26d" stop-opacity="1"/><stop offset="1" stop-color="#e8834a" stop-opacity="0.04"/></linearGradient>
-  <radialGradient id="blueGlow" cx="82%" cy="28%" r="38%"><stop stop-color="#4c8dff" stop-opacity="0.16"/><stop offset="1" stop-color="#4c8dff" stop-opacity="0"/></radialGradient>
-  <radialGradient id="orangeGlow" cx="10%" cy="96%" r="42%"><stop stop-color="#e8834a" stop-opacity="0.10"/><stop offset="1" stop-color="#e8834a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="blueGlow" cx="88%" cy="8%" r="42%"><stop stop-color="#3b82f6" stop-opacity="0.13"/><stop offset="1" stop-color="#3b82f6" stop-opacity="0"/></radialGradient>
+  <radialGradient id="orangeGlow" cx="18%" cy="100%" r="34%"><stop stop-color="#e8834a" stop-opacity="0.09"/><stop offset="1" stop-color="#e8834a" stop-opacity="0"/></radialGradient>
   <filter id="orangeBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <filter id="blueBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
   <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-  <style>.ui{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,system-ui,sans-serif}.heroTitle{fill:#f5f7fb;font-size:54px;font-weight:820;letter-spacing:-2.3px}.eyebrow{fill:#ffb26d;font-size:13px;font-weight:800;letter-spacing:3px}.body{fill:#b6c2d4;font-size:19px}.sectionTitle{fill:#f5f7fb;font-size:24px;font-weight:800}.subtle{fill:#7e8a9b;font-size:12px;font-weight:700;letter-spacing:1.5px}.projectTitle{fill:#f5f7fb;font-size:21px;font-weight:760}.summary{fill:#ffb26d;font-size:13.2px;font-weight:650}.bullet{fill:#d7dfec;font-size:14.2px}.card{fill:rgba(17,24,33,.78);stroke:rgba(232,131,74,.18);stroke-width:1}.networkLine{stroke:#6fd3ff;stroke-width:1;stroke-linecap:round}.networkNode{fill:#e8834a;filter:url(#orangeBlur)}</style>
+  <style>.ui{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,system-ui,sans-serif}.eyebrow{fill:#ffb26d;font-size:13px;font-weight:800;letter-spacing:3px}.heroTitle{fill:#f5f7fb;font-weight:820;letter-spacing:-2.3px}.body{fill:#b6c2d4}.sectionTitle{fill:#f5f7fb;font-size:24px;font-weight:800}.subtle{fill:#7e8a9b;font-size:12px;font-weight:700;letter-spacing:1.5px}.projectTitle{fill:#f5f7fb;font-size:21px;font-weight:760}.summary{fill:#ffb26d;font-size:13.2px;font-weight:650}.bullet{fill:#d7dfec;font-size:14.2px}.card{fill:rgba(17,24,33,.78);stroke:rgba(232,131,74,.18);stroke-width:1}.networkLine{stroke-width:.65;stroke-linecap:round}.networkNodeBlue{fill:#3b82f6;filter:url(#blueBlur)}.networkNodeOrange{fill:#e8834a;filter:url(#orangeBlur)}</style>
 </defs>
 <rect width="1200" height="420" rx="22" fill="url(#bg)"/>
 <rect width="1200" height="420" rx="22" fill="url(#blueGlow)"/>
 <rect width="1200" height="420" rx="22" fill="url(#orangeGlow)"/>
 <rect x="0.5" y="0.5" width="1199" height="419" rx="22" fill="none" stroke="rgba(232,131,74,.16)"/>
-<g opacity="0.22"><path d="M0 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M52 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M104 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M156 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M208 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M260 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M312 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M364 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M416 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M468 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M520 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M572 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M624 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M676 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M728 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M780 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M832 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M884 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M936 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M988 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M1040 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M1092 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M1144 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M1196 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M1248 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M0 0H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 52H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 104H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 156H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 208H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 260H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 312H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 364H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 416H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 468H1200" stroke="#6fd3ff" opacity=".08"/></g>
-<g opacity="0.78">
-  <g transform="translate(770 62)">
-    <g transform="rotate(-18 195 130)">
-      <ellipse cx="195" cy="130" rx="195" ry="130" fill="none" stroke="rgba(76,141,255,.28)" stroke-width="1.4"/>
-      <animateTransform attributeName="transform" type="rotate" values="-18 195 130;-5 195 130;-18 195 130;-31 195 130;-18 195 130" dur="72s" repeatCount="indefinite"/>
-    </g>
-    <g transform="rotate(20 195 130)">
-      <ellipse cx="195" cy="130" rx="152" ry="96" fill="none" stroke="rgba(111,211,255,.22)"/>
-      <animateTransform attributeName="transform" type="rotate" values="20 195 130;35 195 130;20 195 130;8 195 130;20 195 130" dur="78s" repeatCount="indefinite"/>
-    </g>
-    <g transform="rotate(-38 195 130)">
-      <ellipse cx="195" cy="130" rx="220" ry="70" fill="none" stroke="rgba(232,131,74,.30)"/>
-      <animateTransform attributeName="transform" type="rotate" values="-38 195 130;-24 195 130;-38 195 130;-51 195 130;-38 195 130" dur="92s" repeatCount="indefinite"/>
-    </g>
-  </g>
+<g opacity="0.18"><path d="M0 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M52 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M104 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M156 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M208 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M260 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M312 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M364 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M416 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M468 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M520 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M572 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M624 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M676 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M728 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M780 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M832 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M884 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M936 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M988 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M1040 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M1092 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M1144 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M1196 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M1248 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M0 0H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 52H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 104H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 156H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 208H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 260H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 312H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 364H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 416H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 468H1200" stroke="#6fd3ff" opacity=".08"/></g>
+<g opacity="0.28" transform="translate(780 52)">
+  <g transform="rotate(-18 195 130)"><ellipse cx="195" cy="130" rx="195" ry="130" fill="none" stroke="rgba(59,130,246,.26)" stroke-width="1.1"/><animateTransform attributeName="transform" type="rotate" values="-18 195 130;-6 195 130;-18 195 130;-30 195 130;-18 195 130" dur="72s" repeatCount="indefinite"/></g>
+  <g transform="rotate(20 195 130)"><ellipse cx="195" cy="130" rx="152" ry="96" fill="none" stroke="rgba(111,211,255,.18)" stroke-width="0.9"/><animateTransform attributeName="transform" type="rotate" values="20 195 130;35 195 130;20 195 130;8 195 130;20 195 130" dur="88s" repeatCount="indefinite"/></g>
+  <g transform="rotate(-38 195 130)"><ellipse cx="195" cy="130" rx="220" ry="70" fill="none" stroke="rgba(232,131,74,.20)" stroke-width="0.9"/><animateTransform attributeName="transform" type="rotate" values="-38 195 130;-24 195 130;-38 195 130;-51 195 130;-38 195 130" dur="104s" repeatCount="indefinite"/></g>
 </g>
-<g>
-<circle class="networkNode" cx="650" cy="48" r="3.2" opacity="0.85">
+<g><line class="networkLine" x1="650" y1="48" x2="728" y2="76" stroke="#e8834a" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.20;0.05;0.13;0.03" dur="13s" begin="0s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="650" y1="48" x2="812" y2="34" stroke="#e8834a" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="15s" begin="1s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="650" y1="48" x2="620" y2="128" stroke="#e8834a" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.20;0.05;0.13;0.03" dur="17s" begin="2s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="650" y1="48" x2="704" y2="148" stroke="#e8834a" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.11;0.05;0.07;0.03" dur="19s" begin="3s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="650" y1="48" x2="790" y2="118" stroke="#e8834a" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="21s" begin="4s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="650" y1="48" x2="672" y2="214" stroke="#e8834a" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="23s" begin="5s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="728" y1="76" x2="812" y2="34" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.17;0.05;0.11;0.03" dur="25s" begin="0s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="728" y1="76" x2="904" y2="70" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="13s" begin="1s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="728" y1="76" x2="620" y2="128" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.10;0.05;0.06;0.03" dur="15s" begin="2s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="728" y1="76" x2="704" y2="148" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.23;0.05;0.15;0.03" dur="17s" begin="3s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="728" y1="76" x2="790" y2="118" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.23;0.05;0.15;0.03" dur="19s" begin="4s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="728" y1="76" x2="876" y2="150" stroke="#e8834a" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="21s" begin="5s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="728" y1="76" x2="672" y2="214" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="23s" begin="0s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="728" y1="76" x2="756" y2="238" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="25s" begin="1s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="728" y1="76" x2="842" y2="206" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="13s" begin="2s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="812" y1="34" x2="904" y2="70" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.15;0.05;0.10;0.03" dur="15s" begin="3s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="812" y1="34" x2="704" y2="148" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="17s" begin="4s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="812" y1="34" x2="790" y2="118" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.19;0.05;0.12;0.03" dur="19s" begin="5s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="812" y1="34" x2="876" y2="150" stroke="#e8834a" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="21s" begin="0s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="812" y1="34" x2="966" y2="124" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="23s" begin="1s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="812" y1="34" x2="842" y2="206" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="25s" begin="2s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="812" y1="34" x2="960" y2="56" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="13s" begin="3s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="904" y1="70" x2="1012" y2="40" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.12;0.05;0.08;0.03" dur="15s" begin="4s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="904" y1="70" x2="790" y2="118" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.09;0.05;0.06;0.03" dur="17s" begin="5s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="904" y1="70" x2="876" y2="150" stroke="#e8834a" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.20;0.05;0.13;0.03" dur="19s" begin="0s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="904" y1="70" x2="966" y2="124" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.21;0.05;0.13;0.03" dur="21s" begin="1s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="904" y1="70" x2="1058" y2="160" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="23s" begin="2s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="904" y1="70" x2="842" y2="206" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="25s" begin="3s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="904" y1="70" x2="930" y2="232" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="13s" begin="4s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="904" y1="70" x2="1016" y2="210" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="15s" begin="5s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="904" y1="70" x2="1038" y2="92" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="17s" begin="0s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="904" y1="70" x2="960" y2="56" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.30;0.05;0.19;0.03" dur="19s" begin="1s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="1012" y1="40" x2="1114" y2="86" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.12;0.05;0.08;0.03" dur="21s" begin="2s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="1012" y1="40" x2="876" y2="150" stroke="#e8834a" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="23s" begin="3s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="1012" y1="40" x2="966" y2="124" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.16;0.05;0.11;0.03" dur="25s" begin="4s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="1012" y1="40" x2="1058" y2="160" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="13s" begin="5s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="1012" y1="40" x2="1150" y2="138" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="15s" begin="0s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="1012" y1="40" x2="1016" y2="210" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="17s" begin="1s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="1012" y1="40" x2="1038" y2="92" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.29;0.05;0.19;0.03" dur="19s" begin="2s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="1012" y1="40" x2="960" y2="56" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.31;0.05;0.20;0.03" dur="21s" begin="3s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="1114" y1="86" x2="966" y2="124" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="23s" begin="4s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="1114" y1="86" x2="1058" y2="160" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.17;0.05;0.11;0.03" dur="25s" begin="5s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="1114" y1="86" x2="1150" y2="138" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.28;0.05;0.18;0.03" dur="13s" begin="0s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="1114" y1="86" x2="1016" y2="210" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="15s" begin="1s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="1114" y1="86" x2="1108" y2="244" stroke="#e8834a" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="17s" begin="2s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="1114" y1="86" x2="1038" y2="92" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.23;0.05;0.15;0.03" dur="19s" begin="3s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="1114" y1="86" x2="1130" y2="206" stroke="#e8834a" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.09;0.05;0.06;0.03" dur="21s" begin="4s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="1114" y1="86" x2="960" y2="56" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="23s" begin="5s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="620" y1="128" x2="704" y2="148" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.19;0.05;0.13;0.03" dur="25s" begin="0s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="620" y1="128" x2="790" y2="118" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="13s" begin="1s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="620" y1="128" x2="672" y2="214" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.15;0.05;0.10;0.03" dur="15s" begin="2s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="620" y1="128" x2="756" y2="238" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="17s" begin="3s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="620" y1="128" x2="636" y2="306" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="19s" begin="4s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="620" y1="128" x2="640" y2="248" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.09;0.05;0.06;0.03" dur="21s" begin="5s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="704" y1="148" x2="790" y2="118" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.18;0.05;0.12;0.03" dur="23s" begin="0s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="704" y1="148" x2="876" y2="150" stroke="#e8834a" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.08;0.05;0.05;0.03" dur="25s" begin="1s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="704" y1="148" x2="672" y2="214" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.24;0.05;0.15;0.03" dur="13s" begin="2s" repeatCount="indefinite"/>
+</line>
+<line class="networkLine" x1="704" y1="148" x2="756" y2="238" stroke="#3b82f6" opacity="0.04">
+  <animate attributeName="opacity" values="0.03;0.14;0.05;0.09;0.03" dur="15s" begin="3s" repeatCount="indefinite"/>
+</line>
+<circle class="networkNodeOrange" cx="650" cy="48" r="2.5" opacity="0.9">
   <animate attributeName="cx" values="650;668;641.9;650" dur="46s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="48;56;44.4;48" dur="46s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="23s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="728" cy="76" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="728" cy="76" r="2.15" opacity="0.78">
   <animate attributeName="cx" values="728;716;733.4;728" dur="39s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="76;94;67.9;76" dur="39s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="19s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="812" cy="34" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="812" cy="34" r="2.4" opacity="0.78">
   <animate attributeName="cx" values="812;832;803;812" dur="54s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="34;24;38.5;34" dur="54s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="23s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="904" cy="70" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="904" cy="70" r="2.65" opacity="0.78">
   <animate attributeName="cx" values="904;886;912.1;904" dur="42s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="70;86;62.8;70" dur="42s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="19s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="1012" cy="40" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="1012" cy="40" r="1.9" opacity="0.78">
   <animate attributeName="cx" values="1012;1026;1005.7;1012" dur="61s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="40;52;34.6;40" dur="61s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="23s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="1114" cy="86" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="1114" cy="86" r="2.15" opacity="0.78">
   <animate attributeName="cx" values="1114;1098;1121.2;1114" dur="49s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="86;78;89.6;86" dur="49s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="19s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="620" cy="128" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="620" cy="128" r="2.4" opacity="0.78">
   <animate attributeName="cx" values="620;642;610.1;620" dur="55s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="128;114;134.3;128" dur="55s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="23s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="704" cy="148" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="704" cy="148" r="2.65" opacity="0.78">
   <animate attributeName="cx" values="704;694;708.5;704" dur="44s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="148;164;140.8;148" dur="44s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="19s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="790" cy="118" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="790" cy="118" r="1.9" opacity="0.78">
   <animate attributeName="cx" values="790;806;782.8;790" dur="50s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="118;106;123.4;118" dur="50s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="23s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="876" cy="150" r="3.2" opacity="0.85">
+<circle class="networkNodeOrange" cx="876" cy="150" r="2.5" opacity="0.9">
   <animate attributeName="cx" values="876;862;882.3;876" dur="36s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="150;162;144.6;150" dur="36s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="19s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="966" cy="124" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="966" cy="124" r="2.4" opacity="0.78">
   <animate attributeName="cx" values="966;986;957;966" dur="58s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="124;108;131.2;124" dur="58s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="23s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="1058" cy="160" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="1058" cy="160" r="2.65" opacity="0.78">
   <animate attributeName="cx" values="1058;1040;1066.1;1058" dur="47s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="160;174;153.7;160" dur="47s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="19s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="1150" cy="138" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="1150" cy="138" r="1.9" opacity="0.78">
   <animate attributeName="cx" values="1150;1162;1144.6;1150" dur="52s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="138;126;143.4;138" dur="52s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="23s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="672" cy="214" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="672" cy="214" r="2.15" opacity="0.78">
   <animate attributeName="cx" values="672;656;679.2;672" dur="64s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="214;224;209.5;214" dur="64s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="19s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="756" cy="238" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="756" cy="238" r="2.4" opacity="0.78">
   <animate attributeName="cx" values="756;774;747.9;756" dur="41s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="238;220;246.1;238" dur="41s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="23s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="842" cy="206" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="842" cy="206" r="2.65" opacity="0.78">
   <animate attributeName="cx" values="842;830;847.4;842" dur="57s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="206;220;199.7;206" dur="57s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="19s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="930" cy="232" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="930" cy="232" r="1.9" opacity="0.78">
   <animate attributeName="cx" values="930;948;921.9;930" dur="45s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="232;220;237.4;232" dur="45s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="23s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="1016" cy="210" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="1016" cy="210" r="2.15" opacity="0.78">
   <animate attributeName="cx" values="1016;994;1025.9;1016" dur="60s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="210;228;201.9;210" dur="60s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="19s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="1108" cy="244" r="3.2" opacity="0.85">
+<circle class="networkNodeOrange" cx="1108" cy="244" r="2.5" opacity="0.9">
   <animate attributeName="cx" values="1108;1122;1101.7;1108" dur="53s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="244;226;252.1;244" dur="53s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="23s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="636" cy="306" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="636" cy="306" r="2.65" opacity="0.78">
   <animate attributeName="cx" values="636;650;629.7;636" dur="48s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="306;294;311.4;306" dur="48s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="19s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="724" cy="332" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="724" cy="332" r="1.9" opacity="0.78">
   <animate attributeName="cx" values="724;704;733;724" dur="66s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="332;346;325.7;332" dur="66s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="23s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="812" cy="294" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="812" cy="294" r="2.15" opacity="0.78">
   <animate attributeName="cx" values="812;828;804.8;812" dur="43s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="294;314;285;294" dur="43s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="19s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="902" cy="326" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="902" cy="326" r="2.4" opacity="0.78">
   <animate attributeName="cx" values="902;884;910.1;902" dur="59s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="326;310;333.2;326" dur="59s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="23s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="990" cy="296" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="990" cy="296" r="2.65" opacity="0.78">
   <animate attributeName="cx" values="990;1002;984.6;990" dur="51s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="296;314;287.9;296" dur="51s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="19s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="1082" cy="340" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="1082" cy="340" r="1.9" opacity="0.78">
   <animate attributeName="cx" values="1082;1068;1088.3;1082" dur="62s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="340;326;346.3;340" dur="62s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="23s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="1160" cy="306" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="1160" cy="306" r="2.15" opacity="0.78">
   <animate attributeName="cx" values="1160;1170;1155.5;1160" dur="46s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="306;322;298.8;306" dur="46s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="19s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="700" cy="386" r="3.2" opacity="0.85">
+<circle class="networkNodeOrange" cx="700" cy="386" r="2.5" opacity="0.9">
   <animate attributeName="cx" values="700;688;705.4;700" dur="56s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="386;378;389.6;386" dur="56s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="23s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="790" cy="374" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="790" cy="374" r="2.65" opacity="0.78">
   <animate attributeName="cx" values="790;808;781.9;790" dur="68s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="374;384;369.5;374" dur="68s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="19s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="888" cy="390" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="888" cy="390" r="1.9" opacity="0.78">
   <animate attributeName="cx" values="888;872;895.2;888" dur="47s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="390;378;395.4;390" dur="47s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="23s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="982" cy="366" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="982" cy="366" r="2.15" opacity="0.78">
   <animate attributeName="cx" values="982;1002;973;982" dur="63s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="366;376;361.5;366" dur="63s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="19s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="1074" cy="384" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="1074" cy="384" r="2.4" opacity="0.78">
   <animate attributeName="cx" values="1074;1062;1079.4;1074" dur="42s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="384;370;390.3;384" dur="42s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="23s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="1144" cy="376" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="1144" cy="376" r="2.65" opacity="0.78">
   <animate attributeName="cx" values="1144;1158;1137.7;1144" dur="58s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="376;388;370.6;376" dur="58s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="19s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="606" cy="372" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="606" cy="372" r="1.9" opacity="0.78">
   <animate attributeName="cx" values="606;616;601.5;606" dur="54s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="372;354;380.1;372" dur="54s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="23s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="640" cy="248" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="640" cy="248" r="2.15" opacity="0.78">
   <animate attributeName="cx" values="640;626;646.3;640" dur="49s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="248;264;240.8;248" dur="49s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="19s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="736" cy="276" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="736" cy="276" r="2.4" opacity="0.78">
   <animate attributeName="cx" values="736;752;728.8;736" dur="39s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="276;266;280.5;276" dur="39s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="23s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="1038" cy="92" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="1038" cy="92" r="2.65" opacity="0.78">
   <animate attributeName="cx" values="1038;1026;1043.4;1038" dur="65s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="92;108;84.8;92" dur="65s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="19s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="1130" cy="206" r="3.2" opacity="0.85">
+<circle class="networkNodeOrange" cx="1130" cy="206" r="2.5" opacity="0.9">
   <animate attributeName="cx" values="1130;1148;1121.9;1130" dur="44s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="206;194;211.4;206" dur="44s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="23s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="960" cy="56" r="3.2" opacity="0.85">
+<circle class="networkNodeBlue" cx="960" cy="56" r="2.15" opacity="0.78">
   <animate attributeName="cx" values="960;942;968.1;960" dur="70s" repeatCount="indefinite"/>
   <animate attributeName="cy" values="56;64;52.4;56" dur="70s" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="19s" repeatCount="indefinite"/>
 </circle></g>
+<rect x="24" y="52" width="2" height="274" rx="1" fill="#e8834a" opacity="0.32"/>
 <g class="ui">
   <text x="44" y="78" class="eyebrow">BIOMEDICAL ENGINEERING FULL STACK</text>
-  <text x="44" y="152" class="heroTitle"><tspan x="44">Medical sensor systems from prototype</tspan><tspan x="44" dy="60">to real-world study devices.</tspan></text>
-  <text x="44" y="300" class="body"><tspan x="44">I build the hardware, firmware, data workflows, housings, and validation paths</tspan><tspan x="44" dy="30">that turn miniature sensing ideas into usable wearable and implantable medical systems.</tspan></text>
+  <text x="44" y="148" class="heroTitle" font-size="50"><tspan x="44">Medical sensor systems from prototype</tspan><tspan x="44" dy="60">to real-world study devices.</tspan></text>
+  <text x="44" y="288" class="body" font-size="17"><tspan x="44">I build the hardware, firmware, data workflows, housings, and validation paths</tspan><tspan x="44" dy="28">that turn miniature sensing ideas into usable wearable and implantable medical systems.</tspan></text>
 </g>
 </svg>
