@@ -1,18 +1,75 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img">
 <defs>
   <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#010409"/><stop offset="0.56" stop-color="#06101c"/><stop offset="1" stop-color="#0d1117"/></linearGradient>
+  <linearGradient id="dividerLine" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#e8834a" stop-opacity="0.04"/><stop offset="0.5" stop-color="#ffb26d" stop-opacity="1"/><stop offset="1" stop-color="#e8834a" stop-opacity="0.04"/></linearGradient>
   <radialGradient id="blueGlow" cx="82%" cy="28%" r="38%"><stop stop-color="#4c8dff" stop-opacity="0.16"/><stop offset="1" stop-color="#4c8dff" stop-opacity="0"/></radialGradient>
   <radialGradient id="orangeGlow" cx="10%" cy="96%" r="42%"><stop stop-color="#e8834a" stop-opacity="0.10"/><stop offset="1" stop-color="#e8834a" stop-opacity="0"/></radialGradient>
   <filter id="orangeBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-  <style>.ui{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,system-ui,sans-serif}.heroTitle{fill:#f5f7fb;font-size:54px;font-weight:820;letter-spacing:-2.3px}.eyebrow{fill:#ffb26d;font-size:13px;font-weight:800;letter-spacing:3px}.body{fill:#b6c2d4;font-size:19px}.sectionTitle{fill:#f5f7fb;font-size:24px;font-weight:800}.subtle{fill:#7e8a9b;font-size:12px;font-weight:700;letter-spacing:1.5px}.projectTitle{fill:#f5f7fb;font-size:21px;font-weight:760}.summary{fill:#ffb26d;font-size:13.2px;font-weight:650}.bullet{fill:#d7dfec;font-size:14.2px}.card{fill:rgba(17,24,33,.78);stroke:rgba(232,131,74,.18);stroke-width:1}</style>
+  <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <style>.ui{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,system-ui,sans-serif}.heroTitle{fill:#f5f7fb;font-size:54px;font-weight:820;letter-spacing:-2.3px}.eyebrow{fill:#ffb26d;font-size:13px;font-weight:800;letter-spacing:3px}.body{fill:#b6c2d4;font-size:19px}.sectionTitle{fill:#f5f7fb;font-size:24px;font-weight:800}.subtle{fill:#7e8a9b;font-size:12px;font-weight:700;letter-spacing:1.5px}.projectTitle{fill:#f5f7fb;font-size:21px;font-weight:760}.summary{fill:#ffb26d;font-size:13.2px;font-weight:650}.bullet{fill:#d7dfec;font-size:14.2px}.card{fill:rgba(17,24,33,.78);stroke:rgba(232,131,74,.18);stroke-width:1}.networkLine{stroke:#6fd3ff;stroke-width:1;stroke-linecap:round}.networkNode{fill:#e8834a;filter:url(#orangeBlur)}</style>
 </defs>
 <rect width="1200" height="420" rx="22" fill="url(#bg)"/>
 <rect width="1200" height="420" rx="22" fill="url(#blueGlow)"/>
 <rect width="1200" height="420" rx="22" fill="url(#orangeGlow)"/>
 <rect x="0.5" y="0.5" width="1199" height="419" rx="22" fill="none" stroke="rgba(232,131,74,.16)"/>
 <g opacity="0.22"><path d="M0 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M52 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M104 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M156 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M208 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M260 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M312 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M364 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M416 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M468 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M520 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M572 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M624 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M676 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M728 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M780 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M832 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M884 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M936 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M988 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M1040 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M1092 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M1144 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M1196 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M1248 0V420" stroke="#6fd3ff" opacity=".08"/><path d="M0 0H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 52H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 104H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 156H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 208H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 260H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 312H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 364H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 416H1200" stroke="#6fd3ff" opacity=".08"/><path d="M0 468H1200" stroke="#6fd3ff" opacity=".08"/></g>
-<g transform="translate(770 62) rotate(-18 195 130)"><ellipse cx="195" cy="130" rx="195" ry="130" fill="none" stroke="rgba(76,141,255,.28)" stroke-width="1.4"/><ellipse cx="195" cy="130" rx="152" ry="96" fill="none" stroke="rgba(111,211,255,.22)"/><ellipse cx="195" cy="130" rx="220" ry="70" fill="none" stroke="rgba(232,131,74,.32)" transform="rotate(-38 195 130)"/></g>
-<circle cx="900" cy="132" r="4" fill="#e8834a" filter="url(#orangeBlur)"/><circle cx="1106" cy="144" r="4" fill="#e8834a" filter="url(#orangeBlur)"/>
+<g opacity="0.78">
+  <g transform="translate(770 62)">
+    <g transform="rotate(-18 195 130)">
+      <ellipse cx="195" cy="130" rx="195" ry="130" fill="none" stroke="rgba(76,141,255,.28)" stroke-width="1.4"/>
+      <animateTransform attributeName="transform" type="rotate" values="-18 195 130;-5 195 130;-18 195 130;-31 195 130;-18 195 130" dur="64s" repeatCount="indefinite"/>
+    </g>
+    <g transform="rotate(20 195 130)">
+      <ellipse cx="195" cy="130" rx="152" ry="96" fill="none" stroke="rgba(111,211,255,.22)"/>
+      <animateTransform attributeName="transform" type="rotate" values="20 195 130;35 195 130;20 195 130;8 195 130;20 195 130" dur="78s" repeatCount="indefinite"/>
+    </g>
+    <g transform="rotate(-38 195 130)">
+      <ellipse cx="195" cy="130" rx="220" ry="70" fill="none" stroke="rgba(232,131,74,.30)"/>
+      <animateTransform attributeName="transform" type="rotate" values="-38 195 130;-24 195 130;-38 195 130;-51 195 130;-38 195 130" dur="92s" repeatCount="indefinite"/>
+    </g>
+  </g>
+</g>
+<g><line class="networkLine" x1="890" y1="126" x2="1008" y2="84" opacity="0.08"><animate attributeName="opacity" values="0.04;0.38;0.08;0.32;0.04" dur="13s" begin="0s" repeatCount="indefinite"/></line>
+<line class="networkLine" x1="1008" y1="84" x2="1110" y2="154" opacity="0.08"><animate attributeName="opacity" values="0.04;0.38;0.08;0.32;0.04" dur="15s" begin="2s" repeatCount="indefinite"/></line>
+<line class="networkLine" x1="1110" y1="154" x2="972" y2="236" opacity="0.08"><animate attributeName="opacity" values="0.04;0.38;0.08;0.32;0.04" dur="17s" begin="4s" repeatCount="indefinite"/></line>
+<line class="networkLine" x1="972" y1="236" x2="1074" y2="306" opacity="0.08"><animate attributeName="opacity" values="0.04;0.38;0.08;0.32;0.04" dur="16s" begin="1s" repeatCount="indefinite"/></line>
+<line class="networkLine" x1="1074" y1="306" x2="1138" y2="252" opacity="0.08"><animate attributeName="opacity" values="0.04;0.38;0.08;0.32;0.04" dur="18s" begin="5s" repeatCount="indefinite"/></line>
+<line class="networkLine" x1="972" y1="236" x2="836" y2="292" opacity="0.08"><animate attributeName="opacity" values="0.04;0.38;0.08;0.32;0.04" dur="19s" begin="3s" repeatCount="indefinite"/></line>
+<circle class="networkNode" cx="890" cy="126" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="890;904;883.7;890" dur="31s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="126;118;129.6;126" dur="31s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="1008" cy="84" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="1008;996;1013.4;1008" dur="43s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="84;94;79.5;84" dur="43s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="1110" cy="154" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="1110;1120;1105.5;1110" dur="37s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="154;166;148.6;154" dur="37s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="972" cy="236" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="972;956;979.2;972" dur="52s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="236;226;240.5;236" dur="52s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="1074" cy="306" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="1074;1086;1068.6;1074" dur="47s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="306;294;311.4;306" dur="47s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="836" cy="292" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="836;826;840.5;836" dur="56s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="292;300;288.4;292" dur="56s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="1138" cy="252" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="1138;1130;1141.6;1138" dur="45s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="252;238;258.3;252" dur="45s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+</circle></g>
 <g class="ui">
   <text x="44" y="78" class="eyebrow">BIOMEDICAL ENGINEERING FULL STACK</text>
   <text x="44" y="152" class="heroTitle"><tspan x="44">Medical sensor systems from prototype</tspan><tspan x="44" dy="60">to real-world study devices.</tspan></text>
