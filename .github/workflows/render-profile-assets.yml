@@ -1,4 +1,4 @@
-name: Render profile README assets
+name: Render profile README SVG
 
 on:
   workflow_dispatch:
@@ -25,7 +25,7 @@ permissions:
 
 jobs:
   render:
-    name: Render HTML to PNG and SVG
+    name: Render HTML to SVG
     runs-on: ubuntu-latest
 
     steps:
@@ -37,33 +37,26 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install dependencies
-        run: npm install --no-package-lock
-
-      - name: Install Chromium for Playwright
-        run: npx playwright install --with-deps chromium
-
-      - name: Render README assets
+      - name: Render README SVG
         run: npm run render:readme-assets
 
-      - name: Upload rendered preview artifacts
+      - name: Upload rendered SVG preview
         uses: actions/upload-artifact@v4
         with:
-          name: profile-readme-assets
-          path: |
-            assets/profile-card.png
-            assets/profile-card.svg
+          name: profile-readme-svg
+          path: assets/profile-card.svg
 
-      - name: Commit generated assets
+      - name: Commit generated SVG
         if: github.event_name != 'pull_request'
         shell: bash
         run: |
-          if [[ -n "$(git status --porcelain assets/profile-card.png assets/profile-card.svg)" ]]; then
+          if [[ -n "$(git status --porcelain assets/profile-card.svg assets/profile-card.png)" ]]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add assets/profile-card.png assets/profile-card.svg
-            git commit -m "chore: render profile README assets"
+            git add assets/profile-card.svg
+            git rm -f --ignore-unmatch assets/profile-card.png
+            git commit -m "chore: render profile README SVG"
             git push
           else
-            echo "No generated asset changes to commit."
+            echo "No generated SVG changes to commit."
           fi
