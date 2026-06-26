@@ -12,6 +12,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: profile-banner-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   render-banner:
     runs-on: ubuntu-latest
@@ -19,11 +23,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
 
       - name: Install Playwright
         run: |
@@ -34,7 +40,21 @@ jobs:
         run: node scripts/render-profile-banner.mjs
 
       - name: Commit rendered banner
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: Render profile banner from HTML
-          file_pattern: assets/profile-banner.png
+        run: |
+          set -euo pipefail
+
+          if git diff --quiet -- assets/profile-banner.png; then
+            echo "No rendered banner changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add assets/profile-banner.png
+          git commit -m "Render profile banner from HTML"
+
+          # The profile README is edited frequently. Rebase before pushing so the
+          # generated image commit does not fail when main moves during a run.
+          git pull --rebase origin main
+          git push origin HEAD:main
