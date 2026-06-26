@@ -43,7 +43,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          if git diff --quiet -- assets/profile-banner.png; then
+          if [ -z "$(git status --porcelain -- assets/profile-banner.png)" ]; then
             echo "No rendered banner changes to commit."
             exit 0
           fi
