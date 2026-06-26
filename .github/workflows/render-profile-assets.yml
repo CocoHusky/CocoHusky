@@ -24,6 +24,10 @@ on:
       - package.json
       - .github/workflows/render-profile-assets.yml
 
+concurrency:
+  group: render-profile-readme-svg-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
@@ -31,10 +35,13 @@ jobs:
   render:
     name: Render dynamic profile SVG
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -59,6 +66,7 @@ jobs:
           if [[ -n "$(git status --porcelain assets/profile-card.svg assets/profile-card.png)" ]]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME:-main}"
             git add assets/profile-card.svg
             git rm -f --ignore-unmatch assets/profile-card.png
             git commit -m "chore: render dynamic profile README SVG"
