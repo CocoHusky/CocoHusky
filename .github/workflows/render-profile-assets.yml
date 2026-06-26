@@ -1,4 +1,4 @@
-name: Render profile README SVG
+name: Render profile README assets
 
 on:
   workflow_dispatch:
@@ -8,8 +8,6 @@ on:
     branches:
       - main
     paths:
-      - src/profile-card.html
-      - src/profile-card-data.json
       - scripts/render-readme-assets.mjs
       - package.json
       - .github/workflows/render-profile-assets.yml
@@ -18,14 +16,12 @@ on:
     branches:
       - main
     paths:
-      - src/profile-card.html
-      - src/profile-card-data.json
       - scripts/render-readme-assets.mjs
       - package.json
       - .github/workflows/render-profile-assets.yml
 
 concurrency:
-  group: render-profile-readme-svg-${{ github.ref }}
+  group: render-profile-readme-assets-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
@@ -33,7 +29,7 @@ permissions:
 
 jobs:
   render:
-    name: Render dynamic profile SVG
+    name: Render profile README assets
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -48,29 +44,35 @@ jobs:
         with:
           node-version: 22
 
-      - name: Render README SVG
+      - name: Render README assets
         run: npm run render:readme-assets
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload rendered SVG preview
+      - name: Upload rendered asset preview
         uses: actions/upload-artifact@v4
         with:
-          name: profile-readme-svg
-          path: assets/profile-card.svg
+          name: profile-readme-assets
+          path: |
+            assets/hero-banner.svg
+            assets/section-divider.svg
+            assets/cta-portfolio.svg
+            assets/cta-linkedin.svg
+            assets/cta-scholar.svg
+            assets/github-stats-card.svg
 
-      - name: Commit generated SVG
+      - name: Commit generated assets
         if: github.event_name != 'pull_request'
         shell: bash
         run: |
-          if [[ -n "$(git status --porcelain assets/profile-card.svg assets/profile-card.png)" ]]; then
+          if [[ -n "$(git status --porcelain assets)" ]]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git pull --rebase --autostash origin "${GITHUB_REF_NAME:-main}"
-            git add assets/profile-card.svg
-            git rm -f --ignore-unmatch assets/profile-card.png
-            git commit -m "chore: render dynamic profile README SVG [skip ci]"
+            git add assets/hero-banner.svg assets/section-divider.svg assets/cta-portfolio.svg assets/cta-linkedin.svg assets/cta-scholar.svg assets/github-stats-card.svg
+            git rm -f --ignore-unmatch assets/profile-card.svg assets/profile-card.png
+            git commit -m "chore: render profile README assets [skip ci]"
             git push
           else
-            echo "No generated SVG changes to commit."
+            echo "No generated asset changes to commit."
           fi
