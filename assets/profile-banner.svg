@@ -49,7 +49,7 @@
     <path d="M0 90H385" stroke="#4A90E2" stroke-opacity="0.52"/>
     <circle cx="26" cy="28" r="5" fill="#4A90E2"/><circle cx="47" cy="28" r="5" fill="#5BD5F5"/><circle cx="68" cy="28" r="5" fill="#E8834A"/>
     <text x="26" y="54" fill="#9FB0C8" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="800" letter-spacing="5">EXECUTION</text>
-    <text x="26" y="74" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="760" letter-spacing="-0.2">Requirements · risk</text>
-    <text x="26" y="94" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="760" letter-spacing="-0.2">V&amp;V · FDA docs</text>
+    <text x="26" y="74" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="760" letter-spacing="-0.2">Risk · V&amp;V</text>
+    <text x="26" y="94" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="760" letter-spacing="-0.2">FDA docs</text>
   </g>
 </svg>
