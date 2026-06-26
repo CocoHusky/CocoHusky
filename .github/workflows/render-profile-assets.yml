@@ -59,7 +59,7 @@ jobs:
             assets/cta-portfolio.svg
             assets/cta-linkedin.svg
             assets/cta-scholar.svg
-            assets/github-stats-card.svg
+            assets/activity-card.svg
 
       - name: Commit generated assets
         if: github.event_name != 'pull_request'
@@ -69,8 +69,8 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git pull --rebase --autostash origin "${GITHUB_REF_NAME:-main}"
-            git add assets/hero-banner.svg assets/section-divider.svg assets/cta-portfolio.svg assets/cta-linkedin.svg assets/cta-scholar.svg assets/github-stats-card.svg
-            git rm -f --ignore-unmatch assets/profile-card.svg assets/profile-card.png
+            git add assets/hero-banner.svg assets/section-divider.svg assets/cta-portfolio.svg assets/cta-linkedin.svg assets/cta-scholar.svg assets/activity-card.svg
+            git rm -f --ignore-unmatch assets/profile-card.svg assets/profile-card.png assets/github-stats-card.svg
             git commit -m "chore: render profile README assets [skip ci]"
             git push
           else
