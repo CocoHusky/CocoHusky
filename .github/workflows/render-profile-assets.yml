@@ -28,7 +28,7 @@ permissions:
 
 jobs:
   render:
-    name: Render profile README assets
+    name: Render HTML profile assets to SVG
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -43,7 +43,7 @@ jobs:
         with:
           node-version: 22
 
-      - name: Render README assets from HTML sources
+      - name: Render HTML assets to SVG
         run: npm run render:readme-assets
 
       - name: Upload rendered asset preview
@@ -52,21 +52,19 @@ jobs:
           name: profile-readme-assets
           path: |
             assets/hero-banner.svg
-            assets/section-divider.svg
             assets/active-projects-card.svg
 
-      - name: Commit generated assets
+      - name: Commit generated SVG assets
         if: github.event_name != 'pull_request'
         shell: bash
         run: |
-          if [[ -n "$(git status --porcelain assets)" ]]; then
+          if [[ -n "$(git status --porcelain assets/hero-banner.svg assets/active-projects-card.svg)" ]]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git pull --rebase --autostash origin "${GITHUB_REF_NAME:-main}"
-            git add assets/hero-banner.svg assets/section-divider.svg assets/active-projects-card.svg
-            git rm -f --ignore-unmatch assets/profile-card.svg assets/profile-card.png assets/github-stats-card.svg assets/activity-card.svg assets/cta-portfolio.svg assets/cta-linkedin.svg assets/cta-scholar.svg
-            git commit -m "chore: render profile README assets [skip ci]"
+            git add assets/hero-banner.svg assets/active-projects-card.svg
+            git commit -m "chore: render HTML profile assets to SVG [skip ci]"
             git push
           else
-            echo "No generated asset changes to commit."
+            echo "No generated SVG asset changes to commit."
           fi
