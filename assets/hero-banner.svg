@@ -17,7 +17,7 @@
   <g transform="translate(770 62)">
     <g transform="rotate(-18 195 130)">
       <ellipse cx="195" cy="130" rx="195" ry="130" fill="none" stroke="rgba(76,141,255,.28)" stroke-width="1.4"/>
-      <animateTransform attributeName="transform" type="rotate" values="-18 195 130;-5 195 130;-18 195 130;-31 195 130;-18 195 130" dur="64s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="rotate" values="-18 195 130;-5 195 130;-18 195 130;-31 195 130;-18 195 130" dur="72s" repeatCount="indefinite"/>
     </g>
     <g transform="rotate(20 195 130)">
       <ellipse cx="195" cy="130" rx="152" ry="96" fill="none" stroke="rgba(111,211,255,.22)"/>
@@ -29,46 +29,196 @@
     </g>
   </g>
 </g>
-<g><line class="networkLine" x1="890" y1="126" x2="1008" y2="84" opacity="0.08"><animate attributeName="opacity" values="0.04;0.38;0.08;0.32;0.04" dur="13s" begin="0s" repeatCount="indefinite"/></line>
-<line class="networkLine" x1="1008" y1="84" x2="1110" y2="154" opacity="0.08"><animate attributeName="opacity" values="0.04;0.38;0.08;0.32;0.04" dur="15s" begin="2s" repeatCount="indefinite"/></line>
-<line class="networkLine" x1="1110" y1="154" x2="972" y2="236" opacity="0.08"><animate attributeName="opacity" values="0.04;0.38;0.08;0.32;0.04" dur="17s" begin="4s" repeatCount="indefinite"/></line>
-<line class="networkLine" x1="972" y1="236" x2="1074" y2="306" opacity="0.08"><animate attributeName="opacity" values="0.04;0.38;0.08;0.32;0.04" dur="16s" begin="1s" repeatCount="indefinite"/></line>
-<line class="networkLine" x1="1074" y1="306" x2="1138" y2="252" opacity="0.08"><animate attributeName="opacity" values="0.04;0.38;0.08;0.32;0.04" dur="18s" begin="5s" repeatCount="indefinite"/></line>
-<line class="networkLine" x1="972" y1="236" x2="836" y2="292" opacity="0.08"><animate attributeName="opacity" values="0.04;0.38;0.08;0.32;0.04" dur="19s" begin="3s" repeatCount="indefinite"/></line>
-<circle class="networkNode" cx="890" cy="126" r="3.2" opacity="0.85">
-  <animate attributeName="cx" values="890;904;883.7;890" dur="31s" repeatCount="indefinite"/>
-  <animate attributeName="cy" values="126;118;129.6;126" dur="31s" repeatCount="indefinite"/>
+<g>
+<circle class="networkNode" cx="650" cy="48" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="650;668;641.9;650" dur="46s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="48;56;44.4;48" dur="46s" repeatCount="indefinite"/>
   <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="1008" cy="84" r="3.2" opacity="0.85">
-  <animate attributeName="cx" values="1008;996;1013.4;1008" dur="43s" repeatCount="indefinite"/>
-  <animate attributeName="cy" values="84;94;79.5;84" dur="43s" repeatCount="indefinite"/>
+<circle class="networkNode" cx="728" cy="76" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="728;716;733.4;728" dur="39s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="76;94;67.9;76" dur="39s" repeatCount="indefinite"/>
   <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="1110" cy="154" r="3.2" opacity="0.85">
-  <animate attributeName="cx" values="1110;1120;1105.5;1110" dur="37s" repeatCount="indefinite"/>
-  <animate attributeName="cy" values="154;166;148.6;154" dur="37s" repeatCount="indefinite"/>
+<circle class="networkNode" cx="812" cy="34" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="812;832;803;812" dur="54s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="34;24;38.5;34" dur="54s" repeatCount="indefinite"/>
   <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="972" cy="236" r="3.2" opacity="0.85">
-  <animate attributeName="cx" values="972;956;979.2;972" dur="52s" repeatCount="indefinite"/>
-  <animate attributeName="cy" values="236;226;240.5;236" dur="52s" repeatCount="indefinite"/>
+<circle class="networkNode" cx="904" cy="70" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="904;886;912.1;904" dur="42s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="70;86;62.8;70" dur="42s" repeatCount="indefinite"/>
   <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="1074" cy="306" r="3.2" opacity="0.85">
-  <animate attributeName="cx" values="1074;1086;1068.6;1074" dur="47s" repeatCount="indefinite"/>
-  <animate attributeName="cy" values="306;294;311.4;306" dur="47s" repeatCount="indefinite"/>
+<circle class="networkNode" cx="1012" cy="40" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="1012;1026;1005.7;1012" dur="61s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="40;52;34.6;40" dur="61s" repeatCount="indefinite"/>
   <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="836" cy="292" r="3.2" opacity="0.85">
-  <animate attributeName="cx" values="836;826;840.5;836" dur="56s" repeatCount="indefinite"/>
-  <animate attributeName="cy" values="292;300;288.4;292" dur="56s" repeatCount="indefinite"/>
+<circle class="networkNode" cx="1114" cy="86" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="1114;1098;1121.2;1114" dur="49s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="86;78;89.6;86" dur="49s" repeatCount="indefinite"/>
   <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
 </circle>
-<circle class="networkNode" cx="1138" cy="252" r="3.2" opacity="0.85">
-  <animate attributeName="cx" values="1138;1130;1141.6;1138" dur="45s" repeatCount="indefinite"/>
-  <animate attributeName="cy" values="252;238;258.3;252" dur="45s" repeatCount="indefinite"/>
+<circle class="networkNode" cx="620" cy="128" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="620;642;610.1;620" dur="55s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="128;114;134.3;128" dur="55s" repeatCount="indefinite"/>
   <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="704" cy="148" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="704;694;708.5;704" dur="44s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="148;164;140.8;148" dur="44s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="790" cy="118" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="790;806;782.8;790" dur="50s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="118;106;123.4;118" dur="50s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="876" cy="150" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="876;862;882.3;876" dur="36s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="150;162;144.6;150" dur="36s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="966" cy="124" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="966;986;957;966" dur="58s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="124;108;131.2;124" dur="58s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="1058" cy="160" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="1058;1040;1066.1;1058" dur="47s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="160;174;153.7;160" dur="47s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="1150" cy="138" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="1150;1162;1144.6;1150" dur="52s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="138;126;143.4;138" dur="52s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="672" cy="214" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="672;656;679.2;672" dur="64s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="214;224;209.5;214" dur="64s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="756" cy="238" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="756;774;747.9;756" dur="41s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="238;220;246.1;238" dur="41s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="842" cy="206" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="842;830;847.4;842" dur="57s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="206;220;199.7;206" dur="57s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="930" cy="232" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="930;948;921.9;930" dur="45s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="232;220;237.4;232" dur="45s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="1016" cy="210" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="1016;994;1025.9;1016" dur="60s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="210;228;201.9;210" dur="60s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="1108" cy="244" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="1108;1122;1101.7;1108" dur="53s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="244;226;252.1;244" dur="53s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="636" cy="306" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="636;650;629.7;636" dur="48s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="306;294;311.4;306" dur="48s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="724" cy="332" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="724;704;733;724" dur="66s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="332;346;325.7;332" dur="66s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="812" cy="294" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="812;828;804.8;812" dur="43s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="294;314;285;294" dur="43s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="902" cy="326" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="902;884;910.1;902" dur="59s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="326;310;333.2;326" dur="59s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="990" cy="296" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="990;1002;984.6;990" dur="51s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="296;314;287.9;296" dur="51s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="1082" cy="340" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="1082;1068;1088.3;1082" dur="62s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="340;326;346.3;340" dur="62s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="1160" cy="306" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="1160;1170;1155.5;1160" dur="46s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="306;322;298.8;306" dur="46s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="700" cy="386" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="700;688;705.4;700" dur="56s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="386;378;389.6;386" dur="56s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="790" cy="374" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="790;808;781.9;790" dur="68s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="374;384;369.5;374" dur="68s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="888" cy="390" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="888;872;895.2;888" dur="47s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="390;378;395.4;390" dur="47s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="982" cy="366" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="982;1002;973;982" dur="63s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="366;376;361.5;366" dur="63s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="1074" cy="384" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="1074;1062;1079.4;1074" dur="42s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="384;370;390.3;384" dur="42s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="1144" cy="376" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="1144;1158;1137.7;1144" dur="58s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="376;388;370.6;376" dur="58s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="606" cy="372" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="606;616;601.5;606" dur="54s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="372;354;380.1;372" dur="54s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="640" cy="248" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="640;626;646.3;640" dur="49s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="248;264;240.8;248" dur="49s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="736" cy="276" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="736;752;728.8;736" dur="39s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="276;266;280.5;276" dur="39s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="1038" cy="92" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="1038;1026;1043.4;1038" dur="65s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="92;108;84.8;92" dur="65s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="1130" cy="206" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="1130;1148;1121.9;1130" dur="44s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="206;194;211.4;206" dur="44s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="23s" repeatCount="indefinite"/>
+</circle>
+<circle class="networkNode" cx="960" cy="56" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="960;942;968.1;960" dur="70s" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="56;64;52.4;56" dur="70s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="19s" repeatCount="indefinite"/>
 </circle></g>
 <g class="ui">
   <text x="44" y="78" class="eyebrow">BIOMEDICAL ENGINEERING FULL STACK</text>
