@@ -36,10 +36,10 @@ jobs:
           npm install --no-save playwright
           npx playwright install --with-deps chromium
 
-      - name: Render banner from HTML
+      - name: Render banner from editable HTML
         run: node scripts/render-profile-banner.mjs
 
-      - name: Commit rendered banner
+      - name: Commit rendered banner image
         run: |
           set -euo pipefail
 
@@ -54,7 +54,5 @@ jobs:
           git add assets/profile-banner.png
           git commit -m "Render profile banner from HTML"
 
-          # The profile README is edited frequently. Rebase before pushing so the
-          # generated image commit does not fail when main moves during a run.
           git pull --rebase origin main
           git push origin HEAD:main
