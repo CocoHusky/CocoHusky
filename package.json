@@ -5,8 +5,5 @@
   "scripts": {
     "render": "npm run render:readme-assets",
     "render:readme-assets": "node scripts/render-readme-assets.mjs"
-  },
-  "devDependencies": {
-    "playwright": "latest"
   }
 }
