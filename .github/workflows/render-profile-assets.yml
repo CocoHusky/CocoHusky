@@ -69,7 +69,7 @@ jobs:
             git pull --rebase --autostash origin "${GITHUB_REF_NAME:-main}"
             git add assets/profile-card.svg
             git rm -f --ignore-unmatch assets/profile-card.png
-            git commit -m "chore: render dynamic profile README SVG"
+            git commit -m "chore: render dynamic profile README SVG [skip ci]"
             git push
           else
             echo "No generated SVG changes to commit."
