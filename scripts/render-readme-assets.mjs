@@ -10,8 +10,8 @@ const GENERATED_HTML_ASSETS = ['hero-banner', 'active-projects-card', 'section-d
 const STALE_GENERATED_ASSETS = ['profile-card.svg', 'profile-card.png', 'github-stats-card.svg', 'activity-card.svg', 'cta-portfolio.svg', 'cta-linkedin.svg', 'cta-scholar.svg'];
 
 const C = {
-  bg0: '#010409', bg1: '#06101c', bg2: '#0d1117', text: '#f5f7fb', muted: '#b6c2d4', quiet: '#7e8a9b',
-  orange: '#e8834a', orange2: '#ffb26d', blue: '#3b82f6', cyan: '#6fd3ff', green: '#22c55e'
+  bg0: '#010409', bg1: '#06101c', bg2: '#0d1117', text: '#f5f7fb', quiet: '#7e8a9b',
+  orange: '#e8834a', orange2: '#ffb26d', green: '#22c55e'
 };
 
 const args = process.argv.slice(2);
@@ -23,14 +23,11 @@ function attr(fragment, name, fallback = '') {
   return fragment.match(new RegExp(`${name}="([^"]*)"`))?.[1] ?? fallback;
 }
 
-function numAttr(fragment, name, fallback = 0) {
-  const value = Number(attr(fragment, name, fallback));
-  return Number.isFinite(value) ? value : fallback;
-}
-
 function readDimension(html, name, fallback) {
-  const match = html.match(new RegExp(`data-${name}="(\\d+)"`));
-  return match ? Number(match[1]) : fallback;
+  const dataMatch = html.match(new RegExp(`data-${name}="(\\d+)"`));
+  if (dataMatch) return Number(dataMatch[1]);
+  const cssMatch = html.match(new RegExp(`${name}:\\s*(\\d+)px`, 'i'));
+  return cssMatch ? Number(cssMatch[1]) : fallback;
 }
 
 function readRootAttr(html, name, fallback = '') {
@@ -38,23 +35,12 @@ function readRootAttr(html, name, fallback = '') {
   return attr(rootOpen, name, fallback);
 }
 
-function readRootNum(html, name, fallback) {
-  const value = Number(readRootAttr(html, name, fallback));
-  return Number.isFinite(value) ? value : fallback;
-}
-
 function escapeXml(value) {
   return String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
 }
 
 function clean(value) {
-  return String(value)
-    .replace(/<br\s*\/?>/gi, '\n')
-    .replace(/<[^>]*>/g, '')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/\s+/g, ' ')
-    .trim();
+  return String(value).replace(/<br\s*\/?>/gi, '\n').replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
 }
 
 function firstTag(html, tag, className = null) {
@@ -63,12 +49,12 @@ function firstTag(html, tag, className = null) {
   return match ? clean(match[1]) : '';
 }
 
-function spanLines(fragment) {
-  const spans = [...fragment.matchAll(/<span[^>]*>([\s\S]*?)<\/span>/gi)].map((match) => clean(match[1])).filter(Boolean);
-  return spans.length ? spans : [clean(fragment)].filter(Boolean);
-}
-
 function validateHtml(name, html) {
+  if (name === 'hero-banner') {
+    if (!html.includes('class="hero-banner"')) fail('hero-banner.html must contain .hero-banner.');
+    if (!html.includes('<canvas')) fail('hero-banner.html must contain the uploaded canvas background.');
+    return;
+  }
   if (!html.includes('class="asset')) fail(`${name}.html must have a root class containing "asset".`);
   if (!html.includes('data-width="')) fail(`${name}.html must define data-width.`);
   if (!html.includes('data-height="')) fail(`${name}.html must define data-height.`);
@@ -81,98 +67,33 @@ function svgShell(width, height, body) {
 <defs>
   <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="${C.bg0}"/><stop offset="0.56" stop-color="${C.bg1}"/><stop offset="1" stop-color="${C.bg2}"/></linearGradient>
   <linearGradient id="dividerLine" x1="0" y1="0" x2="1" y2="0"><stop stop-color="${C.orange}" stop-opacity="0.04"/><stop offset="0.5" stop-color="${C.orange2}" stop-opacity="1"/><stop offset="1" stop-color="${C.orange}" stop-opacity="0.04"/></linearGradient>
-  <radialGradient id="blueGlow" cx="88%" cy="8%" r="42%"><stop stop-color="${C.blue}" stop-opacity="0.13"/><stop offset="1" stop-color="${C.blue}" stop-opacity="0"/></radialGradient>
-  <radialGradient id="orangeGlow" cx="18%" cy="100%" r="34%"><stop stop-color="${C.orange}" stop-opacity="0.09"/><stop offset="1" stop-color="${C.orange}" stop-opacity="0"/></radialGradient>
   <filter id="orangeBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-  <filter id="blueBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
   <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-  <style>.ui{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,system-ui,sans-serif}.eyebrow{fill:${C.orange2};font-size:13px;font-weight:800;letter-spacing:3px}.heroTitle{fill:${C.text};font-weight:820;letter-spacing:-2.3px}.body{fill:${C.muted}}.sectionTitle{fill:${C.text};font-size:24px;font-weight:800}.subtle{fill:${C.quiet};font-size:12px;font-weight:700;letter-spacing:1.5px}.projectTitle{fill:${C.text};font-size:21px;font-weight:760}.summary{fill:${C.orange2};font-size:13.2px;font-weight:650}.bullet{fill:#d7dfec;font-size:14.2px}.card{fill:rgba(17,24,33,.78);stroke:rgba(232,131,74,.18);stroke-width:1}.networkLine{stroke-width:.65;stroke-linecap:round}.networkNodeBlue{fill:${C.blue};filter:url(#blueBlur)}.networkNodeOrange{fill:${C.orange};filter:url(#orangeBlur)}</style>
+  <style>.ui{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,system-ui,sans-serif}.sectionTitle{fill:${C.text};font-size:24px;font-weight:800}.subtle{fill:${C.quiet};font-size:12px;font-weight:700;letter-spacing:1.5px}.projectTitle{fill:${C.text};font-size:21px;font-weight:760}.summary{fill:${C.orange2};font-size:13.2px;font-weight:650}.bullet{fill:#d7dfec;font-size:14.2px}.card{fill:rgba(17,24,33,.78);stroke:rgba(232,131,74,.18);stroke-width:1}</style>
 </defs>
 ${body}
 </svg>`;
 }
 
-function parseNetworkNodes(html) {
-  return [...html.matchAll(/<span([^>]*)class="[^"]*network-node[^"]*"([^>]*)><\/span>/gi)].map((match, index) => {
-    const attrs = `${match[1]} ${match[2]}`;
-    return {
-      index,
-      x: numAttr(attrs, 'data-x'),
-      y: numAttr(attrs, 'data-y'),
-      dx: numAttr(attrs, 'data-dx', 0),
-      dy: numAttr(attrs, 'data-dy', 0),
-      duration: attr(attrs, 'data-duration', `${44 + (index % 11) * 3}s`),
-      accent: attr(attrs, 'data-accent', 'false') === 'true'
-    };
-  });
-}
-
-function autoNetworkLinks(nodes, connectDistance) {
-  const links = [];
-  for (let i = 0; i < nodes.length; i += 1) {
-    for (let j = i + 1; j < nodes.length; j += 1) {
-      const dx = nodes[i].x - nodes[j].x;
-      const dy = nodes[i].y - nodes[j].y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      if (distance <= connectDistance) {
-        links.push({ from: i, to: j, distance, accent: nodes[i].accent || nodes[j].accent });
-      }
-    }
+async function renderHeroWithBrowser(html, width, height) {
+  let chromium;
+  try {
+    ({ chromium } = await import('playwright'));
+  } catch {
+    fail('hero-banner.html uses canvas/script. Install Playwright before rendering.');
   }
-  return links.slice(0, 58);
-}
 
-function heroToSvg(html, width, height) {
-  const h1 = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i)?.[1] ?? '';
-  const body = html.match(/<p[^>]*class="[^"]*body[^"]*"[^>]*>([\s\S]*?)<\/p>/i)?.[1] ?? '';
-  const titleLines = spanLines(h1);
-  const bodyLines = spanLines(body);
-  const eyebrow = firstTag(html, 'p', 'eyebrow');
-  const orbitDuration = readRootAttr(html, 'data-orbit-duration', '72s');
-  const connectDistance = readRootNum(html, 'data-connect-distance', 180);
-  const titleSize = readRootNum(html, 'data-title-size', 50);
-  const bodySize = readRootNum(html, 'data-body-size', 17);
-  const copyLeft = readRootNum(html, 'data-copy-left', 44);
-  const nodes = parseNetworkNodes(html);
-  const links = autoNetworkLinks(nodes, connectDistance);
+  const browser = await chromium.launch({ headless: true });
+  const page = await browser.newPage({ viewport: { width: width + 40, height: height + 40 }, deviceScaleFactor: 1 });
+  await page.setContent(html, { waitUntil: 'domcontentloaded' });
+  await page.waitForSelector('.hero-banner');
+  await page.waitForTimeout(900);
+  const png = await page.locator('.hero-banner').first().screenshot({ type: 'png' });
+  await browser.close();
 
-  const networkLines = links.map((link, index) => {
-    const a = nodes[link.from];
-    const b = nodes[link.to];
-    const maxAlpha = Math.max(0.08, Math.pow(1 - link.distance / connectDistance, 1.6) * 0.55);
-    const stroke = link.accent ? C.orange : C.blue;
-    return `<line class="networkLine" x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="${stroke}" opacity="0.04">
-  <animate attributeName="opacity" values="0.03;${maxAlpha.toFixed(2)};0.05;${(maxAlpha * 0.65).toFixed(2)};0.03" dur="${13 + (index % 7) * 2}s" begin="${index % 6}s" repeatCount="indefinite"/>
-</line>`;
-  }).join('\n');
-
-  const networkNodes = nodes.map((node, index) => {
-    const klass = node.accent ? 'networkNodeOrange' : 'networkNodeBlue';
-    const radius = node.accent ? 2.5 : 1.9 + (index % 4) * 0.25;
-    return `<circle class="${klass}" cx="${node.x}" cy="${node.y}" r="${radius}" opacity="${node.accent ? '0.9' : '0.78'}">
-  <animate attributeName="cx" values="${node.x};${node.x + node.dx};${node.x - node.dx * 0.45};${node.x}" dur="${node.duration}" repeatCount="indefinite"/>
-  <animate attributeName="cy" values="${node.y};${node.y + node.dy};${node.y - node.dy * 0.45};${node.y}" dur="${node.duration}" repeatCount="indefinite"/>
-  <animate attributeName="opacity" values="0.45;0.9;0.62;0.82;0.45" dur="${index % 2 ? '19s' : '23s'}" repeatCount="indefinite"/>
-</circle>`;
-  }).join('\n');
-
-  return svgShell(width, height, `<rect width="${width}" height="${height}" rx="22" fill="url(#bg)"/>
-<rect width="${width}" height="${height}" rx="22" fill="url(#blueGlow)"/>
-<rect width="${width}" height="${height}" rx="22" fill="url(#orangeGlow)"/>
-<rect x="0.5" y="0.5" width="${width - 1}" height="${height - 1}" rx="22" fill="none" stroke="rgba(232,131,74,.16)"/>
-<g opacity="0.18">${Array.from({ length: Math.ceil(width / 52) + 1 }, (_, i) => `<path d="M${i * 52} 0V${height}" stroke="${C.cyan}" opacity=".08"/>`).join('')}${Array.from({ length: Math.ceil(height / 52) + 1 }, (_, i) => `<path d="M0 ${i * 52}H${width}" stroke="${C.cyan}" opacity=".08"/>`).join('')}</g>
-<g opacity="0.28" transform="translate(780 52)">
-  <g transform="rotate(-18 195 130)"><ellipse cx="195" cy="130" rx="195" ry="130" fill="none" stroke="rgba(59,130,246,.26)" stroke-width="1.1"/><animateTransform attributeName="transform" type="rotate" values="-18 195 130;-6 195 130;-18 195 130;-30 195 130;-18 195 130" dur="${orbitDuration}" repeatCount="indefinite"/></g>
-  <g transform="rotate(20 195 130)"><ellipse cx="195" cy="130" rx="152" ry="96" fill="none" stroke="rgba(111,211,255,.18)" stroke-width="0.9"/><animateTransform attributeName="transform" type="rotate" values="20 195 130;35 195 130;20 195 130;8 195 130;20 195 130" dur="88s" repeatCount="indefinite"/></g>
-  <g transform="rotate(-38 195 130)"><ellipse cx="195" cy="130" rx="220" ry="70" fill="none" stroke="rgba(232,131,74,.20)" stroke-width="0.9"/><animateTransform attributeName="transform" type="rotate" values="-38 195 130;-24 195 130;-38 195 130;-51 195 130;-38 195 130" dur="104s" repeatCount="indefinite"/></g>
-</g>
-<g>${networkLines}\n${networkNodes}</g>
-<rect x="24" y="52" width="2" height="274" rx="1" fill="${C.orange}" opacity="0.32"/>
-<g class="ui">
-  <text x="${copyLeft}" y="78" class="eyebrow">${escapeXml(eyebrow)}</text>
-  <text x="${copyLeft}" y="148" class="heroTitle" font-size="${titleSize}">${titleLines.map((line, index) => `<tspan x="${copyLeft}"${index ? ` dy="${Math.round(titleSize * 1.2)}"` : ''}>${escapeXml(line)}</tspan>`).join('')}</text>
-  <text x="${copyLeft}" y="288" class="body" font-size="${bodySize}">${bodyLines.map((line, index) => `<tspan x="${copyLeft}"${index ? ' dy="28"' : ''}>${escapeXml(line)}</tspan>`).join('')}</text>
-</g>`);
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img">
+  <image href="data:image/png;base64,${png.toString('base64')}" x="0" y="0" width="${width}" height="${height}" preserveAspectRatio="xMidYMid slice"/>
+</svg>`;
 }
 
 function activeProjectsToSvg(html, width, height) {
@@ -206,13 +127,13 @@ function sectionDividerToSvg(html, width, height) {
   return svgShell(width, height, `<rect width="${width}" height="${height}" fill="transparent"/><rect x="${left}" y="${centerY - 1}" width="${right - left}" height="2" rx="1" fill="url(#dividerLine)" filter="url(#softGlow)"/><circle cx="${left}" cy="${centerY}" r="2.2" fill="${C.orange}" filter="url(#orangeBlur)" opacity="0.35"><animate attributeName="cx" values="${left};${mid};${right};${mid};${left}" dur="${duration}" repeatCount="indefinite"/><animate attributeName="r" values="2.1;4.2;2.1;4.2;2.1" dur="${duration}" repeatCount="indefinite"/><animate attributeName="opacity" values="0.20;0.95;0.20;0.95;0.20" dur="${duration}" repeatCount="indefinite"/></circle>`);
 }
 
-function htmlToSvg(name, html, fallbackWidth = 1200, fallbackHeight = 320) {
+async function htmlToSvg(name, html, fallbackWidth = 1200, fallbackHeight = 320) {
   validateHtml(name, html);
   const width = readDimension(html, 'width', fallbackWidth);
   const height = readDimension(html, 'height', fallbackHeight);
-  if (!Number.isFinite(width) || width <= 0) fail(`${name}.html has an invalid data-width.`);
-  if (!Number.isFinite(height) || height <= 0) fail(`${name}.html has an invalid data-height.`);
-  if (name === 'hero-banner') return heroToSvg(html, width, height);
+  if (!Number.isFinite(width) || width <= 0) fail(`${name}.html has an invalid width.`);
+  if (!Number.isFinite(height) || height <= 0) fail(`${name}.html has an invalid height.`);
+  if (name === 'hero-banner') return renderHeroWithBrowser(html, width, height);
   if (name === 'active-projects-card') return activeProjectsToSvg(html, width, height);
   if (name === 'section-divider') return sectionDividerToSvg(html, width, height);
   fail(`No renderer exists for ${name}.`);
@@ -220,9 +141,10 @@ function htmlToSvg(name, html, fallbackWidth = 1200, fallbackHeight = 320) {
 
 function validateSvg(name, svg) {
   if (!svg.startsWith('<svg ')) fail(`${name}.svg did not render as SVG.`);
-  if (svg.includes('<foreignObject')) fail(`${name}.svg must be pure SVG, not foreignObject HTML.`);
+  if (svg.includes('<foreignObject')) fail(`${name}.svg must not use foreignObject.`);
   if (!svg.includes('</svg>')) fail(`${name}.svg is missing the closing SVG tag.`);
-  if (name !== 'section-divider' && !svg.includes('<text ')) fail(`${name}.svg is missing rendered text.`);
+  if (name === 'hero-banner' && !svg.includes('<image ')) fail(`${name}.svg must include the browser-rendered hero image.`);
+  if (name === 'active-projects-card' && !svg.includes('<text ')) fail(`${name}.svg is missing rendered text.`);
 }
 
 function selectedAssets() {
@@ -234,7 +156,7 @@ function selectedAssets() {
 
 async function renderHtmlAsset(name, outputDir, writeOutput) {
   const html = await readFile(path.join(sourceDir, `${name}.html`), 'utf8');
-  const svg = htmlToSvg(name, html);
+  const svg = await htmlToSvg(name, html);
   validateSvg(name, svg);
   if (writeOutput) {
     await mkdir(outputDir, { recursive: true });
