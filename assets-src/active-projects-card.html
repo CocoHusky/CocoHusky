@@ -1,42 +1,127 @@
-<section class="active-projects" data-width="1200" data-height="430">
-  <header>
-    <h2>Active Projects</h2>
-    <p>technical build focus · hardware · infra · web systems</p>
+<section class="asset active-projects" data-width="1200" data-height="430">
+  <style>
+    .active-projects {
+      width: 1200px;
+      height: 430px;
+      box-sizing: border-box;
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid rgba(232, 131, 74, 0.16);
+      background: linear-gradient(135deg, #010409 0%, #06101c 56%, #0d1117 100%);
+      color: #f5f7fb;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      position: relative;
+    }
+    .asset-header {
+      position: absolute;
+      left: 36px;
+      top: 30px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .pulse-icon { width: 34px; height: 42px; position: relative; }
+    .pulse-icon::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 6px;
+      width: 34px;
+      height: 28px;
+      border-left: 2px solid #e8834a;
+      border-bottom: 2px solid #e8834a;
+      transform: skewX(-18deg);
+      filter: drop-shadow(0 0 6px rgba(232, 131, 74, 0.8));
+    }
+    .asset-header h2 { margin: 0; font-size: 24px; line-height: 1; font-weight: 800; }
+    .asset-header p {
+      margin: 9px 0 0 0;
+      color: #7e8a9b;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+    }
+    .project-grid {
+      position: absolute;
+      left: 36px;
+      top: 96px;
+      display: grid;
+      grid-template-columns: 350px 350px 350px;
+      gap: 39px;
+    }
+    .project {
+      width: 350px;
+      height: 285px;
+      box-sizing: border-box;
+      padding: 24px;
+      border-radius: 18px;
+      background: rgba(17, 24, 33, 0.78);
+      border: 1px solid rgba(232, 131, 74, 0.18);
+    }
+    .status-row { display: flex; align-items: center; gap: 13px; margin-bottom: 27px; }
+    .dot { width: 10px; height: 10px; border-radius: 999px; background: #22c55e; }
+    .dot.orange { background: #e8834a; }
+    .status { color: #7e8a9b; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; }
+    .project h3 { margin: 0; font-size: 21px; line-height: 1.15; font-weight: 760; }
+    .summary {
+      margin: 16px 0 30px 0;
+      color: #ffb26d;
+      font-size: 13.2px;
+      line-height: 1.25;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+    .project ul { list-style: none; margin: 0; padding: 0; color: #d7dfec; font-size: 14.2px; line-height: 1.15; }
+    .project li { margin: 0 0 14px 0; white-space: nowrap; }
+    .project li::before { content: "•"; margin-right: 8px; color: #ffb26d; }
+  </style>
+
+  <header class="asset-header">
+    <div class="pulse-icon"></div>
+    <div>
+      <h2>Active Projects</h2>
+      <p>technical build focus · hardware · infra · web systems</p>
+    </div>
   </header>
 
-  <article class="project" data-status="ACTIVE" data-dot="green">
-    <h3>60 GHz mmWave Radar</h3>
-    <p class="summary">Contactless physiology for sleep/seated monitoring</p>
-    <ul>
-      <li>UART radar parser</li>
-      <li>HR/BR/presence/range telemetry</li>
-      <li>VisLog API · browser data stream</li>
-      <li>ESP32-C6 WiFi portal · captive setup</li>
-      <li>nRF52840 BLE bridge · ESP32 bring-up</li>
-    </ul>
-  </article>
+  <div class="project-grid">
+    <article class="project" data-status="ACTIVE" data-dot="green">
+      <div class="status-row"><span class="dot"></span><span class="status">ACTIVE</span></div>
+      <h3>60 GHz mmWave Radar</h3>
+      <p class="summary">Contactless physiology for sleep/seated monitoring</p>
+      <ul>
+        <li>UART radar parser · checksum handling</li>
+        <li>HR/BR/presence/range telemetry</li>
+        <li>VisLog API · browser data stream</li>
+        <li>ESP32-C6 WiFi portal · captive setup</li>
+        <li>nRF52840 BLE bridge · ESP32 bring-up</li>
+      </ul>
+    </article>
 
-  <article class="project" data-status="FINALIZED" data-dot="orange">
-    <h3>Home Lab Server</h3>
-    <p class="summary">Local-first storage, backups, services, private AI</p>
-    <ul>
-      <li>Proxmox VE · VM/LXC architecture</li>
-      <li>TrueNAS datasets · snapshots · backups</li>
-      <li>Nextcloud · Immich data organization</li>
-      <li>Docker Compose · ClawCode tooling</li>
-      <li>Raspberry Pi services · monitoring</li>
-    </ul>
-  </article>
+    <article class="project" data-status="FINALIZED" data-dot="orange">
+      <div class="status-row"><span class="dot orange"></span><span class="status">FINALIZED</span></div>
+      <h3>Home Lab Server</h3>
+      <p class="summary">Local-first storage, backups, services, private AI</p>
+      <ul>
+        <li>Proxmox VE · VM/LXC architecture</li>
+        <li>TrueNAS datasets · snapshots · backups</li>
+        <li>Nextcloud · Immich data organization</li>
+        <li>Docker Compose · ClawCode tooling</li>
+        <li>Raspberry Pi services · monitoring</li>
+      </ul>
+    </article>
 
-  <article class="project" data-status="ACTIVE" data-dot="green">
-    <h3>Professional Profile</h3>
-    <p class="summary">Recruiter-facing documentation and automation</p>
-    <ul>
-      <li>Astro · HTML/CSS · GitHub Pages</li>
-      <li>GitHub Actions CI/CD · releases</li>
-      <li>README SVG generation · cache busting</li>
-      <li>Plausible/referrer analytics pipeline</li>
-      <li>Portfolio traffic tracking · recruiting UX</li>
-    </ul>
-  </article>
+    <article class="project" data-status="ACTIVE" data-dot="green">
+      <div class="status-row"><span class="dot"></span><span class="status">ACTIVE</span></div>
+      <h3>Professional Profile</h3>
+      <p class="summary">Recruiter-facing documentation and automation</p>
+      <ul>
+        <li>Astro · HTML/CSS · GitHub Pages</li>
+        <li>GitHub Actions CI/CD · releases</li>
+        <li>README SVG generation · cache busting</li>
+        <li>Plausible/referrer analytics pipeline</li>
+        <li>Portfolio traffic tracking · recruiting UX</li>
+      </ul>
+    </article>
+  </div>
 </section>
