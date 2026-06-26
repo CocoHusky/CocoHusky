@@ -32,7 +32,7 @@ jobs:
   build:
     name: Build / ${{ matrix.asset }}
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
@@ -50,7 +50,13 @@ jobs:
         with:
           node-version: 22
 
-      - name: Build pure SVG from HTML source
+      - name: Install browser renderer for uploaded hero HTML
+        if: matrix.asset == 'hero-banner'
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+
+      - name: Build SVG from HTML source
         run: npm run build:profile-asset -- --asset "${{ matrix.asset }}" --out dist/profile-assets
 
       - name: Upload built SVG
@@ -64,7 +70,7 @@ jobs:
     name: Test / ${{ matrix.asset }}
     needs: build
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
@@ -81,6 +87,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+
+      - name: Install browser renderer for uploaded hero HTML
+        if: matrix.asset == 'hero-banner'
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
 
       - name: Download built SVG
         uses: actions/download-artifact@v4
@@ -97,11 +109,14 @@ jobs:
           test -s "dist/profile-assets/${{ matrix.asset }}.svg"
           grep -q '<svg ' "dist/profile-assets/${{ matrix.asset }}.svg"
           grep -q '</svg>' "dist/profile-assets/${{ matrix.asset }}.svg"
-          if [[ "${{ matrix.asset }}" != "section-divider" ]]; then
+          if [[ "${{ matrix.asset }}" == "hero-banner" ]]; then
+            grep -q '<image ' "dist/profile-assets/${{ matrix.asset }}.svg"
+          fi
+          if [[ "${{ matrix.asset }}" == "active-projects-card" ]]; then
             grep -q '<text ' "dist/profile-assets/${{ matrix.asset }}.svg"
           fi
           if grep -q '<foreignObject ' "dist/profile-assets/${{ matrix.asset }}.svg"; then
-            echo "Generated SVG must not use foreignObject; GitHub README images need pure SVG."
+            echo "Generated SVG must not use foreignObject."
             exit 1
           fi
 
