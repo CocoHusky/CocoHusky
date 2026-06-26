@@ -27,7 +27,6 @@
     opacity: 0.9;
   }
 
-  /* Subtle radial glows on top of canvas */
   .glow-blue {
     position: absolute;
     top: -70px; right: -40px;
@@ -58,12 +57,12 @@
     position: absolute;
     left: 44px;
     top: 44px;
-    width: 720px;
+    width: 760px;
     z-index: 2;
   }
 
   .eyebrow {
-    margin: 0 0 20px 0;
+    margin: 0 0 18px 0;
     color: #ffb26d;
     font-size: 12px;
     font-weight: 800;
@@ -73,10 +72,10 @@
 
   h1 {
     margin: 0;
-    font-size: 43px;
+    font-size: 60px;
     line-height: 1.06;
     font-weight: 820;
-    letter-spacing: -1.8px;
+    letter-spacing: -2.4px;
     text-shadow: 0 2px 40px rgba(1,4,9,0.85);
   }
 
@@ -86,14 +85,13 @@
   }
 
   .body {
-    margin: 22px 0 0 0;
-    color: #b6c2d4;
-    font-size: 16px;
+    margin: 18px 0 0 0;
+    color: #d3dbea;
+    font-size: 18px;
     line-height: 1.55;
     text-shadow: 0 1px 20px rgba(1,4,9,0.9);
   }
 
-  /* thin accent line left of copy */
   .hero-copy::before {
     content: '';
     position: absolute;
@@ -118,11 +116,12 @@
     <p class="eyebrow">BIOMEDICAL ENGINEERING FULL STACK</p>
     <h1>
       <span>Medical sensor systems</span>
-      <span>from prototype to study devices.</span>
+      <span>from prototype to</span>
+      <span>study devices.</span>
     </h1>
     <p class="body">
-      <span>Hardware, firmware, data workflows, housings, and validation paths</span>
-      <span>for wearable and implantable medical sensing systems.</span>
+      <span>I like building devices that help people better understand</span>
+      <span>their health and feel more in control of their care.</span>
     </p>
   </div>
 </div>
@@ -139,11 +138,10 @@ function resize() {
 resize();
 window.addEventListener('resize', resize);
 
-// Color palette matching the banner
 const COLORS = {
-  nodePrimary:  'rgba(59,130,246,',   // blue
-  nodeAccent:   'rgba(232,131,74,',   // coral
-  nodeDim:      'rgba(100,140,200,',  // muted blue
+  nodePrimary:  'rgba(59,130,246,',
+  nodeAccent:   'rgba(232,131,74,',
+  nodeDim:      'rgba(100,140,200,',
   edgePrimary:  'rgba(59,130,246,',
   edgeAccent:   'rgba(232,131,74,',
 };
@@ -152,31 +150,22 @@ const NODE_COUNT = 38;
 const CONNECT_DIST = 180;
 const EDGE_FADE_DIST = 140;
 
-// Each node orbits a slow drifting center point (torus-like layered motion)
 class Node {
   constructor(i) {
-    // Position — bias toward right 40% of canvas where there's no text
-    this.bx = Math.random();  // 0-1
+    this.bx = Math.random();
     this.by = Math.random();
-
-    // Orbital motion: two superimposed slow rotations
-    this.r1  = 30 + Math.random() * 90;    // orbit radius 1
-    this.r2  = 15 + Math.random() * 50;    // orbit radius 2
+    this.r1  = 30 + Math.random() * 90;
+    this.r2  = 15 + Math.random() * 50;
     this.s1  = (Math.random() * 0.0004 + 0.0001) * (Math.random() < 0.5 ? 1 : -1);
     this.s2  = (Math.random() * 0.0007 + 0.0002) * (Math.random() < 0.5 ? 1 : -1);
     this.a1  = Math.random() * Math.PI * 2;
     this.a2  = Math.random() * Math.PI * 2;
-
-    // Drift of the orbit center itself
     this.dx  = (Math.random() - 0.5) * 0.04;
     this.dy  = (Math.random() - 0.5) * 0.04;
-
-    // Appearance
     this.isAccent = (i % 9 === 0);
     this.size = this.isAccent ? 2.5 : (1.2 + Math.random() * 1.6);
     this.pulse = Math.random() * Math.PI * 2;
     this.pulseSpeed = 0.008 + Math.random() * 0.012;
-
     this.x = 0; this.y = 0;
   }
 
@@ -186,12 +175,9 @@ class Node {
     this.bx = ((this.bx + this.dx * 0.0005) + 1) % 1;
     this.by = ((this.by + this.dy * 0.0005) + 1) % 1;
     this.pulse += this.pulseSpeed;
-
     const W = canvas.width, H = canvas.height;
-    // Text occupies roughly left 680px — push nodes to right side
     const xBase = W * (0.52 + this.bx * 0.48);
     const yBase = H * (0.05 + this.by * 0.90);
-
     this.x = xBase + Math.cos(this.a1) * this.r1 + Math.cos(this.a2) * this.r2;
     this.y = yBase + Math.sin(this.a1) * this.r1 * 0.6 + Math.sin(this.a2) * this.r2 * 0.7;
   }
@@ -200,8 +186,6 @@ class Node {
     const p = 0.7 + 0.3 * Math.sin(this.pulse);
     const col = this.isAccent ? COLORS.nodeAccent : COLORS.nodePrimary;
     const r = this.size * p;
-
-    // Glow ring
     const g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, r * 4);
     g.addColorStop(0, col + '0.35)');
     g.addColorStop(1, col + '0)');
@@ -209,8 +193,6 @@ class Node {
     ctx.arc(this.x, this.y, r * 4, 0, Math.PI * 2);
     ctx.fillStyle = g;
     ctx.fill();
-
-    // Core dot
     ctx.beginPath();
     ctx.arc(this.x, this.y, r, 0, Math.PI * 2);
     ctx.fillStyle = col + (this.isAccent ? '0.9)' : '0.8)');
@@ -219,38 +201,26 @@ class Node {
 }
 
 const nodes = Array.from({length: NODE_COUNT}, (_, i) => new Node(i));
-
 let last = performance.now();
 
 function draw(now) {
   const dt = now - last;
   last = now;
-
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // Update positions
   nodes.forEach(n => n.update(dt));
-
-  // Draw edges between close nodes
   for (let i = 0; i < nodes.length; i++) {
     for (let j = i + 1; j < nodes.length; j++) {
       const a = nodes[i], b = nodes[j];
       const dx = a.x - b.x, dy = a.y - b.y;
       const dist = Math.sqrt(dx*dx + dy*dy);
       if (dist > CONNECT_DIST) continue;
-
-      // Fade based on distance
       const alpha = Math.pow(1 - dist / CONNECT_DIST, 1.6) * 0.55;
-
-      // Color: accent if either node is accent
       const isHot = a.isAccent || b.isAccent;
       const col = isHot ? COLORS.edgeAccent : COLORS.edgePrimary;
-
       const grad = ctx.createLinearGradient(a.x, a.y, b.x, b.y);
       grad.addColorStop(0, col + alpha + ')');
       grad.addColorStop(0.5, col + (alpha * 1.3) + ')');
       grad.addColorStop(1, col + alpha + ')');
-
       ctx.beginPath();
       ctx.moveTo(a.x, a.y);
       ctx.lineTo(b.x, b.y);
@@ -259,10 +229,7 @@ function draw(now) {
       ctx.stroke();
     }
   }
-
-  // Draw nodes on top
   nodes.forEach(n => n.draw());
-
   requestAnimationFrame(draw);
 }
 
