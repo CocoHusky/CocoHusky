@@ -32,8 +32,7 @@
     <path d="M0 205H390" stroke="#4A90E2" stroke-opacity="0.5"/>
     <circle cx="30" cy="30" r="5.5" fill="#4A90E2"/><circle cx="52" cy="30" r="5.5" fill="#5BD5F5"/><circle cx="74" cy="30" r="5.5" fill="#E8834A"/>
     <text x="30" y="92" fill="#9FB0C8" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="800" letter-spacing="6">FOCUS</text>
-    <text x="30" y="139" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="41" font-weight="900" letter-spacing="-1.2">Novel sensors</text>
-    <text x="300" y="139" fill="#E8834A" font-family="Inter, Arial, sans-serif" font-size="46" font-weight="800">→</text>
+    <text x="30" y="139" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="41" font-weight="900" letter-spacing="-1.2">Novel sensors <tspan fill="#E8834A">→</tspan></text>
     <text x="30" y="187" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="41" font-weight="900" letter-spacing="-1.2">clinical devices</text>
   </g>
 
