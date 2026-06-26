@@ -8,7 +8,8 @@ const defaultAssetDir = path.join(root, 'assets');
 
 const GENERATED_HTML_ASSETS = [
   'hero-banner',
-  'active-projects-card'
+  'active-projects-card',
+  'section-divider'
 ];
 
 const STALE_GENERATED_ASSETS = [
@@ -55,6 +56,11 @@ function readDimension(html, name, fallback) {
   return match ? Number(match[1]) : fallback;
 }
 
+function readRootAttr(html, name, fallback = '') {
+  const rootOpen = html.match(/<(?:div|section)[^>]*class="[^"]*asset[^"]*"[^>]*>/i)?.[0] ?? '';
+  return attr(rootOpen, name, fallback);
+}
+
 function escapeXml(value) {
   return String(value)
     .replaceAll('&', '&amp;')
@@ -75,6 +81,11 @@ function clean(value) {
 
 function attr(fragment, name, fallback = '') {
   return fragment.match(new RegExp(`${name}="([^"]*)"`))?.[1] ?? fallback;
+}
+
+function numAttr(fragment, name, fallback = 0) {
+  const value = Number(attr(fragment, name, fallback));
+  return Number.isFinite(value) ? value : fallback;
 }
 
 function firstTag(html, tag, className = null) {
@@ -102,13 +113,40 @@ function svgShell(width, height, body) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img">
 <defs>
   <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="${C.bg0}"/><stop offset="0.56" stop-color="${C.bg1}"/><stop offset="1" stop-color="${C.bg2}"/></linearGradient>
+  <linearGradient id="dividerLine" x1="0" y1="0" x2="1" y2="0"><stop stop-color="${C.orange}" stop-opacity="0.04"/><stop offset="0.5" stop-color="${C.orange2}" stop-opacity="1"/><stop offset="1" stop-color="${C.orange}" stop-opacity="0.04"/></linearGradient>
   <radialGradient id="blueGlow" cx="82%" cy="28%" r="38%"><stop stop-color="${C.blue}" stop-opacity="0.16"/><stop offset="1" stop-color="${C.blue}" stop-opacity="0"/></radialGradient>
   <radialGradient id="orangeGlow" cx="10%" cy="96%" r="42%"><stop stop-color="${C.orange}" stop-opacity="0.10"/><stop offset="1" stop-color="${C.orange}" stop-opacity="0"/></radialGradient>
   <filter id="orangeBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-  <style>.ui{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,system-ui,sans-serif}.heroTitle{fill:${C.text};font-size:54px;font-weight:820;letter-spacing:-2.3px}.eyebrow{fill:${C.orange2};font-size:13px;font-weight:800;letter-spacing:3px}.body{fill:${C.muted};font-size:19px}.sectionTitle{fill:${C.text};font-size:24px;font-weight:800}.subtle{fill:${C.quiet};font-size:12px;font-weight:700;letter-spacing:1.5px}.projectTitle{fill:${C.text};font-size:21px;font-weight:760}.summary{fill:${C.orange2};font-size:13.2px;font-weight:650}.bullet{fill:#d7dfec;font-size:14.2px}.card{fill:rgba(17,24,33,.78);stroke:rgba(232,131,74,.18);stroke-width:1}</style>
+  <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <style>.ui{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,system-ui,sans-serif}.heroTitle{fill:${C.text};font-size:54px;font-weight:820;letter-spacing:-2.3px}.eyebrow{fill:${C.orange2};font-size:13px;font-weight:800;letter-spacing:3px}.body{fill:${C.muted};font-size:19px}.sectionTitle{fill:${C.text};font-size:24px;font-weight:800}.subtle{fill:${C.quiet};font-size:12px;font-weight:700;letter-spacing:1.5px}.projectTitle{fill:${C.text};font-size:21px;font-weight:760}.summary{fill:${C.orange2};font-size:13.2px;font-weight:650}.bullet{fill:#d7dfec;font-size:14.2px}.card{fill:rgba(17,24,33,.78);stroke:rgba(232,131,74,.18);stroke-width:1}.networkLine{stroke:${C.cyan};stroke-width:1;stroke-linecap:round}.networkNode{fill:${C.orange};filter:url(#orangeBlur)}</style>
 </defs>
 ${body}
 </svg>`;
+}
+
+function parseNetworkNodes(html) {
+  return [...html.matchAll(/<span([^>]*)class="[^"]*network-node[^"]*"([^>]*)><\/span>/gi)].map((match) => {
+    const attrs = `${match[1]} ${match[2]}`;
+    return {
+      x: numAttr(attrs, 'data-x'),
+      y: numAttr(attrs, 'data-y'),
+      dx: numAttr(attrs, 'data-dx', 0),
+      dy: numAttr(attrs, 'data-dy', 0),
+      duration: attr(attrs, 'data-duration', '44s')
+    };
+  });
+}
+
+function parseNetworkLinks(html) {
+  return [...html.matchAll(/<span([^>]*)class="[^"]*network-link[^"]*"([^>]*)><\/span>/gi)].map((match) => {
+    const attrs = `${match[1]} ${match[2]}`;
+    return {
+      from: numAttr(attrs, 'data-from'),
+      to: numAttr(attrs, 'data-to'),
+      delay: attr(attrs, 'data-delay', '0s'),
+      duration: attr(attrs, 'data-duration', '16s')
+    };
+  });
 }
 
 function heroToSvg(html, width, height) {
@@ -117,14 +155,45 @@ function heroToSvg(html, width, height) {
   const titleLines = spanLines(h1);
   const bodyLines = spanLines(body);
   const eyebrow = firstTag(html, 'p', 'eyebrow');
+  const orbitDuration = readRootAttr(html, 'data-orbit-duration', '64s');
+  const nodes = parseNetworkNodes(html);
+  const links = parseNetworkLinks(html);
+
+  const networkLines = links.map((link, index) => {
+    const a = nodes[link.from];
+    const b = nodes[link.to];
+    if (!a || !b) return '';
+    return `<line class="networkLine" x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" opacity="0.08"><animate attributeName="opacity" values="0.04;0.38;0.08;0.32;0.04" dur="${link.duration}" begin="${link.delay}" repeatCount="indefinite"/></line>`;
+  }).join('\n');
+
+  const networkNodes = nodes.map((node, index) => `<circle class="networkNode" cx="${node.x}" cy="${node.y}" r="3.2" opacity="0.85">
+  <animate attributeName="cx" values="${node.x};${node.x + node.dx};${node.x - node.dx * 0.45};${node.x}" dur="${node.duration}" repeatCount="indefinite"/>
+  <animate attributeName="cy" values="${node.y};${node.y + node.dy};${node.y - node.dy * 0.45};${node.y}" dur="${node.duration}" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.45;0.9;0.62;0.85;0.45" dur="${index % 2 ? '19s' : '23s'}" repeatCount="indefinite"/>
+</circle>`).join('\n');
 
   return svgShell(width, height, `<rect width="${width}" height="${height}" rx="22" fill="url(#bg)"/>
 <rect width="${width}" height="${height}" rx="22" fill="url(#blueGlow)"/>
 <rect width="${width}" height="${height}" rx="22" fill="url(#orangeGlow)"/>
 <rect x="0.5" y="0.5" width="${width - 1}" height="${height - 1}" rx="22" fill="none" stroke="rgba(232,131,74,.16)"/>
 <g opacity="0.22">${Array.from({ length: Math.ceil(width / 52) + 1 }, (_, i) => `<path d="M${i * 52} 0V${height}" stroke="${C.cyan}" opacity=".08"/>`).join('')}${Array.from({ length: Math.ceil(height / 52) + 1 }, (_, i) => `<path d="M0 ${i * 52}H${width}" stroke="${C.cyan}" opacity=".08"/>`).join('')}</g>
-<g transform="translate(770 62) rotate(-18 195 130)"><ellipse cx="195" cy="130" rx="195" ry="130" fill="none" stroke="rgba(76,141,255,.28)" stroke-width="1.4"/><ellipse cx="195" cy="130" rx="152" ry="96" fill="none" stroke="rgba(111,211,255,.22)"/><ellipse cx="195" cy="130" rx="220" ry="70" fill="none" stroke="rgba(232,131,74,.32)" transform="rotate(-38 195 130)"/></g>
-<circle cx="900" cy="132" r="4" fill="${C.orange}" filter="url(#orangeBlur)"/><circle cx="1106" cy="144" r="4" fill="${C.orange}" filter="url(#orangeBlur)"/>
+<g opacity="0.78">
+  <g transform="translate(770 62)">
+    <g transform="rotate(-18 195 130)">
+      <ellipse cx="195" cy="130" rx="195" ry="130" fill="none" stroke="rgba(76,141,255,.28)" stroke-width="1.4"/>
+      <animateTransform attributeName="transform" type="rotate" values="-18 195 130;-5 195 130;-18 195 130;-31 195 130;-18 195 130" dur="${orbitDuration}" repeatCount="indefinite"/>
+    </g>
+    <g transform="rotate(20 195 130)">
+      <ellipse cx="195" cy="130" rx="152" ry="96" fill="none" stroke="rgba(111,211,255,.22)"/>
+      <animateTransform attributeName="transform" type="rotate" values="20 195 130;35 195 130;20 195 130;8 195 130;20 195 130" dur="78s" repeatCount="indefinite"/>
+    </g>
+    <g transform="rotate(-38 195 130)">
+      <ellipse cx="195" cy="130" rx="220" ry="70" fill="none" stroke="rgba(232,131,74,.30)"/>
+      <animateTransform attributeName="transform" type="rotate" values="-38 195 130;-24 195 130;-38 195 130;-51 195 130;-38 195 130" dur="92s" repeatCount="indefinite"/>
+    </g>
+  </g>
+</g>
+<g>${networkLines}\n${networkNodes}</g>
 <g class="ui">
   <text x="44" y="78" class="eyebrow">${escapeXml(eyebrow)}</text>
   <text x="44" y="152" class="heroTitle">${titleLines.map((line, index) => `<tspan x="44"${index ? ' dy="60"' : ''}>${escapeXml(line)}</tspan>`).join('')}</text>
@@ -170,6 +239,21 @@ function activeProjectsToSvg(html, width, height) {
 ${projects.map(card).join('\n')}`);
 }
 
+function sectionDividerToSvg(html, width, height) {
+  const duration = readRootAttr(html, 'data-duration', '22s');
+  const centerY = Math.round(height / 2);
+  const left = 64;
+  const right = width - 64;
+  const mid = Math.round(width / 2);
+  return svgShell(width, height, `<rect width="${width}" height="${height}" fill="transparent"/>
+<rect x="${left}" y="${centerY - 1}" width="${right - left}" height="2" rx="1" fill="url(#dividerLine)" filter="url(#softGlow)"/>
+<circle cx="${left}" cy="${centerY}" r="2.2" fill="${C.orange}" filter="url(#orangeBlur)" opacity="0.35">
+  <animate attributeName="cx" values="${left};${mid};${right};${mid};${left}" dur="${duration}" repeatCount="indefinite"/>
+  <animate attributeName="r" values="2.1;4.2;2.1;4.2;2.1" dur="${duration}" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0.20;0.95;0.20;0.95;0.20" dur="${duration}" repeatCount="indefinite"/>
+</circle>`);
+}
+
 function htmlToSvg(name, html, fallbackWidth = 1200, fallbackHeight = 320) {
   validateHtml(name, html);
 
@@ -181,6 +265,7 @@ function htmlToSvg(name, html, fallbackWidth = 1200, fallbackHeight = 320) {
 
   if (name === 'hero-banner') return heroToSvg(html, width, height);
   if (name === 'active-projects-card') return activeProjectsToSvg(html, width, height);
+  if (name === 'section-divider') return sectionDividerToSvg(html, width, height);
   fail(`No renderer exists for ${name}.`);
 }
 
@@ -188,7 +273,7 @@ function validateSvg(name, svg) {
   if (!svg.startsWith('<svg ')) fail(`${name}.svg did not render as SVG.`);
   if (svg.includes('<foreignObject')) fail(`${name}.svg must be pure SVG, not foreignObject HTML.`);
   if (!svg.includes('</svg>')) fail(`${name}.svg is missing the closing SVG tag.`);
-  if (!svg.includes('<text ')) fail(`${name}.svg is missing rendered text.`);
+  if (name !== 'section-divider' && !svg.includes('<text ')) fail(`${name}.svg is missing rendered text.`);
 }
 
 function selectedAssets() {
