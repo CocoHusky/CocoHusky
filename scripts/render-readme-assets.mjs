@@ -12,7 +12,7 @@ const svgPath = path.join(outputDir, 'profile-card.svg');
 const archivedPngPath = path.join(outputDir, 'profile-card.png');
 
 const WIDTH = 1200;
-const HEIGHT = 900;
+const HEIGHT = 700;
 
 const palette = {
   navy: '#0d1117',
@@ -20,14 +20,14 @@ const palette = {
   navy3: '#21262d',
   border: '#30363d',
   accent: '#3b82f6',
-  accentDim: '#1d4ed8',
+  orange: '#e8834a',
+  orangeSoft: '#211812',
   teal: '#14b8a6',
-  coral: '#f97316',
   text: '#e6edf3',
   text2: '#8b949e',
   text3: '#6e7681',
   green: '#22c55e',
-  amber: '#f97316'
+  amber: '#e8834a'
 };
 
 function esc(value = '') {
@@ -42,6 +42,33 @@ function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
 }
 
+function truncate(value, max = 64) {
+  const text = String(value ?? '');
+  return text.length > max ? `${text.slice(0, max - 1)}…` : text;
+}
+
+function wrapWords(value, max = 58, maxLines = 2) {
+  const words = String(value ?? '').split(/\s+/).filter(Boolean);
+  const lines = [];
+  let line = '';
+
+  for (const word of words) {
+    const next = line ? `${line} ${word}` : word;
+    if (next.length > max && line) {
+      lines.push(line);
+      line = word;
+    } else {
+      line = next;
+    }
+  }
+  if (line) lines.push(line);
+
+  return lines.slice(0, maxLines).map((line, index, visible) => {
+    if (index === maxLines - 1 && visible.length < lines.length) return truncate(line, max - 1);
+    return line;
+  });
+}
+
 function monthWindows(count = 12, now = new Date()) {
   const formatter = new Intl.DateTimeFormat('en-US', { month: 'short', timeZone: 'UTC' });
   const windows = [];
@@ -51,12 +78,7 @@ function monthWindows(count = 12, now = new Date()) {
   for (let i = 0; i < count; i += 1) {
     const start = new Date(Date.UTC(cursor.getUTCFullYear(), cursor.getUTCMonth(), 1));
     const end = new Date(Date.UTC(cursor.getUTCFullYear(), cursor.getUTCMonth() + 1, 1));
-    windows.push({
-      label: formatter.format(start),
-      start,
-      end,
-      count: 0
-    });
+    windows.push({ label: formatter.format(start), start, end, count: 0 });
     cursor.setUTCMonth(cursor.getUTCMonth() + 1);
   }
   return windows;
@@ -76,15 +98,10 @@ async function githubJson(url) {
     Accept: 'application/vnd.github+json',
     'X-GitHub-Api-Version': '2022-11-28'
   };
-
-  if (process.env.GITHUB_TOKEN) {
-    headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
-  }
+  if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
 
   const response = await fetch(url, { headers });
-  if (!response.ok) {
-    throw new Error(`GitHub API ${response.status}: ${url}`);
-  }
+  if (!response.ok) throw new Error(`GitHub API ${response.status}: ${url}`);
   return response.json();
 }
 
@@ -100,8 +117,7 @@ async function fetchCommitData(config) {
 
     while (page <= 5) {
       const query = encodeURIComponent(`author:${username} committer-date:>=${since}`);
-      const url = `https://api.github.com/search/commits?q=${query}&per_page=100&page=${page}`;
-      const data = await githubJson(url);
+      const data = await githubJson(`https://api.github.com/search/commits?q=${query}&per_page=100&page=${page}`);
       const items = data.items ?? [];
 
       for (const item of items) {
@@ -121,8 +137,7 @@ async function fetchCommitData(config) {
     }
 
     const counts = windows.map((window) => window.count);
-    const hasActivity = counts.some((count) => count > 0);
-    if (!hasActivity) return fallbackCommits(config);
+    if (!counts.some((count) => count > 0)) return fallbackCommits(config);
 
     const activeRepos = [...repoCounts.entries()]
       .sort((a, b) => b[1] - a[1])
@@ -201,13 +216,11 @@ async function fetchDomainData(config) {
     }
 
     const max = Math.max(...Object.values(totals), 1);
-    const dynamic = fallback.map((domain) => {
+    return fallback.map((domain) => {
       const score = totals[domain.label] ?? 0;
-      const value = score > 0 ? clamp(Math.round((score / max) * 90), 25, 90) : domain.value;
+      const value = score > 0 ? clamp(Math.round((score / max) * 88), 22, 88) : domain.value;
       return { ...domain, value };
     });
-
-    return dynamic;
   } catch (error) {
     console.warn(`Using fallback domain data: ${error.message}`);
     return fallback;
@@ -218,154 +231,137 @@ function text(x, y, content, className, extra = '') {
   return `<text x="${x}" y="${y}" class="${className}"${extra}>${esc(content)}</text>`;
 }
 
+function tspans(x, y, lines, className, dy = 18) {
+  return `<text x="${x}" y="${y}" class="${className}">${lines
+    .map((line, i) => `<tspan x="${x}"${i ? ` dy="${dy}"` : ''}>${esc(line)}</tspan>`)
+    .join('')}</text>`;
+}
+
 function linkButton(link, x, y, width, type) {
   const primary = link.primary;
-  const stroke = primary ? palette.accent : palette.border;
-  const fill = primary ? 'rgba(59,130,246,0.06)' : palette.navy2;
-  const color = primary ? palette.accent : palette.text;
+  const stroke = primary ? palette.orange : palette.border;
+  const fill = primary ? palette.orangeSoft : palette.navy2;
+  const color = primary ? palette.orange : palette.text;
   const icon = type === 'portfolio'
-    ? `<path d="M24 20v18a4 4 0 0 0 4 4h18a4 4 0 0 0 4-4V27" fill="none" stroke="${color}" stroke-width="2.2" stroke-linecap="round"/><path d="M38 14h16v16" fill="none" stroke="${color}" stroke-width="2.2" stroke-linecap="round"/><path d="M33 35 54 14" fill="none" stroke="${color}" stroke-width="2.2" stroke-linecap="round"/>`
+    ? `<path d="M20 18v18a4 4 0 0 0 4 4h18a4 4 0 0 0 4-4V27" fill="none" stroke="${color}" stroke-width="2.2" stroke-linecap="round"/><path d="M34 14h16v16" fill="none" stroke="${color}" stroke-width="2.2" stroke-linecap="round"/><path d="M29 35 50 14" fill="none" stroke="${color}" stroke-width="2.2" stroke-linecap="round"/>`
     : type === 'linkedin'
-      ? `<rect x="22" y="17" width="25" height="25" rx="2" fill="${color}" opacity="0.95"/><text x="27" y="37" fill="${palette.navy}" font-size="18" font-weight="800" font-family="Arial, sans-serif">in</text>`
-      : `<path d="M20 17h14a8 8 0 0 1 8 8v24a6 6 0 0 0-6-6H20z" fill="none" stroke="${color}" stroke-width="2.2" stroke-linejoin="round"/><path d="M58 17H44a8 8 0 0 0-8 8v24a6 6 0 0 1 6-6h16z" fill="none" stroke="${color}" stroke-width="2.2" stroke-linejoin="round"/>`;
+      ? `<rect x="20" y="16" width="24" height="24" rx="2" fill="${color}" opacity="0.95"/><text x="25" y="35" fill="${palette.navy}" font-size="17" font-weight="800" font-family="Arial, sans-serif">in</text>`
+      : `<path d="M18 17h14a8 8 0 0 1 8 8v22a6 6 0 0 0-6-6H18z" fill="none" stroke="${color}" stroke-width="2.2" stroke-linejoin="round"/><path d="M56 17H42a8 8 0 0 0-8 8v22a6 6 0 0 1 6-6h16z" fill="none" stroke="${color}" stroke-width="2.2" stroke-linejoin="round"/>`;
 
-  return `<a href="${esc(link.url)}" target="_blank">
-    <g transform="translate(${x} ${y})">
-      <rect width="${width}" height="52" rx="8" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
-      <g transform="scale(0.62)">${icon}</g>
-      ${text(56, 33, link.label + (primary ? ' →' : ''), primary ? 'buttonPrimary' : 'button')}
-    </g>
-  </a>`;
+  return `<a href="${esc(link.url)}" target="_blank"><g transform="translate(${x} ${y})">
+    <rect width="${width}" height="48" rx="9" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
+    <g transform="scale(0.58)">${icon}</g>
+    ${text(50, 31, link.label + (primary ? ' →' : ''), primary ? 'buttonPrimary' : 'button')}
+  </g></a>`;
 }
 
 function section(x, y, width, height, title, body) {
   return `<g transform="translate(${x} ${y})">
-    <rect width="${width}" height="${height}" rx="10" fill="${palette.navy2}" stroke="${palette.border}" stroke-width="1.5"/>
-    ${text(32, 46, title, 'sectionLabel')}
+    <rect width="${width}" height="${height}" rx="12" fill="${palette.navy2}" stroke="${palette.border}" stroke-width="1.35"/>
+    ${text(28, 39, title, 'sectionLabel')}
     ${body}
   </g>`;
 }
 
 function renderSkills(skills) {
-  const widths = [186, 230, 214, 178, 190, 226, 214, 168, 164, 228];
-  const positions = [
-    [32, 78], [226, 78], [32, 124], [258, 124], [32, 170], [226, 170], [32, 216], [258, 216], [32, 262], [226, 262]
-  ];
+  const rowH = 38;
+  const colW = 158;
+  const pieces = [];
 
-  return (skills ?? []).slice(0, 10).map((skill, i) => {
-    const [x, y] = positions[i];
+  for (const skill of (skills ?? []).slice(0, 10)) {
+    const label = truncate(skill.label, 22);
+    const width = colW;
+    const col = pieces.length % 2;
+    const row = Math.floor(pieces.length / 2);
+    const x = 28 + col * 168;
+    const y = 68 + row * rowH;
     const tier = skill.tier ?? 'support';
-    const stroke = tier === 'primary' ? 'rgba(59,130,246,0.55)' : tier === 'signal' ? 'rgba(20,184,166,0.55)' : palette.border;
-    const fill = tier === 'primary' ? 'rgba(59,130,246,0.08)' : tier === 'signal' ? 'rgba(20,184,166,0.08)' : palette.navy3;
+    const stroke = tier === 'primary' ? '#315fbd' : tier === 'signal' ? '#187d75' : palette.border;
+    const fill = tier === 'primary' ? '#111d2e' : tier === 'signal' ? '#102420' : palette.navy3;
     const cls = tier === 'primary' ? 'tagPrimary' : tier === 'signal' ? 'tagSignal' : 'tagSupport';
-    return `<g transform="translate(${x} ${y})">
-      <rect width="${widths[i]}" height="34" rx="17" fill="${fill}" stroke="${stroke}" stroke-width="1.4"/>
-      ${text(18, 23, skill.label, cls)}
-    </g>`;
-  }).join('\n');
+    pieces.push(`<g transform="translate(${x} ${y})"><rect width="${width}" height="30" rx="15" fill="${fill}" stroke="${stroke}" stroke-width="1.2"/>${text(16, 21, label, cls)}</g>`);
+  }
+  return pieces.join('\n');
 }
 
 function renderCommitActivity(commitData) {
   const max = Math.max(...commitData.counts, 1);
-  const barWidth = 36;
-  const gap = 8;
-  const bars = commitData.counts.map((count, i) => {
-    const h = clamp(Math.round((count / max) * 108), 16, 108);
-    const x = 32 + i * (barWidth + gap);
-    const y = 154 - h;
-    const fill = h > 74 ? palette.accent : h > 44 ? 'rgba(59,130,246,0.66)' : 'rgba(59,130,246,0.24)';
+  const barWidth = 30;
+  const gap = 9;
+  const bars = commitData.counts.slice(0, 12).map((count, i) => {
+    const h = clamp(Math.round((count / max) * 74), 12, 74);
+    const x = 28 + i * (barWidth + gap);
+    const y = 120 - h;
+    const fill = h > 54 ? palette.accent : h > 32 ? '#31599a' : '#18345a';
     return `<rect x="${x}" y="${y}" width="${barWidth}" height="${h}" rx="3" fill="${fill}"/>`;
   }).join('\n');
 
-  const labels = commitData.labels.map((label, i) => {
-    const x = 50 + i * (barWidth + gap);
-    return text(x, 184, label, 'monthLabel', ' text-anchor="middle"');
-  }).join('\n');
+  const labels = commitData.labels
+    .slice(0, 12)
+    .map((label, i) => text(43 + i * (barWidth + gap), 146, label, 'monthLabel', ' text-anchor="middle"'))
+    .join('\n');
 
-  const repos = (commitData.activeRepos ?? []).slice(0, 3);
-  const repoLine = repos.length ? `Active across ${repos.join(' · ')}` : 'Active across hardware, homelab, and tooling repos';
-  return `${bars}\n${labels}\n${text(32, 230, repoLine, 'monoMuted')}`;
+  const repoLine = `Active: ${(commitData.activeRepos ?? []).slice(0, 3).join(' · ') || 'hardware · infra · tooling'}`;
+  return `${bars}\n${labels}\n${tspans(28, 174, wrapWords(repoLine, 56, 2), 'monoMuted', 18)}`;
 }
 
 function renderDomains(domains) {
   return (domains ?? []).slice(0, 5).map((domain, i) => {
-    const y = 78 + i * 50;
+    const y = 64 + i * 28;
     const fillWidth = clamp(domain.value ?? domain.fallback ?? 50, 0, 100);
-    return `<g transform="translate(32 ${y})">
-      <circle cx="7" cy="7" r="6" fill="${domain.color}"/>
-      ${text(32, 13, domain.label, 'domainLabel')}
-      <rect x="222" y="4" width="100" height="6" rx="3" fill="${palette.navy3}"/>
-      <rect x="222" y="4" width="${fillWidth}" height="6" rx="3" fill="${domain.color}"/>
+    return `<g transform="translate(28 ${y})">
+      <circle cx="6" cy="6" r="5.5" fill="${domain.color}"/>
+      ${text(24, 11, domain.label, 'domainLabel')}
+      <rect x="220" y="2.5" width="96" height="7" rx="3.5" fill="${palette.navy3}"/>
+      <rect x="220" y="2.5" width="${fillWidth}" height="7" rx="3.5" fill="${domain.color}"/>
     </g>`;
   }).join('\n');
 }
 
-function wrapText(value, limit = 60) {
-  const words = String(value).split(/\s+/);
-  const lines = [];
-  let line = '';
-  for (const word of words) {
-    const candidate = line ? `${line} ${word}` : word;
-    if (candidate.length > limit && line) {
-      lines.push(line);
-      line = word;
-    } else {
-      line = candidate;
-    }
-  }
-  if (line) lines.push(line);
-  return lines.slice(0, 2);
-}
-
 function renderBuilding(items) {
   return (items ?? []).slice(0, 3).map((item, i) => {
-    const y = 76 + i * 92;
-    const active = item.status === 'active';
-    const dot = active ? palette.green : palette.amber;
-    const subtitles = wrapText(item.subtitle, 66);
-    const subtitleText = subtitles.map((line, lineIndex) => text(52, 56 + lineIndex * 20, line, 'monoMuted')).join('\n');
-    const divider = i < 2 ? `<line x1="0" y1="${y + 70}" x2="640" y2="${y + 70}" stroke="${palette.border}"/>` : '';
-    return `<g transform="translate(32 ${y})">
-      <circle cx="8" cy="8" r="7" fill="${dot}" opacity="0.28"/>
-      <circle cx="8" cy="8" r="4.5" fill="${dot}"/>
-      ${text(32, 14, item.title, 'buildingTitle')}
-      ${subtitleText}
+    const y = 70 + i * 82;
+    const dot = item.status === 'active' ? palette.green : palette.amber;
+    const subtitleLines = wrapWords(item.subtitle, 58, 2);
+    const divider = i < 2 ? `<line x1="28" y1="${y + 62}" x2="650" y2="${y + 62}" stroke="${palette.border}"/>` : '';
+    return `<g transform="translate(28 ${y})">
+      <circle cx="8" cy="8" r="7" fill="${dot}" opacity="0.24"/>
+      <circle cx="8" cy="8" r="4.3" fill="${dot}"/>
+      ${text(32, 14, truncate(item.title, 52), 'buildingTitle')}
+      ${tspans(32, 39, subtitleLines, 'buildingSub', 17)}
     </g>${divider}`;
   }).join('\n');
 }
 
 function renderSvg(config, commitData, domains) {
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 ${WIDTH} ${HEIGHT}" role="img" aria-label="Alex Burton GitHub profile dashboard">
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 ${WIDTH} ${HEIGHT}" role="img" aria-label="Alex Burton GitHub profile dashboard">
   <defs>
     <style>
       .ui { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
-      .mono { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
-      .button { fill: ${palette.text}; font-size: 22px; font-weight: 650; }
-      .buttonPrimary { fill: ${palette.accent}; font-size: 22px; font-weight: 650; }
-      .sectionLabel { fill: ${palette.text3}; font-size: 17px; font-weight: 760; letter-spacing: 4px; }
-      .tagPrimary { fill: #93c5fd; font-size: 17px; font-weight: 650; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
-      .tagSignal { fill: #5eead4; font-size: 17px; font-weight: 650; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
-      .tagSupport { fill: ${palette.text2}; font-size: 17px; font-weight: 650; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
-      .monthLabel { fill: ${palette.text3}; font-size: 15px; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
-      .monoMuted { fill: ${palette.text3}; font-size: 18px; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
-      .domainLabel { fill: ${palette.text2}; font-size: 20px; font-weight: 600; }
-      .buildingTitle { fill: ${palette.text}; font-size: 22px; font-weight: 750; }
+      .button { fill: ${palette.text}; font-size: 20px; font-weight: 650; }
+      .buttonPrimary { fill: ${palette.orange}; font-size: 20px; font-weight: 750; }
+      .sectionLabel { fill: ${palette.text3}; font-size: 14px; font-weight: 760; letter-spacing: 3.4px; }
+      .tagPrimary { fill: #93c5fd; font-size: 13.5px; font-weight: 650; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+      .tagSignal { fill: #5eead4; font-size: 13.5px; font-weight: 650; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+      .tagSupport { fill: ${palette.text2}; font-size: 13.5px; font-weight: 650; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+      .monthLabel { fill: ${palette.text3}; font-size: 12px; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+      .monoMuted { fill: ${palette.text3}; font-size: 14px; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+      .domainLabel { fill: ${palette.text2}; font-size: 15px; font-weight: 620; }
+      .buildingTitle { fill: ${palette.text}; font-size: 20px; font-weight: 760; }
+      .buildingSub { fill: ${palette.text3}; font-size: 14px; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
     </style>
   </defs>
-
-  <rect width="${WIDTH}" height="${HEIGHT}" fill="${palette.navy}"/>
+  <rect width="${WIDTH}" height="${HEIGHT}" rx="14" fill="${palette.navy}"/>
   <rect x="0.75" y="0.75" width="${WIDTH - 1.5}" height="${HEIGHT - 1.5}" rx="14" fill="none" stroke="${palette.border}" stroke-width="1.5"/>
-
   <g class="ui">
-    ${linkButton(config.links?.[0] ?? { label: 'Portfolio', url: 'https://burtonmakes.github.io/', primary: true }, 54, 58, 190, 'portfolio')}
-    ${linkButton(config.links?.[1] ?? { label: 'LinkedIn', url: '#', primary: false }, 262, 58, 166, 'linkedin')}
-    ${linkButton(config.links?.[2] ?? { label: 'Scholar', url: '#', primary: false }, 446, 58, 156, 'scholar')}
+    ${linkButton(config.links?.[0] ?? { label: 'Portfolio', url: 'https://burtonmakes.github.io/', primary: true }, 54, 42, 190, 'portfolio')}
+    ${linkButton(config.links?.[1] ?? { label: 'LinkedIn', url: '#', primary: false }, 264, 42, 168, 'linkedin')}
+    ${linkButton(config.links?.[2] ?? { label: 'Scholar', url: '#', primary: false }, 452, 42, 158, 'scholar')}
 
-    ${section(54, 168, 534, 302, 'CORE SKILLS', renderSkills(config.skills))}
-    ${section(616, 168, 530, 302, 'COMMIT ACTIVITY — LAST 12 MONTHS', renderCommitActivity(commitData))}
-    ${section(54, 500, 350, 350, 'DOMAIN FOCUS', renderDomains(domains))}
-    ${section(430, 500, 716, 350, 'CURRENTLY BUILDING', renderBuilding(config.building))}
+    ${section(54, 116, 680, 300, 'CURRENTLY BUILDING', renderBuilding(config.building))}
+    ${section(760, 116, 386, 300, 'CORE SKILLS', renderSkills(config.skills))}
+    ${section(54, 442, 535, 200, 'COMMIT ACTIVITY — 12 MONTHS', renderCommitActivity(commitData))}
+    ${section(615, 442, 531, 200, 'DOMAIN FOCUS', renderDomains(domains))}
   </g>
 </svg>`;
 }
