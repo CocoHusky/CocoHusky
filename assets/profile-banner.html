@@ -144,10 +144,21 @@
   .build .title { bottom: 19px; font-size: 23px; letter-spacing: -.02em; }
   .exec .title { bottom: 14px; font-size: 17px; line-height: 1.04; letter-spacing: -.01em; font-weight: 760; }
   .arrow { color: var(--orange); }
+
+  .debug-stamp {
+    position: absolute;
+    right: 24px;
+    bottom: 12px;
+    color: rgba(159, 176, 200, 0.72);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .18em;
+    z-index: 5;
+  }
 </style>
 </head>
 <body>
-  <main class="banner" aria-label="Alex Burton profile banner">
+  <main class="banner" data-iteration="html-v007" aria-label="Alex Burton profile banner">
     <div class="torus"></div>
     <div class="line cyan"></div>
     <div class="line orange"></div>
@@ -170,8 +181,10 @@
     <section class="panel exec">
       <div class="dots"><span class="dot blue"></span><span class="dot cyan"></span><span class="dot orange"></span></div>
       <div class="label">EXECUTION</div>
-      <div class="title">Requirements · risk<br />V&amp;V · FDA docs</div>
+      <div class="title">Risk · V&amp;V<br />FDA docs</div>
     </section>
+
+    <div class="debug-stamp">HTML v007</div>
   </main>
 </body>
 </html>
