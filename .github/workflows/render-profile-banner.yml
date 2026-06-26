@@ -34,9 +34,11 @@ jobs:
       - name: Render banner SVG from editable HTML
         run: node scripts/render-profile-banner.mjs
 
-      - name: Commit rendered banner SVG
+      - name: Commit generated files
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Render profile banner SVG from HTML
-          file_pattern: assets/profile-banner.svg
+          file_pattern: |
+            assets/profile-banner.svg
+            README.md
           status_options: --short
