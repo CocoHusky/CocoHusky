@@ -1,6 +1,6 @@
 <svg width="1200" height="300" viewBox="0 0 1200 300" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
   <title id="title">Alex Burton profile banner</title>
-  <desc id="desc">Dark technical portfolio banner with torus geometry and three recruiter-focused capability windows.</desc>
+  <desc id="desc">Dark technical portfolio banner with torus geometry and three recruiter-focused capability windows. Render stamp: html-v007 · run-14 · 30a1152.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="300" gradientUnits="userSpaceOnUse"><stop stop-color="#010813"/><stop offset="0.56" stop-color="#06101C"/><stop offset="1" stop-color="#071321"/></linearGradient>
     <linearGradient id="cyan" x1="0" y1="96" x2="1130" y2="214" gradientUnits="userSpaceOnUse"><stop stop-color="#4A90E2"/><stop offset="0.48" stop-color="#5BD5F5"/><stop offset="1" stop-color="#3DD6C8"/></linearGradient>
@@ -52,4 +52,6 @@
     <text x="26" y="74" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="760" letter-spacing="-0.2">Risk · V&amp;V</text>
     <text x="26" y="94" fill="#F4F7FB" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="760" letter-spacing="-0.2">FDA docs</text>
   </g>
+
+  <text x="1148" y="286" text-anchor="end" fill="#9FB0C8" fill-opacity="0.72" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="800" letter-spacing="2">html-v007 · run-14 · 30a1152</text>
 </svg>
