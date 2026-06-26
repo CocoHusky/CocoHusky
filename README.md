@@ -1,13 +1,15 @@
 <p align="center">
   <a href="https://burtonmakes.github.io">
-    <img src="./assets/hero-banner.svg?v=profile-assets-v5" alt="Alex Burton — medical sensor systems from prototype to real-world study devices" width="100%" />
+    <img src="./assets/hero-banner.svg?v=profile-assets-v6" alt="Alex Burton — medical sensor systems from prototype to real-world study devices" width="100%" />
   </a>
 </p>
 
-<h2 align="center">🧬 Main Page</h2>
+<p align="center">
+  <strong>🧬 Main Page</strong>
+</p>
 
 <p align="center">
-  <img src="./assets/section-divider.svg?v=profile-assets-v5" alt="" width="100%" />
+  <img src="./assets/section-divider.svg?v=profile-assets-v6" alt="" width="100%" />
 </p>
 
 <p align="center">
@@ -18,20 +20,24 @@
   I build across electronics, housings, embedded firmware, applications, data pipelines, and validation so complex sensing ideas become simple, usable systems.
 </p>
 
-<h2 align="center">⚡ Active Projects</h2>
-
 <p align="center">
-  <img src="./assets/section-divider.svg?v=profile-assets-v5" alt="" width="100%" />
+  <strong>⚡ Active Projects</strong>
 </p>
 
 <p align="center">
-  <img src="./assets/active-projects-card.svg?v=profile-assets-v5" alt="Active projects" width="100%" />
+  <img src="./assets/section-divider.svg?v=profile-assets-v6" alt="" width="100%" />
 </p>
 
-<h2 align="center">📊 GitHub Details</h2>
+<p align="center">
+  <img src="./assets/active-projects-card.svg?v=profile-assets-v6" alt="Active projects" width="100%" />
+</p>
 
 <p align="center">
-  <img src="./assets/section-divider.svg?v=profile-assets-v5" alt="" width="100%" />
+  <strong>📊 GitHub Details</strong>
+</p>
+
+<p align="center">
+  <img src="./assets/section-divider.svg?v=profile-assets-v6" alt="" width="100%" />
 </p>
 
 <div align="center">
@@ -39,10 +45,12 @@
   <img height="180em" src="https://pszostak-stats.vercel.app/api/top-langs/?username=CocoHusky&layout=compact&theme=tokyonight&hide_border=true&bg_color=0d1117&title_color=e8834a&text_color=ffffff&langs_count=6&border_radius=18" alt="Top Languages" />
 </div>
 
-<h2 align="center">🔗 Links</h2>
+<p align="center">
+  <strong>🔗 Links</strong>
+</p>
 
 <p align="center">
-  <img src="./assets/section-divider.svg?v=profile-assets-v5" alt="" width="100%" />
+  <img src="./assets/section-divider.svg?v=profile-assets-v6" alt="" width="100%" />
 </p>
 
 <div align="center">
