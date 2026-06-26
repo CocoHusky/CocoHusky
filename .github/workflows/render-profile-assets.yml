@@ -29,8 +29,78 @@ permissions:
   contents: write
 
 jobs:
-  render:
-    name: Render HTML profile assets to SVG
+  build:
+    name: Build / ${{ matrix.asset }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        asset:
+          - hero-banner
+          - active-projects-card
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build SVG from HTML
+        run: npm run build:profile-asset -- --asset "${{ matrix.asset }}" --out dist/profile-assets
+
+      - name: Upload built SVG
+        uses: actions/upload-artifact@v4
+        with:
+          name: svg-${{ matrix.asset }}
+          path: dist/profile-assets/${{ matrix.asset }}.svg
+          if-no-files-found: error
+
+  test:
+    name: Test / ${{ matrix.asset }}
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        asset:
+          - hero-banner
+          - active-projects-card
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Download built SVG
+        uses: actions/download-artifact@v4
+        with:
+          name: svg-${{ matrix.asset }}
+          path: dist/profile-assets
+
+      - name: Validate HTML source
+        run: npm run test:profile-asset -- --asset "${{ matrix.asset }}"
+
+      - name: Validate generated SVG artifact
+        shell: bash
+        run: |
+          test -s "dist/profile-assets/${{ matrix.asset }}.svg"
+          grep -q '<svg ' "dist/profile-assets/${{ matrix.asset }}.svg"
+          grep -q '<foreignObject ' "dist/profile-assets/${{ matrix.asset }}.svg"
+          grep -q '</svg>' "dist/profile-assets/${{ matrix.asset }}.svg"
+
+  publish:
+    name: Publish generated SVG assets
+    needs: test
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -40,32 +110,23 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Node
-        uses: actions/setup-node@v4
+      - name: Download all built SVGs
+        uses: actions/download-artifact@v4
         with:
-          node-version: 22
-
-      - name: Render HTML assets to SVG
-        run: npm run render:readme-assets
-
-      - name: Upload rendered asset preview
-        uses: actions/upload-artifact@v4
-        with:
-          name: profile-readme-assets
-          path: |
-            assets/hero-banner.svg
-            assets/active-projects-card.svg
+          pattern: svg-*
+          path: assets
+          merge-multiple: true
 
       - name: Commit generated SVG assets
-        if: github.event_name != 'pull_request'
         shell: bash
         run: |
-          if [[ -n "$(git status --porcelain assets/hero-banner.svg assets/active-projects-card.svg)" ]]; then
+          git rm -f --ignore-unmatch assets/profile-card.svg assets/profile-card.png assets/github-stats-card.svg assets/activity-card.svg assets/cta-portfolio.svg assets/cta-linkedin.svg assets/cta-scholar.svg
+          if [[ -n "$(git status --porcelain assets)" ]]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git pull --rebase --autostash origin "${GITHUB_REF_NAME:-main}"
             git add assets/hero-banner.svg assets/active-projects-card.svg
-            git commit -m "chore: render HTML profile assets to SVG [skip ci]"
+            git commit -m "chore: publish generated profile SVG assets [skip ci]"
             git push
           else
             echo "No generated SVG asset changes to commit."
