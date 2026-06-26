@@ -3,6 +3,7 @@ import { resolve } from 'node:path';
 
 const htmlPath = resolve('assets/profile-banner.html');
 const outputPath = resolve('assets/profile-banner.svg');
+const readmePath = resolve('README.md');
 
 try {
   await unlink(outputPath);
@@ -47,6 +48,7 @@ const focusText = textFor('focus', 'Novel sensors →\nclinical devices');
 const buildText = textFor('build', 'Miniature medical systems');
 const execText = textFor('exec', 'Risk · V&V\nFDA docs');
 const htmlIteration = attrFor('data-iteration', 'html-v000');
+const cacheKey = `${htmlIteration}-${process.env.GITHUB_RUN_NUMBER || 'local'}`;
 
 const [focusLine1 = 'Novel sensors →', focusLine2 = 'clinical devices'] = focusText.split('\n');
 const [execLine1 = 'Risk · V&V', execLine2 = 'FDA docs'] = execText.split('\n');
@@ -108,6 +110,10 @@ const svg = `<svg width="1200" height="300" viewBox="0 0 1200 300" fill="none" x
 </svg>
 `;
 
+const readme = `<img src="./assets/profile-banner.svg?v=${cacheKey}" alt="Alex Burton biomedical sensing systems banner" width="100%" />\n`;
+
 await writeFile(outputPath, svg);
+await writeFile(readmePath, readme);
 console.log(`Rendered ${outputPath}`);
+console.log(`Updated README.md with cache key: ${cacheKey}`);
 console.log(`HTML source iteration: ${htmlIteration}`);
