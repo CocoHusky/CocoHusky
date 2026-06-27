@@ -1,4 +1,4 @@
-name: Render profile SVG assets
+name: Validate profile SVG assets
 
 on:
   workflow_dispatch:
@@ -6,23 +6,19 @@ on:
     branches:
       - main
     paths:
-      - assets-src/*.svg
-      - config/svg-tokens.json
-      - scripts/build-svg-assets.mjs
+      - assets/*.svg
       - .github/workflows/render-profile-assets.yml
       - README.md
   pull_request:
     branches:
       - main
     paths:
-      - assets-src/*.svg
-      - config/svg-tokens.json
-      - scripts/build-svg-assets.mjs
+      - assets/*.svg
       - .github/workflows/render-profile-assets.yml
       - README.md
 
 concurrency:
-  group: render-profile-svg-assets-${{ github.ref }}
+  group: validate-profile-svg-assets-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
@@ -30,7 +26,7 @@ permissions:
 
 jobs:
   validate:
-    name: Validate SVG sources
+    name: Validate SVG assets
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -38,45 +34,27 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Normalize hero title size
-        shell: bash
-        run: |
-          node - <<'NODE'
-          import { readFileSync, writeFileSync } from 'node:fs';
-          const file = 'assets-src/hero-banner.svg';
-          let svg = readFileSync(file, 'utf8');
-          svg = svg.replace('font-size:43px', 'font-size:49px');
-          svg = svg.replace('letter-spacing:-1.8px', 'letter-spacing:-2.1px');
-          svg = svg.replace('y="96" class="heroTitle"', 'y="104" class="heroTitle"');
-          svg = svg.replace('y="144" class="heroTitle"', 'y="158" class="heroTitle"');
-          writeFileSync(file, svg);
-          NODE
-
-      - name: Build SVG assets for validation
-        run: node scripts/build-svg-assets.mjs
-
-      - name: Validate SVG sources and generated assets
+      - name: Validate SVG files
         shell: bash
         run: |
           set -euo pipefail
-          for file in assets-src/hero-banner.svg assets-src/active-projects-card.svg assets-src/section-divider.svg assets/hero-banner.svg assets/active-projects-card.svg assets/section-divider.svg; do
+          for file in assets/hero-banner.svg assets/active-projects-card.svg assets/section-divider.svg; do
             test -s "$file"
             grep -q '<svg' "$file"
             grep -q '</svg>' "$file"
             grep -q 'xmlns="http://www.w3.org/2000/svg"' "$file"
             if grep -q '{{' "$file"; then
-              echo "::error file=$file::Unresolved template token remains."
+              echo "::error file=$file::Template token remains in final SVG."
+              exit 1
+            fi
+            if grep -qi '<foreignObject' "$file"; then
+              echo "::error file=$file::foreignObject is not allowed in README SVG assets."
               exit 1
             fi
           done
 
   build:
-    name: Build SVG assets
+    name: Build SVG artifact
     needs: validate
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -85,37 +63,24 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Normalize hero title size
+      - name: Stage SVG artifact files
         shell: bash
         run: |
-          node - <<'NODE'
-          import { readFileSync, writeFileSync } from 'node:fs';
-          const file = 'assets-src/hero-banner.svg';
-          let svg = readFileSync(file, 'utf8');
-          svg = svg.replace('font-size:43px', 'font-size:49px');
-          svg = svg.replace('letter-spacing:-1.8px', 'letter-spacing:-2.1px');
-          svg = svg.replace('y="96" class="heroTitle"', 'y="104" class="heroTitle"');
-          svg = svg.replace('y="144" class="heroTitle"', 'y="158" class="heroTitle"');
-          writeFileSync(file, svg);
-          NODE
+          set -euo pipefail
+          mkdir -p profile-svg-assets
+          cp assets/hero-banner.svg profile-svg-assets/
+          cp assets/active-projects-card.svg profile-svg-assets/
+          cp assets/section-divider.svg profile-svg-assets/
 
-      - name: Build self-contained SVG assets
-        run: node scripts/build-svg-assets.mjs
-
-      - name: Upload built SVG assets
+      - name: Upload SVG artifacts
         uses: actions/upload-artifact@v4
         with:
           name: profile-svg-assets
-          path: assets/*.svg
+          path: profile-svg-assets/*.svg
           if-no-files-found: error
 
   publish:
-    name: Publish SVG assets
+    name: Publish check
     needs: build
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
@@ -124,46 +89,15 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Download built SVG assets
-        uses: actions/download-artifact@v4
-        with:
-          name: profile-svg-assets
-          path: built-assets
-
-      - name: Normalize source and publish generated SVGs
+      - name: Confirm README uses SVG assets
         shell: bash
         run: |
           set -euo pipefail
-          node - <<'NODE'
-          import { readFileSync, writeFileSync } from 'node:fs';
-          const file = 'assets-src/hero-banner.svg';
-          let svg = readFileSync(file, 'utf8');
-          svg = svg.replace('font-size:43px', 'font-size:49px');
-          svg = svg.replace('letter-spacing:-1.8px', 'letter-spacing:-2.1px');
-          svg = svg.replace('y="96" class="heroTitle"', 'y="104" class="heroTitle"');
-          svg = svg.replace('y="144" class="heroTitle"', 'y="158" class="heroTitle"');
-          writeFileSync(file, svg);
-          NODE
-          mkdir -p assets
-          cp built-assets/*.svg assets/
-          for file in assets/hero-banner.svg assets/active-projects-card.svg assets/section-divider.svg; do
-            test -s "$file"
-            grep -q '<svg' "$file"
-            grep -q '</svg>' "$file"
-          done
-
-      - name: Commit published SVG assets
-        shell: bash
-        run: |
-          git add assets-src/hero-banner.svg assets/hero-banner.svg assets/active-projects-card.svg assets/section-divider.svg
-          if [[ -n "$(git status --porcelain assets assets-src/hero-banner.svg)" ]]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git commit -m "chore: publish larger hero SVG assets [skip ci]"
-            git push
-          else
-            echo "No generated SVG asset changes to commit."
+          grep -q './assets/hero-banner.svg' README.md
+          grep -q './assets/active-projects-card.svg' README.md
+          grep -q './assets/section-divider.svg' README.md
+          if grep -q './assets/.*\.png' README.md || grep -q './assets/.*\.gif' README.md; then
+            echo "::error file=README.md::README should only reference SVG profile assets."
+            exit 1
           fi
