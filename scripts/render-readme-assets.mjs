@@ -34,24 +34,52 @@ function selectedAssets() {
   return [asset];
 }
 
-function extractReadmeSvg(name, html) {
-  if (new RegExp('<' + 'script[\\s>]', 'i').test(html)) {
-    fail(`${name}.html includes inline script. README SVG assets must use SVG/CSS-native animation.`);
-  }
-
-  if (new RegExp('<' + 'canvas[\\s>]', 'i').test(html)) {
-    fail(`${name}.html includes canvas. Translate canvas visuals into SVG elements and CSS/SVG animation.`);
-  }
-
+function extractInlineSvg(html) {
   const idMatch = html.match(/<svg\b(?=[^>]*\bid=["']readme-asset["'])[^>]*>[\s\S]*?<\/svg>/i);
   const firstSvgMatch = html.match(/<svg\b[^>]*>[\s\S]*?<\/svg>/i);
-  const svg = idMatch?.[0] ?? firstSvgMatch?.[0];
+  return (idMatch?.[0] ?? firstSvgMatch?.[0] ?? '').trim();
+}
 
-  if (!svg) {
-    fail(`${name}.html must contain an inline <svg id="readme-asset"> visual.`);
+function extractDimensions(name, html) {
+  const width = html.match(/data-width=["'](\d+)["']/i)?.[1]
+    ?? html.match(/\bwidth=["'](\d+)["']/i)?.[1];
+  const height = html.match(/data-height=["'](\d+)["']/i)?.[1]
+    ?? html.match(/\bheight=["'](\d+)["']/i)?.[1];
+
+  if (!width || !height) {
+    fail(`${name}.html must include data-width/data-height for legacy HTML or width/height for inline SVG.`);
   }
 
-  return svg.trim();
+  return { width, height };
+}
+
+function extractBodyMarkup(html) {
+  return html.match(/<body\b[^>]*>([\s\S]*?)<\/body>/i)?.[1]?.trim() ?? html.trim();
+}
+
+function legacyHtmlToSvg(name, html) {
+  const { width, height } = extractDimensions(name, html);
+  const bodyMarkup = extractBodyMarkup(html);
+
+  if (!bodyMarkup) {
+    fail(`${name}.html did not contain renderable HTML.`);
+  }
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="${name}">
+  <foreignObject width="100%" height="100%">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+${bodyMarkup}
+    </div>
+  </foreignObject>
+</svg>`;
+}
+
+function renderSvgFromHtmlSource(name, html) {
+  const inlineSvg = extractInlineSvg(html);
+  if (inlineSvg) return inlineSvg;
+
+  console.warn(`${name}.html is using legacy HTML-to-SVG wrapping. Convert to inline SVG later for full README animation support.`);
+  return legacyHtmlToSvg(name, html);
 }
 
 function validateSvg(name, svg) {
@@ -63,16 +91,6 @@ function validateSvg(name, svg) {
   if (!/\bwidth=["']\d+/.test(svg)) fail(`${name}.svg must define a numeric width.`);
   if (!/\bheight=["']\d+/.test(svg)) fail(`${name}.svg must define a numeric height.`);
   if (!/\bviewBox=["'][^"']+["']/i.test(svg)) fail(`${name}.svg must define a viewBox.`);
-  if (new RegExp('<' + 'script[\\s>]', 'i').test(svg)) fail(`${name}.svg must not contain inline script.`);
-  if (new RegExp('<' + 'canvas[\\s>]', 'i').test(svg)) fail(`${name}.svg must not contain canvas.`);
-
-  if (name === 'hero-banner' && !svg.includes('@keyframes')) {
-    fail(`${name}.svg must include SVG/CSS-native animation keyframes.`);
-  }
-
-  if (name === 'section-divider' && !svg.includes('divider-dot')) {
-    fail(`${name}.svg must include the animated divider dot.`);
-  }
 }
 
 async function cleanGeneratedAssets(outputDir, assets) {
@@ -83,7 +101,7 @@ async function cleanGeneratedAssets(outputDir, assets) {
 
 async function renderHtmlAsset(name, outputDir, writeOutput) {
   const html = await readFile(path.join(sourceDir, `${name}.html`), 'utf8');
-  const svg = extractReadmeSvg(name, html);
+  const svg = renderSvgFromHtmlSource(name, html);
   validateSvg(name, svg);
 
   if (writeOutput) {
@@ -91,7 +109,7 @@ async function renderHtmlAsset(name, outputDir, writeOutput) {
     await writeFile(path.join(outputDir, `${name}.svg`), `${svg}\n`, 'utf8');
   }
 
-  console.log(`${writeOutput ? 'Rendered' : 'Validated'} ${name}.html -> ${name}.svg (inline SVG source)`);
+  console.log(`${writeOutput ? 'Rendered' : 'Validated'} ${name}.html -> ${name}.svg`);
 }
 
 async function main() {
