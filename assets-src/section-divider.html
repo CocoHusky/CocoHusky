@@ -1,63 +1,62 @@
-<section class="asset section-divider" data-width="640" data-height="36" data-duration="5.8s">
-  <style>
-    .section-divider {
-      position: relative;
-      width: 640px;
-      height: 36px;
-      box-sizing: border-box;
-      overflow: hidden;
-      background: transparent;
-    }
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Animated section divider</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #010409; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+  svg { max-width: 100%; height: auto; display: block; }
+</style>
+</head>
+<body>
+<svg id="readme-asset" xmlns="http://www.w3.org/2000/svg" width="640" height="36" viewBox="0 0 640 36" role="img" aria-labelledby="title">
+  <title id="title">Animated orange section divider</title>
+  <defs>
+    <linearGradient id="divider-line-gradient" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#e8834a" stop-opacity="0" />
+      <stop offset="11%" stop-color="#e8834a" stop-opacity="0.28" />
+      <stop offset="50%" stop-color="#e8834a" stop-opacity="0.82" />
+      <stop offset="89%" stop-color="#e8834a" stop-opacity="0.28" />
+      <stop offset="100%" stop-color="#e8834a" stop-opacity="0" />
+    </linearGradient>
+    <radialGradient id="divider-glow-gradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e8834a" stop-opacity="0.28" />
+      <stop offset="42%" stop-color="#e8834a" stop-opacity="0.12" />
+      <stop offset="72%" stop-color="#e8834a" stop-opacity="0" />
+    </radialGradient>
+    <filter id="divider-soft-glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <style><![CDATA[
+      .divider-glow {
+        animation: divider-pulse 4.8s ease-in-out infinite alternate;
+        transform-box: fill-box;
+        transform-origin: center;
+      }
+      .divider-dot {
+        animation: divider-scan 5.8s ease-in-out infinite alternate;
+        filter: url(#divider-soft-glow);
+      }
+      @keyframes divider-scan {
+        from { transform: translateX(0); opacity: 0.68; }
+        50% { opacity: 1; }
+        to { transform: translateX(566px); opacity: 0.82; }
+      }
+      @keyframes divider-pulse {
+        from { opacity: 0.40; transform: scaleX(0.78); }
+        to { opacity: 0.92; transform: scaleX(1.04); }
+      }
+    ]]></style>
+  </defs>
 
-    .divider-line {
-      position: absolute;
-      left: 32px;
-      right: 32px;
-      top: 17px;
-      height: 2px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, rgba(232,131,74,0) 0%, rgba(232,131,74,0.28) 11%, rgba(232,131,74,0.82) 50%, rgba(232,131,74,0.28) 89%, rgba(232,131,74,0) 100%);
-      box-shadow: 0 0 12px rgba(232,131,74,0.30);
-    }
-
-    .divider-glow {
-      position: absolute;
-      left: 50%;
-      top: 7px;
-      width: 220px;
-      height: 22px;
-      transform: translateX(-50%);
-      border-radius: 999px;
-      background: radial-gradient(circle, rgba(232,131,74,0.28) 0%, rgba(232,131,74,0.12) 42%, transparent 72%);
-      filter: blur(5px);
-      animation: divider-pulse 4.8s ease-in-out infinite alternate;
-    }
-
-    .divider-dot {
-      position: absolute;
-      top: 12px;
-      left: 32px;
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: #ffb26d;
-      box-shadow: 0 0 12px rgba(255,178,109,0.88), 0 0 24px rgba(232,131,74,0.46);
-      animation: divider-scan 5.8s ease-in-out infinite alternate;
-    }
-
-    @keyframes divider-scan {
-      from { transform: translateX(0); opacity: 0.68; }
-      50% { opacity: 1; }
-      to { transform: translateX(566px); opacity: 0.82; }
-    }
-
-    @keyframes divider-pulse {
-      from { opacity: 0.40; transform: translateX(-50%) scaleX(0.78); }
-      to { opacity: 0.92; transform: translateX(-50%) scaleX(1.04); }
-    }
-  </style>
-
-  <div class="divider-glow" aria-hidden="true"></div>
-  <div class="divider-line" aria-hidden="true"></div>
-  <div class="divider-dot" aria-hidden="true"></div>
-</section>
+  <ellipse class="divider-glow" cx="320" cy="18" rx="110" ry="11" fill="url(#divider-glow-gradient)" />
+  <rect class="divider-line" x="32" y="17" width="576" height="2" rx="1" fill="url(#divider-line-gradient)" />
+  <circle class="divider-dot" cx="37" cy="18" r="5" fill="#ffb26d" />
+</svg>
+</body>
+</html>
