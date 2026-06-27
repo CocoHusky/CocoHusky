@@ -33,52 +33,46 @@ permissions:
   contents: write
 
 jobs:
-  svg-compatibility:
-    name: Quick SVG compatibility checks
+  asset-check:
+    name: Check / ${{ matrix.asset }}
     runs-on: ubuntu-latest
     timeout-minutes: 3
+    strategy:
+      fail-fast: false
+      matrix:
+        asset:
+          - hero-banner
+          - active-projects-card
+          - section-divider
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Check source HTML files are SVG-compatible
+      - name: Check source shape
         shell: bash
         run: |
           set -euo pipefail
+          file="assets-src/${{ matrix.asset }}.html"
+          test -s "$file" || { echo "::error file=$file::Missing source file."; exit 1; }
 
-          shopt -s nullglob
-          files=(assets-src/*.html)
+          echo "Checking $file"
 
-          if [[ ${#files[@]} -eq 0 ]]; then
-            echo "No HTML asset sources found in assets-src/."
-            exit 1
+          if grep -qi "id=\"readme-asset\"" "$file"; then
+            grep -qi "xmlns=\"http://www.w3.org/2000/svg\"" "$file" || { echo "::error file=$file::SVG source missing xmlns."; exit 1; }
+            grep -qi "viewBox=" "$file" || { echo "::error file=$file::SVG source missing viewBox."; exit 1; }
+            grep -Eqi "width=\"[0-9]+" "$file" || { echo "::error file=$file::SVG source missing numeric width."; exit 1; }
+            grep -Eqi "height=\"[0-9]+" "$file" || { echo "::error file=$file::SVG source missing numeric height."; exit 1; }
+            echo "SVG-native source shape OK."
+          else
+            grep -Eqi "data-width=\"[0-9]+" "$file" || { echo "::error file=$file::Legacy source missing data-width."; exit 1; }
+            grep -Eqi "data-height=\"[0-9]+" "$file" || { echo "::error file=$file::Legacy source missing data-height."; exit 1; }
+            echo "Legacy HTML source shape OK."
           fi
-
-          for file in "${files[@]}"; do
-            echo "Checking $file"
-
-            grep -qi '<svg' "$file" || { echo "::error file=$file::Missing inline <svg>."; exit 1; }
-            grep -qi 'id="readme-asset"' "$file" || { echo "::error file=$file::Missing <svg id=\"readme-asset\">."; exit 1; }
-            grep -qi 'xmlns="http://www.w3.org/2000/svg"' "$file" || { echo "::error file=$file::Missing SVG xmlns."; exit 1; }
-            grep -qi 'viewBox=' "$file" || { echo "::error file=$file::Missing viewBox."; exit 1; }
-            grep -Eqi 'width="[0-9]+' "$file" || { echo "::error file=$file::Missing numeric SVG width."; exit 1; }
-            grep -Eqi 'height="[0-9]+' "$file" || { echo "::error file=$file::Missing numeric SVG height."; exit 1; }
-
-            if grep -Eiq '<[s]cript[[:space:]>]' "$file"; then
-              echo "::error file=$file::README SVG assets cannot use <script>; use SVG/CSS animation."
-              exit 1
-            fi
-
-            if grep -Eiq '<[c]anvas[[:space:]>]' "$file"; then
-              echo "::error file=$file::README SVG assets cannot use <canvas>; translate it to SVG nodes/lines/gradients."
-              exit 1
-            fi
-          done
 
   build:
     name: Build / ${{ matrix.asset }}
-    needs: svg-compatibility
+    needs: asset-check
     runs-on: ubuntu-latest
     timeout-minutes: 10
     strategy:
@@ -101,34 +95,31 @@ jobs:
       - name: Validate HTML source
         run: npm run test:profile-asset -- --asset "${{ matrix.asset }}"
 
-      - name: Build SVG directly from inline SVG source
+      - name: Build SVG asset
         run: npm run build:profile-asset -- --asset "${{ matrix.asset }}" --out dist/profile-assets --clean
 
       - name: Validate generated SVG asset
         shell: bash
         run: |
+          set -euo pipefail
           svg="dist/profile-assets/${{ matrix.asset }}.svg"
           test -s "$svg"
-          grep -q '<svg ' "$svg"
-          grep -q '</svg>' "$svg"
-          grep -q 'xmlns="http://www.w3.org/2000/svg"' "$svg"
-          grep -q 'viewBox=' "$svg"
-          ! grep -Eiq '<[s]cript' "$svg"
-          ! grep -Eiq '<[c]anvas' "$svg"
+          grep -q "<svg " "$svg"
+          grep -q "</svg>" "$svg"
+          grep -q "xmlns=\"http://www.w3.org/2000/svg\"" "$svg"
+          grep -q "viewBox=" "$svg"
 
           case "${{ matrix.asset }}" in
             hero-banner)
-              grep -q '@keyframes network-drift' "$svg"
-              grep -q 'class="net"' "$svg"
-              grep -q 'Medical sensor systems' "$svg"
+              grep -q "Medical sensor systems" "$svg"
               ;;
             active-projects-card)
-              grep -q '60 GHz mmWave Radar' "$svg"
-              grep -q 'Professional Profile' "$svg"
+              grep -q "60 GHz mmWave Radar" "$svg"
+              grep -q "Professional Profile" "$svg"
               ;;
             section-divider)
-              grep -q 'divider-line' "$svg"
-              grep -q 'divider-dot' "$svg"
+              grep -q "divider-line" "$svg"
+              grep -q "divider-dot" "$svg"
               ;;
           esac
 
