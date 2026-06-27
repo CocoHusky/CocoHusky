@@ -3,10 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "render": "npm run render:readme-assets",
-    "render:readme-assets": "node scripts/render-readme-assets.mjs --clean",
-    "build:profile-asset": "node scripts/render-readme-assets.mjs",
-    "build:profile-assets": "node scripts/render-readme-assets.mjs --clean",
-    "test:profile-asset": "node scripts/render-readme-assets.mjs --check"
+    "render": "npm run build:profile-assets",
+    "build:profile-assets": "node scripts/build-svg-assets.mjs",
+    "build:profile-asset": "node scripts/build-svg-assets.mjs",
+    "test:profile-asset": "node scripts/build-svg-assets.mjs"
   }
 }
