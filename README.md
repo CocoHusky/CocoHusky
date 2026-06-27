@@ -38,8 +38,8 @@
 </div>
 
 <div align="center">
-  <img height="180em" src="https://pszostak-stats.vercel.app/api?username=CocoHusky&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0d1117&title_color=e8834a&icon_color=e8834a&text_color=ffffff&include_all_commits=true&border_radius=18" alt="GitHub Stats" />
-  <img height="180em" src="https://pszostak-stats.vercel.app/api/top-langs/?username=CocoHusky&layout=compact&theme=tokyonight&hide_border=true&bg_color=0d1117&title_color=e8834a&text_color=ffffff&langs_count=6&border_radius=18" alt="Top Languages" />
+  <img height="180em" src="https://pszostak-stats.vercel.app/api?username=CocoHusky&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0d1117&title_color=e8834a&icon_color=e8834a&text_color=ffffff&include_all_commits=true&count_private=true&cache_seconds=1800&border_radius=18" alt="GitHub Stats" />
+  <img height="180em" src="https://pszostak-stats.vercel.app/api/top-langs/?username=CocoHusky&layout=compact&theme=tokyonight&hide_border=true&bg_color=0d1117&title_color=e8834a&text_color=ffffff&langs_count=6&cache_seconds=1800&border_radius=18" alt="Top Languages" />
 </div>
 
 <br />
