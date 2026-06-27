@@ -25,88 +25,54 @@ const readArg = (name, fallback = null) => {
 const hasArg = (name) => args.includes(name);
 const fail = (message) => { throw new Error(message); };
 
-function readDimension(html, name, fallback) {
-  const dataMatch = html.match(new RegExp(`data-${name}=["'](\\d+)["']`, 'i'));
-  if (dataMatch) return Number(dataMatch[1]);
-
-  const cssMatch = html.match(new RegExp(`${name}:\\s*(\\d+)px`, 'i'));
-  return cssMatch ? Number(cssMatch[1]) : fallback;
-}
-
-function readTitle(html, fallback) {
-  return html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.replace(/\s+/g, ' ').trim()
-    || html.match(/<h[1-3][^>]*>([\s\S]*?)<\/h[1-3]>/i)?.[1]?.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
-    || fallback;
-}
-
-function embeddedMarkup(html) {
-  const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
-
-  if (bodyMatch) {
-    const styles = [...html.matchAll(/<style[^>]*>[\s\S]*?<\/style>/gi)]
-      .map((match) => match[0])
-      .join('\n');
-    return `${styles}\n${bodyMatch[1].trim()}`.trim();
-  }
-
-  return html.replace(/<!doctype[^>]*>/i, '').trim();
-}
-
-function validateHtml(name, html) {
-  if (!/data-width=["']\d+["']/i.test(html)) fail(`${name}.html must define data-width on the visual root.`);
-  if (!/data-height=["']\d+["']/i.test(html)) fail(`${name}.html must define data-height on the visual root.`);
-  if (new RegExp('<' + 'script[\\s>]', 'i').test(html)) {
-    fail(`${name}.html includes inline script, which cannot run reliably when the SVG is embedded in a GitHub README. Use declarative HTML/CSS/SVG animation instead.`);
-  }
-  if (new RegExp('<' + 'canvas[\\s>]', 'i').test(html)) {
-    fail(`${name}.html includes canvas, which cannot be preserved inside a README SVG. Use normal HTML elements, CSS, or inline SVG instead.`);
-  }
-}
-
-function escapeXml(value) {
-  return String(value)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;');
-}
-
-function htmlToSvg(name, html, fallbackWidth = 1200, fallbackHeight = 320) {
-  validateHtml(name, html);
-
-  const width = readDimension(html, 'width', fallbackWidth);
-  const height = readDimension(html, 'height', fallbackHeight);
-  if (!Number.isFinite(width) || width <= 0) fail(`${name}.html has an invalid width.`);
-  if (!Number.isFinite(height) || height <= 0) fail(`${name}.html has an invalid height.`);
-
-  const title = escapeXml(readTitle(html, name));
-  const markup = embeddedMarkup(html);
-
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="title">
-<title id="title">${title}</title>
-<foreignObject x="0" y="0" width="${width}" height="${height}">
-  <div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden;">
-${markup}
-  </div>
-</foreignObject>
-</svg>`;
-}
-
-function validateSvg(name, svg) {
-  if (!svg.startsWith('<svg ')) fail(`${name}.svg did not render as SVG.`);
-  if (!svg.includes('<foreignObject')) fail(`${name}.svg must be direct HTML-driven SVG using foreignObject.`);
-  if (!svg.includes('</foreignObject>')) fail(`${name}.svg is missing the closing foreignObject tag.`);
-  if (!svg.includes('</svg>')) fail(`${name}.svg is missing the closing SVG tag.`);
-  if (new RegExp('<' + 'script[\\s>]', 'i').test(svg)) fail(`${name}.svg must not contain inline script.`);
-  if (new RegExp('<' + 'canvas[\\s>]', 'i').test(svg)) fail(`${name}.svg must not contain canvas.`);
-  if (name === 'hero-banner' && !svg.includes('animation:')) fail(`${name}.svg must include the source HTML/CSS animation.`);
-}
-
 function selectedAssets() {
   const asset = readArg('--asset', 'all');
   if (asset === 'all') return GENERATED_HTML_ASSETS;
-  if (!GENERATED_HTML_ASSETS.includes(asset)) fail(`Unknown asset "${asset}". Valid assets: ${GENERATED_HTML_ASSETS.join(', ')}`);
+  if (!GENERATED_HTML_ASSETS.includes(asset)) {
+    fail(`Unknown asset "${asset}". Valid assets: ${GENERATED_HTML_ASSETS.join(', ')}`);
+  }
   return [asset];
+}
+
+function extractReadmeSvg(name, html) {
+  if (new RegExp('<' + 'script[\\s>]', 'i').test(html)) {
+    fail(`${name}.html includes inline script. README SVG assets must use SVG/CSS-native animation.`);
+  }
+
+  if (new RegExp('<' + 'canvas[\\s>]', 'i').test(html)) {
+    fail(`${name}.html includes canvas. Translate canvas visuals into SVG elements and CSS/SVG animation.`);
+  }
+
+  const idMatch = html.match(/<svg\b(?=[^>]*\bid=["']readme-asset["'])[^>]*>[\s\S]*?<\/svg>/i);
+  const firstSvgMatch = html.match(/<svg\b[^>]*>[\s\S]*?<\/svg>/i);
+  const svg = idMatch?.[0] ?? firstSvgMatch?.[0];
+
+  if (!svg) {
+    fail(`${name}.html must contain an inline <svg id="readme-asset"> visual.`);
+  }
+
+  return svg.trim();
+}
+
+function validateSvg(name, svg) {
+  if (!svg.startsWith('<svg')) fail(`${name}.svg did not render as SVG.`);
+  if (!svg.includes('</svg>')) fail(`${name}.svg is missing the closing SVG tag.`);
+  if (!/\bxmlns=["']http:\/\/www\.w3\.org\/2000\/svg["']/i.test(svg)) {
+    fail(`${name}.svg must include xmlns="http://www.w3.org/2000/svg".`);
+  }
+  if (!/\bwidth=["']\d+/.test(svg)) fail(`${name}.svg must define a numeric width.`);
+  if (!/\bheight=["']\d+/.test(svg)) fail(`${name}.svg must define a numeric height.`);
+  if (!/\bviewBox=["'][^"']+["']/i.test(svg)) fail(`${name}.svg must define a viewBox.`);
+  if (new RegExp('<' + 'script[\\s>]', 'i').test(svg)) fail(`${name}.svg must not contain inline script.`);
+  if (new RegExp('<' + 'canvas[\\s>]', 'i').test(svg)) fail(`${name}.svg must not contain canvas.`);
+
+  if (name === 'hero-banner' && !svg.includes('@keyframes')) {
+    fail(`${name}.svg must include SVG/CSS-native animation keyframes.`);
+  }
+
+  if (name === 'section-divider' && !svg.includes('divider-dot')) {
+    fail(`${name}.svg must include the animated divider dot.`);
+  }
 }
 
 async function cleanGeneratedAssets(outputDir, assets) {
@@ -117,7 +83,7 @@ async function cleanGeneratedAssets(outputDir, assets) {
 
 async function renderHtmlAsset(name, outputDir, writeOutput) {
   const html = await readFile(path.join(sourceDir, `${name}.html`), 'utf8');
-  const svg = htmlToSvg(name, html);
+  const svg = extractReadmeSvg(name, html);
   validateSvg(name, svg);
 
   if (writeOutput) {
@@ -125,7 +91,7 @@ async function renderHtmlAsset(name, outputDir, writeOutput) {
     await writeFile(path.join(outputDir, `${name}.svg`), `${svg}\n`, 'utf8');
   }
 
-  console.log(`${writeOutput ? 'Rendered' : 'Validated'} ${name}.html -> ${name}.svg (HTML-driven foreignObject)`);
+  console.log(`${writeOutput ? 'Rendered' : 'Validated'} ${name}.html -> ${name}.svg (inline SVG source)`);
 }
 
 async function main() {
