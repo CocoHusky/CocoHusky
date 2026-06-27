@@ -11,6 +11,8 @@ on:
       - assets-src/**
       - scripts/render-readme-assets.mjs
       - package.json
+      - package-lock.json
+      - MVP.md
       - .github/workflows/render-profile-assets.yml
       - README.md
   push:
@@ -20,6 +22,8 @@ on:
       - assets-src/**
       - scripts/render-readme-assets.mjs
       - package.json
+      - package-lock.json
+      - MVP.md
       - .github/workflows/render-profile-assets.yml
       - README.md
 
@@ -55,29 +59,30 @@ jobs:
       - name: Validate HTML source
         run: npm run test:profile-asset -- --asset "${{ matrix.asset }}"
 
-      - name: Build SVG directly from HTML source
+      - name: Build SVG directly from inline SVG source
         run: npm run build:profile-asset -- --asset "${{ matrix.asset }}" --out dist/profile-assets --clean
 
-      - name: Validate generated HTML-driven SVG
+      - name: Validate generated SVG asset
         shell: bash
         run: |
           svg="dist/profile-assets/${{ matrix.asset }}.svg"
           test -s "$svg"
           grep -q '<svg ' "$svg"
           grep -q '</svg>' "$svg"
-          grep -q '<foreignObject' "$svg"
-          grep -q 'xmlns="http://www.w3.org/1999/xhtml"' "$svg"
+          grep -q 'xmlns="http://www.w3.org/2000/svg"' "$svg"
+          grep -q 'viewBox=' "$svg"
           ! grep -Eiq '<[s]cript' "$svg"
           ! grep -Eiq '<[c]anvas' "$svg"
 
           case "${{ matrix.asset }}" in
             hero-banner)
-              grep -q '@keyframes drift' "$svg"
+              grep -q '@keyframes network-drift' "$svg"
               grep -q 'class="net"' "$svg"
+              grep -q 'Medical sensor systems' "$svg"
               ;;
             active-projects-card)
-              grep -q 'project-tags' "$svg"
               grep -q '60 GHz mmWave Radar' "$svg"
+              grep -q 'Professional Profile' "$svg"
               ;;
             section-divider)
               grep -q 'divider-line' "$svg"
