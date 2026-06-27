@@ -2,65 +2,6 @@
 <title id="title">Active Projects</title>
 <foreignObject x="0" y="0" width="1200" height="440">
   <div xmlns="http://www.w3.org/1999/xhtml" style="width:1200px;height:440px;overflow:hidden;">
-<style>
-    .active-projects {
-      width: 1200px;
-      height: 440px;
-      box-sizing: border-box;
-      overflow: hidden;
-      border-radius: 22px;
-      border: 1px solid rgba(232, 131, 74, 0.16);
-      background: linear-gradient(135deg, #010409 0%, #06101c 56%, #0d1117 100%);
-      color: #f5f7fb;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-      position: relative;
-    }
-    .asset-header {
-      position: absolute;
-      left: 36px;
-      top: 30px;
-    }
-    .asset-header h2 { margin: 0; font-size: 24px; line-height: 1; font-weight: 800; }
-    .asset-header p {
-      margin: 9px 0 0 0;
-      color: #7e8a9b;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-    }
-    .project-grid {
-      position: absolute;
-      left: 36px;
-      top: 96px;
-      display: grid;
-      grid-template-columns: 350px 350px 350px;
-      gap: 39px;
-    }
-    .project {
-      width: 350px;
-      height: 300px;
-      box-sizing: border-box;
-      padding: 24px;
-      border-radius: 18px;
-      background: rgba(17, 24, 33, 0.78);
-      border: 1px solid rgba(232, 131, 74, 0.18);
-    }
-    .status-row { display: flex; align-items: center; gap: 13px; margin-bottom: 27px; }
-    .dot { width: 10px; height: 10px; border-radius: 999px; background: #22c55e; flex: 0 0 auto; }
-    .dot.orange { background: #e8834a; }
-    .status { color: #7e8a9b; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; }
-    .project h3 { margin: 0; font-size: 21px; line-height: 1.15; font-weight: 760; }
-    .summary {
-      margin: 16px 0 30px 0;
-      color: #ffb26d;
-      font-size: 13.2px;
-      line-height: 1.25;
-      font-weight: 650;
-    }
-    .project ul { list-style: none; margin: 0; padding: 0; color: #d7dfec; font-size: 14.2px; line-height: 1.15; }
-    .project li { margin: 0 0 14px 0; }
-    .project li::before { content: "•"; margin-right: 8px; color: #ffb26d; }
-  </style>
 <section class="asset active-projects" data-width="1200" data-height="440">
   <style>
     .active-projects {
@@ -105,21 +46,34 @@
       background: rgba(17, 24, 33, 0.78);
       border: 1px solid rgba(232, 131, 74, 0.18);
     }
-    .status-row { display: flex; align-items: center; gap: 13px; margin-bottom: 27px; }
+    .status-row { display: flex; align-items: center; gap: 13px; margin-bottom: 20px; }
     .dot { width: 10px; height: 10px; border-radius: 999px; background: #22c55e; flex: 0 0 auto; }
     .dot.orange { background: #e8834a; }
     .status { color: #7e8a9b; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; }
     .project h3 { margin: 0; font-size: 21px; line-height: 1.15; font-weight: 760; }
     .summary {
-      margin: 16px 0 30px 0;
+      margin: 12px 0 20px 0;
       color: #ffb26d;
       font-size: 13.2px;
       line-height: 1.25;
       font-weight: 650;
     }
-    .project ul { list-style: none; margin: 0; padding: 0; color: #d7dfec; font-size: 14.2px; line-height: 1.15; }
-    .project li { margin: 0 0 14px 0; }
-    .project li::before { content: "•"; margin-right: 8px; color: #ffb26d; }
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .tag {
+      display: inline-block;
+      font-size: 11.5px;
+      font-family: ui-monospace, SFMono-Regular, SF Pro Mono, Menlo, Monaco, Consolas, monospace;
+      padding: 4px 8px;
+      background: rgba(1, 4, 9, 0.6);
+      color: #d7dfec;
+      border: 1px solid rgba(232, 131, 74, 0.25);
+      border-radius: 6px;
+      white-space: nowrap;
+    }
   </style>
 
   <header class="asset-header">
@@ -132,38 +86,52 @@
       <div class="status-row"><span class="dot"></span><span class="status">ACTIVE</span></div>
       <h3>60 GHz mmWave Radar</h3>
       <p class="summary">Contactless physiology monitoring</p>
-      <ul>
-        <li>UART radar parser · VisLog API</li>
-        <li>HR · BR · location · movement</li>
-        <li>OTA · Zephyr · GitHub Actions CI/CD</li>
-        <li>ESP32 · nRF52840 · captive setup</li>
-      </ul>
+      <div class="project-tags">
+        <span class="tag">UART parsing</span>
+        <span class="tag">VisLog streaming API</span>
+        <span class="tag">Sensor fusion</span>
+        <span class="tag">Deterministic DSP (HR/BR)</span>
+        <span class="tag">Secure OTA</span>
+        <span class="tag">Zephyr RTOS</span>
+        <span class="tag">HIL CI/CD</span>
+        <span class="tag">ESP32</span>
+        <span class="tag">nRF52840 SoC</span>
+        <span class="tag">Captive layer</span>
+      </div>
     </article>
 
     <article class="project" data-status="FINALIZED" data-dot="orange">
       <div class="status-row"><span class="dot orange"></span><span class="status">FINALIZED</span></div>
       <h3>Home Lab Server</h3>
       <p class="summary">Local-first storage, backups, services, private AI</p>
-      <ul>
-        <li>Proxmox VE · VM/LXC architecture</li>
-        <li>TrueNAS datasets · snapshots · backups</li>
-        <li>Nextcloud · Immich data organization</li>
-        <li>Docker Compose · ClawCode tooling</li>
-        <li>Raspberry Pi services</li>
-      </ul>
+      <div class="project-tags">
+        <span class="tag">Proxmox VE</span>
+        <span class="tag">KVM/LXC multi-tenancy</span>
+        <span class="tag">ZFS pools</span>
+        <span class="tag">Snapshots</span>
+        <span class="tag">Replication</span>
+        <span class="tag">Self-hosted orchestration</span>
+        <span class="tag">Docker Compose</span>
+        <span class="tag">ClawCode toolchain</span>
+      </div>
     </article>
 
     <article class="project" data-status="ACTIVE" data-dot="green">
       <div class="status-row"><span class="dot"></span><span class="status">ACTIVE</span></div>
       <h3>Professional Profile</h3>
       <p class="summary">Recruiter-facing documentation and automation</p>
-      <ul>
-        <li>Astro · HTML/CSS · GitHub Pages</li>
-        <li>GitHub Actions CI/CD · releases</li>
-        <li>README SVG generation · cache busting</li>
-        <li>Plausible/referrer analytics pipeline</li>
-        <li>Portfolio traffic tracking · recruiting UX</li>
-      </ul>
+      <div class="project-tags">
+        <span class="tag">Astro SSG</span>
+        <span class="tag">Semantic DOM</span>
+        <span class="tag">Git-driven lifecycle</span>
+        <span class="tag">CI/CD deployment</span>
+        <span class="tag">Dynamic SVG</span>
+        <span class="tag">HTTP cache tuning</span>
+        <span class="tag">Telemetry infra</span>
+        <span class="tag">Ingestion pipelines</span>
+        <span class="tag">Funnel tracking</span>
+        <span class="tag">Conversion UX</span>
+      </div>
     </article>
   </div>
 </section>
