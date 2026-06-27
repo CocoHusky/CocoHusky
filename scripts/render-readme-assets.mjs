@@ -211,7 +211,7 @@ async function renderHeroWithBrowser(html, width, height) {
   <radialGradient id="orangeGlow"><stop stop-color="${C.orange}" stop-opacity="0.11"/><stop offset="1" stop-color="${C.orange}" stop-opacity="0"/></radialGradient>
   <linearGradient id="textShade" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#010409" stop-opacity="0.98"/><stop offset="0.58" stop-color="#010409" stop-opacity="0.86"/><stop offset="1" stop-color="#010409" stop-opacity="0"/></linearGradient>
   <linearGradient id="accentLine" x1="0" y1="0" x2="0" y2="1"><stop stop-color="${C.orange}" stop-opacity="0"/><stop offset="0.3" stop-color="${C.orange}" stop-opacity="0.55"/><stop offset="0.7" stop-color="#3b82f6" stop-opacity="0.55"/><stop offset="1" stop-color="#3b82f6" stop-opacity="0"/></linearGradient>
-  <style>.heroUi{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,system-ui,sans-serif}.heroEyebrow{fill:${C.orange2};font-size:12px;font-weight:800;letter-spacing:3px}.heroTitle{fill:${C.text};font-size:43px;font-weight:820;letter-spacing:-1.8px}.heroBody{fill:#b6c2d4;font-size:16px;font-weight:450}</style>
+  <style>.heroUi{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,system-ui,sans-serif}.heroEyebrow{fill:${C.orange2};font-size:12px;font-weight:800;letter-spacing:3px}.heroTitle{fill:${C.text};font-size:48px;font-weight:820;letter-spacing:-1.8px}.heroBody{fill:#b6c2d4;font-size:16px;font-weight:450}</style>
 </defs>
 <g clip-path="url(#heroClip)">
   <rect width="${width}" height="${height}" fill="url(#heroBg)"/>
