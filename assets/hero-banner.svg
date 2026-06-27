@@ -1,0 +1,155 @@
+<svg id="readme-asset" xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+  <title id="title">Alex Burton — biomedical engineer building medical sensor systems</title>
+  <desc id="desc">Animated dark hero banner with biomedical sensor systems headline, glowing network nodes, and coral blue accents.</desc>
+
+  <defs>
+    <linearGradient id="hero-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#010409" />
+      <stop offset="56%" stop-color="#06101c" />
+      <stop offset="100%" stop-color="#0d1117" />
+    </linearGradient>
+
+    <linearGradient id="text-shade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#010409" stop-opacity="0.98" />
+      <stop offset="58%" stop-color="#010409" stop-opacity="0.88" />
+      <stop offset="100%" stop-color="#010409" stop-opacity="0" />
+    </linearGradient>
+
+    <linearGradient id="accent-line" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8834a" stop-opacity="0" />
+      <stop offset="30%" stop-color="#e8834a" stop-opacity="0.5" />
+      <stop offset="70%" stop-color="#3b82f6" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0" />
+    </linearGradient>
+
+    <radialGradient id="blue-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.16" />
+      <stop offset="70%" stop-color="#3b82f6" stop-opacity="0" />
+    </radialGradient>
+
+    <radialGradient id="coral-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e8834a" stop-opacity="0.12" />
+      <stop offset="70%" stop-color="#e8834a" stop-opacity="0" />
+    </radialGradient>
+
+    <filter id="soft-glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <style><![CDATA[
+      .hero-text {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      }
+
+      .net {
+        animation: network-drift 8s ease-in-out infinite alternate;
+        transform-box: fill-box;
+        transform-origin: center;
+      }
+
+      .net-slow {
+        animation: network-drift-slow 11s ease-in-out infinite alternate;
+        transform-box: fill-box;
+        transform-origin: center;
+      }
+
+      .node {
+        animation: node-pulse 3.4s ease-in-out infinite alternate;
+        filter: url(#soft-glow);
+        transform-box: fill-box;
+        transform-origin: center;
+      }
+
+      .node.accent {
+        animation-duration: 2.7s;
+      }
+
+      .edge {
+        animation: edge-pulse 4.8s ease-in-out infinite alternate;
+      }
+
+      .scan {
+        animation: scan-line 5.6s ease-in-out infinite alternate;
+      }
+
+      @keyframes network-drift {
+        from { transform: translate(-12px, 8px); opacity: 0.72; }
+        to { transform: translate(18px, -10px); opacity: 1; }
+      }
+
+      @keyframes network-drift-slow {
+        from { transform: translate(14px, -6px); opacity: 0.62; }
+        to { transform: translate(-16px, 12px); opacity: 0.94; }
+      }
+
+      @keyframes node-pulse {
+        from { opacity: 0.48; transform: scale(0.82); }
+        to { opacity: 1; transform: scale(1.18); }
+      }
+
+      @keyframes edge-pulse {
+        from { opacity: 0.22; stroke-width: 0.65; }
+        to { opacity: 0.72; stroke-width: 1.15; }
+      }
+
+      @keyframes scan-line {
+        from { transform: translateY(-14px); opacity: 0.3; }
+        to { transform: translateY(18px); opacity: 0.8; }
+      }
+    ]]></style>
+  </defs>
+
+  <rect x="0.5" y="0.5" width="1199" height="359" rx="22" fill="url(#hero-bg)" stroke="#e8834a" stroke-opacity="0.16" />
+  <circle cx="1130" cy="-5" r="230" fill="url(#blue-glow)" />
+  <circle cx="190" cy="345" r="190" fill="url(#coral-glow)" />
+  <rect x="0" y="0" width="815" height="360" fill="url(#text-shade)" />
+
+  <g class="net-slow" stroke="#3b82f6" stroke-linecap="round" fill="none">
+    <path class="edge" d="M720 70 L810 118 L920 92 L1035 146 L1120 112" stroke-opacity="0.32" />
+    <path class="edge" d="M760 230 L850 188 L965 245 L1085 210 L1160 282" stroke-opacity="0.30" />
+    <path class="edge" d="M805 118 L850 188 L920 92 L965 245 L1035 146" stroke="#e8834a" stroke-opacity="0.24" />
+  </g>
+
+  <g class="net" stroke="#3b82f6" stroke-linecap="round" fill="none">
+    <path class="edge" d="M650 140 L750 86 L870 142 L990 116 L1115 168" stroke-opacity="0.42" />
+    <path class="edge" d="M690 260 L790 210 L900 282 L1015 238 L1130 300" stroke-opacity="0.34" />
+    <path class="edge" d="M750 86 L790 210 L870 142 L900 282 L990 116 L1015 238" stroke="#e8834a" stroke-opacity="0.28" />
+    <path class="scan" d="M670 182 C800 128, 960 122, 1150 184" stroke="#ffb26d" stroke-opacity="0.26" stroke-width="1" />
+  </g>
+
+  <g class="net" fill="#3b82f6">
+    <circle class="node" cx="650" cy="140" r="2.4" />
+    <circle class="node accent" cx="750" cy="86" r="3.2" fill="#e8834a" />
+    <circle class="node" cx="790" cy="210" r="2.1" />
+    <circle class="node" cx="870" cy="142" r="2.7" />
+    <circle class="node accent" cx="900" cy="282" r="3.4" fill="#e8834a" />
+    <circle class="node" cx="990" cy="116" r="2.2" />
+    <circle class="node" cx="1015" cy="238" r="2.8" />
+    <circle class="node accent" cx="1115" cy="168" r="3.3" fill="#e8834a" />
+    <circle class="node" cx="1130" cy="300" r="2.4" />
+  </g>
+
+  <g class="net-slow" fill="#3b82f6">
+    <circle class="node" cx="720" cy="70" r="2.0" />
+    <circle class="node" cx="810" cy="118" r="2.5" />
+    <circle class="node accent" cx="920" cy="92" r="3.1" fill="#e8834a" />
+    <circle class="node" cx="965" cy="245" r="2.5" />
+    <circle class="node" cx="1035" cy="146" r="2.2" />
+    <circle class="node" cx="1085" cy="210" r="2.2" />
+    <circle class="node accent" cx="1160" cy="282" r="3.0" fill="#e8834a" />
+  </g>
+
+  <rect x="24" y="42" width="2" height="244" rx="1" fill="url(#accent-line)" />
+
+  <g class="hero-text">
+    <text x="44" y="71" fill="#ffb26d" font-size="12" font-weight="800" letter-spacing="3">BIOMEDICAL ENGINEERING FULL STACK</text>
+    <text x="44" y="134" fill="#f5f7fb" font-size="62" font-weight="820" letter-spacing="-2.4">Medical sensor systems</text>
+    <text x="44" y="198" fill="#f5f7fb" font-size="62" font-weight="820" letter-spacing="-2.4">from prototype to product-ready devices.</text>
+    <text x="44" y="253" fill="#d3dbea" font-size="18" font-weight="400">I like building devices that make health data easier to understand,</text>
+    <text x="44" y="283" fill="#d3dbea" font-size="18" font-weight="400">give people better tools, and help care feel less uncertain.</text>
+  </g>
+</svg>
