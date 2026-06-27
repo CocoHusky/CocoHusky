@@ -1,0 +1,47 @@
+name: Cleanup stale src folder
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/cleanup-stale-src.yml
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Remove stale source/build leftovers
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "Current stale candidates:"
+          find src assets-src scripts config -maxdepth 3 -type f 2>/dev/null || true
+
+          git rm -r --ignore-unmatch src
+          git rm -r --ignore-unmatch assets-src
+          git rm -r --ignore-unmatch scripts
+          git rm -r --ignore-unmatch config
+          git rm --ignore-unmatch package.json package-lock.json pnpm-lock.yaml yarn.lock
+          git rm --ignore-unmatch .github/workflows/cleanup-stale-src.yml
+
+      - name: Commit cleanup
+        shell: bash
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "chore: remove stale source components [skip ci]"
+            git push
+          else
+            echo "No stale source components found."
+          fi
