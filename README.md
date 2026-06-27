@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-  I like building devices that help people better understand their health and feel more in control of their care.
+  I’m a hands-on builder who likes making devices that create useful improvements for people, not just things that work in the lab. I work best at the edges between teams, where hardware, firmware, software, data, and clinical needs have to come together. I like bridging those gaps, keeping communication clear, and helping turn complex prototypes into reliable tools that actually help people.
 </p>
 
 <br />
