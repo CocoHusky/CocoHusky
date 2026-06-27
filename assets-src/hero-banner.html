@@ -148,6 +148,7 @@ const COLORS = {
 const NODE_COUNT = 38;
 const CONNECT_DIST = 180;
 const EDGE_FADE_DIST = 140;
+const MOTION_SCALE = 0.1;
 
 class Node {
   constructor(i) {
@@ -164,15 +165,16 @@ class Node {
     this.isAccent = (i % 9 === 0);
     this.size = this.isAccent ? 2.5 : (1.2 + Math.random() * 1.6);
     this.pulse = Math.random() * Math.PI * 2;
-    this.pulseSpeed = 0.008 + Math.random() * 0.012;
+    this.pulseSpeed = 0.0008 + Math.random() * 0.0012;
     this.x = 0; this.y = 0;
   }
 
   update(t) {
-    this.a1 += this.s1 * t;
-    this.a2 += this.s2 * t;
-    this.bx = ((this.bx + this.dx * 0.0005) + 1) % 1;
-    this.by = ((this.by + this.dy * 0.0005) + 1) % 1;
+    const scaledT = t * MOTION_SCALE;
+    this.a1 += this.s1 * scaledT;
+    this.a2 += this.s2 * scaledT;
+    this.bx = ((this.bx + this.dx * 0.00005) + 1) % 1;
+    this.by = ((this.by + this.dy * 0.00005) + 1) % 1;
     this.pulse += this.pulseSpeed;
     const W = canvas.width, H = canvas.height;
     const xBase = W * (0.52 + this.bx * 0.48);
