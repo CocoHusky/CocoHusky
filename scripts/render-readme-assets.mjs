@@ -302,7 +302,14 @@ async function main() {
   const checkOnly = hasArg('--check');
   const cleanOutput = hasArg('--clean');
   const assets = selectedAssets();
-  if (cleanOutput && outputDir === defaultAssetDir) await Promise.all(STALE_GENERATED_ASSETS.map((file) => rm(path.join(outputDir, file), { force: true })));
+  if (cleanOutput && outputDir === defaultAssetDir) {
+    const currentGeneratedAssets = assets.map((asset) => `${asset}.svg`);
+    await Promise.all(
+      [...STALE_GENERATED_ASSETS, ...currentGeneratedAssets].map((file) =>
+        rm(path.join(outputDir, file), { force: true })
+      )
+    );
+  }
   await Promise.all(assets.map((asset) => renderHtmlAsset(asset, outputDir, !checkOnly)));
 }
 
