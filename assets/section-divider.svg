@@ -1,48 +1,25 @@
-<svg id="readme-asset" xmlns="http://www.w3.org/2000/svg" width="640" height="36" viewBox="0 0 640 36" role="img" aria-labelledby="title">
-  <title id="title">Animated orange section divider</title>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="36" viewBox="0 0 1200 36" role="img" aria-labelledby="divider-title">
+  <title id="divider-title">Animated orange section divider</title>
   <defs>
-    <linearGradient id="divider-line-gradient" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#e8834a" stop-opacity="0" />
-      <stop offset="11%" stop-color="#e8834a" stop-opacity="0.28" />
-      <stop offset="50%" stop-color="#e8834a" stop-opacity="0.82" />
-      <stop offset="89%" stop-color="#e8834a" stop-opacity="0.28" />
-      <stop offset="100%" stop-color="#e8834a" stop-opacity="0" />
+    <linearGradient id="dividerLine" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#e8834a" stop-opacity="0.04"/>
+      <stop offset="0.5" stop-color="#ffb26d" stop-opacity="1"/>
+      <stop offset="1" stop-color="#e8834a" stop-opacity="0.04"/>
     </linearGradient>
-    <radialGradient id="divider-glow-gradient" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#e8834a" stop-opacity="0.28" />
-      <stop offset="42%" stop-color="#e8834a" stop-opacity="0.12" />
-      <stop offset="72%" stop-color="#e8834a" stop-opacity="0" />
-    </radialGradient>
-    <filter id="divider-soft-glow" x="-80%" y="-80%" width="260%" height="260%">
-      <feGaussianBlur stdDeviation="5" result="blur" />
-      <feMerge>
-        <feMergeNode in="blur" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
+    <filter id="orangeBlur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <style><![CDATA[
-      .divider-glow {
-        animation: divider-pulse 4.8s ease-in-out infinite alternate;
-        transform-box: fill-box;
-        transform-origin: center;
-      }
-      .divider-dot {
-        animation: divider-scan 5.8s ease-in-out infinite alternate;
-        filter: url(#divider-soft-glow);
-      }
-      @keyframes divider-scan {
-        from { transform: translateX(0); opacity: 0.68; }
-        50% { opacity: 1; }
-        to { transform: translateX(566px); opacity: 0.82; }
-      }
-      @keyframes divider-pulse {
-        from { opacity: 0.40; transform: scaleX(0.78); }
-        to { opacity: 0.92; transform: scaleX(1.04); }
-      }
-    ]]></style>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
-
-  <ellipse class="divider-glow" cx="320" cy="18" rx="110" ry="11" fill="url(#divider-glow-gradient)" />
-  <rect class="divider-line" x="32" y="17" width="576" height="2" rx="1" fill="url(#divider-line-gradient)" />
-  <circle class="divider-dot" cx="37" cy="18" r="5" fill="#ffb26d" />
+  <rect width="1200" height="36" fill="transparent"/>
+  <rect x="64" y="17" width="1072" height="2" rx="1" fill="url(#dividerLine)" filter="url(#softGlow)"/>
+  <circle cx="64" cy="18" r="2.2" fill="#e8834a" filter="url(#orangeBlur)" opacity="0.35">
+    <animate attributeName="cx" values="64;600;1136;600;64" dur="28s" repeatCount="indefinite"/>
+    <animate attributeName="r" values="2.1;4.2;2.1;4.2;2.1" dur="28s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.20;0.95;0.20;0.95;0.20" dur="28s" repeatCount="indefinite"/>
+  </circle>
 </svg>
