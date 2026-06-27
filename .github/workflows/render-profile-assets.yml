@@ -73,6 +73,7 @@ jobs:
   build:
     name: Build / ${{ matrix.asset }}
     needs: asset-check
+    if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 10
     strategy:
@@ -133,7 +134,7 @@ jobs:
   publish:
     name: Publish generated SVG assets
     needs: build
-    if: github.event_name != 'pull_request'
+    if: always() && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -147,8 +148,7 @@ jobs:
         shell: bash
         run: |
           git pull --rebase --autostash origin "${GITHUB_REF_NAME:-main}"
-          mkdir -p assets
-          rm -f assets/hero-banner.svg assets/active-projects-card.svg assets/section-divider.svg
+          mkdir -p assets downloaded-assets
           git rm -f --ignore-unmatch \
             assets/profile-card.svg \
             assets/profile-card.png \
@@ -158,12 +158,27 @@ jobs:
             assets/cta-linkedin.svg \
             assets/cta-scholar.svg
 
-      - name: Download all built SVGs
+      - name: Download successful SVG artifacts
+        id: download_assets
         uses: actions/download-artifact@v4
+        continue-on-error: true
         with:
           pattern: svg-*
-          path: assets
+          path: downloaded-assets
           merge-multiple: true
+
+      - name: Copy only available generated assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          for asset in hero-banner active-projects-card section-divider; do
+            if [[ -s "downloaded-assets/${asset}.svg" ]]; then
+              cp "downloaded-assets/${asset}.svg" "assets/${asset}.svg"
+              echo "Published ${asset}.svg"
+            else
+              echo "No successful artifact for ${asset}.svg; leaving existing asset unchanged."
+            fi
+          done
 
       - name: Commit generated SVG assets
         shell: bash
@@ -172,8 +187,45 @@ jobs:
           if [[ -n "$(git status --porcelain assets)" ]]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git commit -m "chore: publish generated profile SVG assets [skip ci]"
+            git commit -m "chore: publish available profile SVG assets [skip ci]"
             git push
           else
             echo "No generated SVG asset changes to commit."
           fi
+
+  final-report:
+    name: Final asset workflow result
+    needs:
+      - asset-check
+      - build
+      - publish
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+
+    steps:
+      - name: Report check and build result
+        shell: bash
+        run: |
+          echo "asset-check result: ${{ needs.asset-check.result }}"
+          echo "build result: ${{ needs.build.result }}"
+          echo "publish result: ${{ needs.publish.result }}"
+
+          failed=0
+
+          if [[ "${{ needs.asset-check.result }}" != "success" ]]; then
+            echo "::error::One or more asset checks failed."
+            failed=1
+          fi
+
+          if [[ "${{ needs.build.result }}" != "success" ]]; then
+            echo "::error::One or more asset builds failed. Successful assets may still have been published."
+            failed=1
+          fi
+
+          if [[ "${{ needs.publish.result }}" == "failure" ]]; then
+            echo "::error::Publishing generated assets failed."
+            failed=1
+          fi
+
+          exit "$failed"
