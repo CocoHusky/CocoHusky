@@ -1,77 +1,38 @@
-name: Render profile README assets
+name: Render profile SVG assets
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "17 9 * * *"
-  pull_request:
-    branches:
-      - main
-    paths:
-      - assets-src/**
-      - scripts/render-readme-gifs.mjs
-      - package.json
-      - package-lock.json
-      - .github/workflows/render-profile-assets.yml
-      - README.md
   push:
     branches:
       - main
     paths:
-      - assets-src/**
-      - scripts/render-readme-gifs.mjs
-      - package.json
-      - package-lock.json
+      - assets-src/*.svg
+      - config/svg-tokens.json
+      - scripts/build-svg-assets.mjs
+      - .github/workflows/render-profile-assets.yml
+      - README.md
+  pull_request:
+    branches:
+      - main
+    paths:
+      - assets-src/*.svg
+      - config/svg-tokens.json
+      - scripts/build-svg-assets.mjs
       - .github/workflows/render-profile-assets.yml
       - README.md
 
 concurrency:
-  group: render-profile-readme-assets-${{ github.ref }}
+  group: render-profile-svg-assets-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
   contents: write
 
 jobs:
-  asset-check:
-    name: Check / ${{ matrix.asset }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 3
-    strategy:
-      fail-fast: false
-      matrix:
-        asset:
-          - hero-banner
-          - active-projects-card
-          - section-divider
-
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Check HTML source shape
-        shell: bash
-        run: |
-          set -euo pipefail
-          file="assets-src/${{ matrix.asset }}.html"
-          test -s "$file" || { echo "::error file=$file::Missing source file."; exit 1; }
-          grep -Eqi "data-width=\"[0-9]+" "$file" || grep -Eqi "width=\"[0-9]+" "$file" || { echo "::error file=$file::Missing width or data-width."; exit 1; }
-          grep -Eqi "data-height=\"[0-9]+" "$file" || grep -Eqi "height=\"[0-9]+" "$file" || { echo "::error file=$file::Missing height or data-height."; exit 1; }
-          echo "HTML source is capturable as GIF."
-
   build:
-    name: Build / ${{ matrix.asset }}
-    needs: asset-check
-    if: always()
+    name: Build SVG assets
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-    strategy:
-      fail-fast: false
-      matrix:
-        asset:
-          - hero-banner
-          - active-projects-card
-          - section-divider
+    timeout-minutes: 5
 
     steps:
       - name: Check out repository
@@ -82,118 +43,34 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install capture dependencies
-        shell: bash
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y imagemagick
-          npm install --no-save playwright
-          npx playwright install --with-deps chromium
+      - name: Build self-contained SVG assets
+        run: node scripts/build-svg-assets.mjs
 
-      - name: Validate HTML source
-        run: node scripts/render-readme-gifs.mjs --check --asset "${{ matrix.asset }}"
-
-      - name: Build GIF asset
-        run: node scripts/render-readme-gifs.mjs --asset "${{ matrix.asset }}" --out dist/profile-assets --clean
-
-      - name: Validate generated GIF asset
+      - name: Validate generated SVG assets
         shell: bash
         run: |
           set -euo pipefail
-          gif="dist/profile-assets/${{ matrix.asset }}.gif"
-          test -s "$gif"
-          file "$gif"
-          file "$gif" | grep -qi "gif"
-
-      - name: Upload built GIF
-        uses: actions/upload-artifact@v4
-        with:
-          name: gif-${{ matrix.asset }}
-          path: dist/profile-assets/${{ matrix.asset }}.gif
-          if-no-files-found: error
-
-  publish:
-    name: Publish generated GIF assets
-    needs: build
-    if: always() && github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Prepare assets directory
-        shell: bash
-        run: |
-          git pull --rebase --autostash origin "${GITHUB_REF_NAME:-main}"
-          mkdir -p assets downloaded-assets
-
-      - name: Download successful GIF artifacts
-        uses: actions/download-artifact@v4
-        continue-on-error: true
-        with:
-          pattern: gif-*
-          path: downloaded-assets
-          merge-multiple: true
-
-      - name: Copy only available generated GIFs
-        shell: bash
-        run: |
-          set -euo pipefail
-          for asset in hero-banner active-projects-card section-divider; do
-            if [[ -s "downloaded-assets/${asset}.gif" ]]; then
-              cp "downloaded-assets/${asset}.gif" "assets/${asset}.gif"
-              echo "Published ${asset}.gif"
-            else
-              echo "No successful artifact for ${asset}.gif; leaving existing asset unchanged."
+          for file in assets/hero-banner.svg assets/active-projects-card.svg assets/section-divider.svg; do
+            test -s "$file"
+            grep -q '<svg' "$file"
+            grep -q '</svg>' "$file"
+            grep -q 'xmlns="http://www.w3.org/2000/svg"' "$file"
+            if grep -q '{{' "$file"; then
+              echo "::error file=$file::Unresolved template token remains."
+              exit 1
             fi
           done
 
-      - name: Commit generated GIF assets
+      - name: Commit generated SVG assets
+        if: github.event_name != 'pull_request'
         shell: bash
         run: |
-          git add assets/hero-banner.gif assets/active-projects-card.gif assets/section-divider.gif
+          git add assets/hero-banner.svg assets/active-projects-card.svg assets/section-divider.svg
           if [[ -n "$(git status --porcelain assets)" ]]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git commit -m "chore: publish browser-captured README GIF assets [skip ci]"
+            git commit -m "chore: publish SVG README assets [skip ci]"
             git push
           else
-            echo "No generated GIF asset changes to commit."
+            echo "No generated SVG asset changes to commit."
           fi
-
-  final-report:
-    name: Final asset workflow result
-    needs:
-      - asset-check
-      - build
-      - publish
-    if: always()
-    runs-on: ubuntu-latest
-    timeout-minutes: 3
-
-    steps:
-      - name: Report check and build result
-        shell: bash
-        run: |
-          echo "asset-check result: ${{ needs.asset-check.result }}"
-          echo "build result: ${{ needs.build.result }}"
-          echo "publish result: ${{ needs.publish.result }}"
-
-          failed=0
-          if [[ "${{ needs.asset-check.result }}" != "success" ]]; then
-            echo "::error::One or more asset checks failed."
-            failed=1
-          fi
-          if [[ "${{ needs.build.result }}" != "success" ]]; then
-            echo "::error::One or more asset builds failed. Successful GIFs may still have been published."
-            failed=1
-          fi
-          if [[ "${{ needs.publish.result }}" == "failure" ]]; then
-            echo "::error::Publishing generated GIFs failed."
-            failed=1
-          fi
-          exit "$failed"
