@@ -1,8 +1,62 @@
 <section class="asset section-divider" data-width="1200" data-height="36" data-duration="22s">
   <style>
     .section-divider {
+      position: relative;
       width: 1200px;
       height: 36px;
+      box-sizing: border-box;
+      overflow: hidden;
+      background: transparent;
+    }
+
+    .divider-line {
+      position: absolute;
+      left: 26px;
+      right: 26px;
+      top: 17px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(59,130,246,0.40) 22%, rgba(232,131,74,0.72) 50%, rgba(59,130,246,0.40) 78%, transparent 100%);
+      box-shadow: 0 0 14px rgba(232,131,74,0.24);
+    }
+
+    .divider-glow {
+      position: absolute;
+      left: 50%;
+      top: 8px;
+      width: 320px;
+      height: 20px;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(232,131,74,0.20) 0%, rgba(59,130,246,0.10) 42%, transparent 72%);
+      filter: blur(4px);
+      animation: divider-pulse 4.8s ease-in-out infinite alternate;
+    }
+
+    .divider-dot {
+      position: absolute;
+      top: 13px;
+      left: 26px;
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: #ffb26d;
+      box-shadow: 0 0 14px rgba(255,178,109,0.78), 0 0 24px rgba(59,130,246,0.34);
+      animation: divider-scan 5.8s ease-in-out infinite alternate;
+    }
+
+    @keyframes divider-scan {
+      from { transform: translateX(0); opacity: 0.58; }
+      50% { opacity: 1; }
+      to { transform: translateX(1139px); opacity: 0.78; }
+    }
+
+    @keyframes divider-pulse {
+      from { opacity: 0.40; transform: translateX(-50%) scaleX(0.82); }
+      to { opacity: 0.95; transform: translateX(-50%) scaleX(1.06); }
     }
   </style>
+
+  <div class="divider-glow" aria-hidden="true"></div>
+  <div class="divider-line" aria-hidden="true"></div>
+  <div class="divider-dot" aria-hidden="true"></div>
 </section>
