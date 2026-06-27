@@ -9,7 +9,7 @@ on:
       - main
     paths:
       - assets-src/**
-      - scripts/render-readme-assets.mjs
+      - scripts/render-readme-gifs.mjs
       - package.json
       - package-lock.json
       - .github/workflows/render-profile-assets.yml
@@ -19,7 +19,7 @@ on:
       - main
     paths:
       - assets-src/**
-      - scripts/render-readme-assets.mjs
+      - scripts/render-readme-gifs.mjs
       - package.json
       - package-lock.json
       - .github/workflows/render-profile-assets.yml
@@ -49,33 +49,22 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Check source shape
+      - name: Check HTML source shape
         shell: bash
         run: |
           set -euo pipefail
           file="assets-src/${{ matrix.asset }}.html"
           test -s "$file" || { echo "::error file=$file::Missing source file."; exit 1; }
-
-          echo "Checking $file"
-
-          if grep -qi "id=\"readme-asset\"" "$file"; then
-            grep -qi "xmlns=\"http://www.w3.org/2000/svg\"" "$file" || { echo "::error file=$file::SVG source missing xmlns."; exit 1; }
-            grep -qi "viewBox=" "$file" || { echo "::error file=$file::SVG source missing viewBox."; exit 1; }
-            grep -Eqi "width=\"[0-9]+" "$file" || { echo "::error file=$file::SVG source missing numeric width."; exit 1; }
-            grep -Eqi "height=\"[0-9]+" "$file" || { echo "::error file=$file::SVG source missing numeric height."; exit 1; }
-            echo "SVG-native source shape OK."
-          else
-            grep -Eqi "data-width=\"[0-9]+" "$file" || { echo "::error file=$file::Legacy source missing data-width."; exit 1; }
-            grep -Eqi "data-height=\"[0-9]+" "$file" || { echo "::error file=$file::Legacy source missing data-height."; exit 1; }
-            echo "Legacy HTML source shape OK."
-          fi
+          grep -Eqi "data-width=\"[0-9]+" "$file" || grep -Eqi "width=\"[0-9]+" "$file" || { echo "::error file=$file::Missing width or data-width."; exit 1; }
+          grep -Eqi "data-height=\"[0-9]+" "$file" || grep -Eqi "height=\"[0-9]+" "$file" || { echo "::error file=$file::Missing height or data-height."; exit 1; }
+          echo "HTML source is capturable as GIF."
 
   build:
     name: Build / ${{ matrix.asset }}
     needs: asset-check
     if: always()
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
@@ -93,46 +82,38 @@ jobs:
         with:
           node-version: 22
 
+      - name: Install capture dependencies
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+
       - name: Validate HTML source
-        run: npm run test:profile-asset -- --asset "${{ matrix.asset }}"
+        run: node scripts/render-readme-gifs.mjs --check --asset "${{ matrix.asset }}"
 
-      - name: Build SVG asset
-        run: npm run build:profile-asset -- --asset "${{ matrix.asset }}" --out dist/profile-assets --clean
+      - name: Build GIF asset
+        run: node scripts/render-readme-gifs.mjs --asset "${{ matrix.asset }}" --out dist/profile-assets --clean
 
-      - name: Validate generated SVG asset
+      - name: Validate generated GIF asset
         shell: bash
         run: |
           set -euo pipefail
-          svg="dist/profile-assets/${{ matrix.asset }}.svg"
-          test -s "$svg"
-          grep -q "<svg " "$svg"
-          grep -q "</svg>" "$svg"
-          grep -q "xmlns=\"http://www.w3.org/2000/svg\"" "$svg"
-          grep -q "viewBox=" "$svg"
+          gif="dist/profile-assets/${{ matrix.asset }}.gif"
+          test -s "$gif"
+          file "$gif"
+          file "$gif" | grep -qi "gif"
 
-          case "${{ matrix.asset }}" in
-            hero-banner)
-              grep -q "Medical sensor systems" "$svg"
-              ;;
-            active-projects-card)
-              grep -q "60 GHz mmWave Radar" "$svg"
-              grep -q "Professional Profile" "$svg"
-              ;;
-            section-divider)
-              grep -q "divider-line" "$svg"
-              grep -q "divider-dot" "$svg"
-              ;;
-          esac
-
-      - name: Upload built SVG
+      - name: Upload built GIF
         uses: actions/upload-artifact@v4
         with:
-          name: svg-${{ matrix.asset }}
-          path: dist/profile-assets/${{ matrix.asset }}.svg
+          name: gif-${{ matrix.asset }}
+          path: dist/profile-assets/${{ matrix.asset }}.gif
           if-no-files-found: error
 
   publish:
-    name: Publish generated SVG assets
+    name: Publish generated GIF assets
     needs: build
     if: always() && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
@@ -149,48 +130,39 @@ jobs:
         run: |
           git pull --rebase --autostash origin "${GITHUB_REF_NAME:-main}"
           mkdir -p assets downloaded-assets
-          git rm -f --ignore-unmatch \
-            assets/profile-card.svg \
-            assets/profile-card.png \
-            assets/github-stats-card.svg \
-            assets/activity-card.svg \
-            assets/cta-portfolio.svg \
-            assets/cta-linkedin.svg \
-            assets/cta-scholar.svg
 
-      - name: Download successful SVG artifacts
-        id: download_assets
+      - name: Download successful GIF artifacts
         uses: actions/download-artifact@v4
         continue-on-error: true
         with:
-          pattern: svg-*
+          pattern: gif-*
           path: downloaded-assets
           merge-multiple: true
 
-      - name: Copy only available generated assets
+      - name: Copy only available generated GIFs
         shell: bash
         run: |
           set -euo pipefail
           for asset in hero-banner active-projects-card section-divider; do
-            if [[ -s "downloaded-assets/${asset}.svg" ]]; then
-              cp "downloaded-assets/${asset}.svg" "assets/${asset}.svg"
-              echo "Published ${asset}.svg"
+            if [[ -s "downloaded-assets/${asset}.gif" ]]; then
+              cp "downloaded-assets/${asset}.gif" "assets/${asset}.gif"
+              echo "Published ${asset}.gif"
             else
-              echo "No successful artifact for ${asset}.svg; leaving existing asset unchanged."
+              echo "No successful artifact for ${asset}.gif; leaving existing asset unchanged."
             fi
           done
 
-      - name: Commit generated SVG assets
+      - name: Commit generated GIF assets
         shell: bash
         run: |
-          git add assets/hero-banner.svg assets/active-projects-card.svg assets/section-divider.svg
+          git add assets/hero-banner.gif assets/active-projects-card.gif assets/section-divider.gif
           if [[ -n "$(git status --porcelain assets)" ]]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git commit -m "chore: publish available profile SVG assets [skip ci]"
+            git commit -m "chore: publish browser-captured README GIF assets [skip ci]"
             git push
           else
-            echo "No generated SVG asset changes to commit."
+            echo "No generated GIF asset changes to commit."
           fi
 
   final-report:
@@ -212,20 +184,16 @@ jobs:
           echo "publish result: ${{ needs.publish.result }}"
 
           failed=0
-
           if [[ "${{ needs.asset-check.result }}" != "success" ]]; then
             echo "::error::One or more asset checks failed."
             failed=1
           fi
-
           if [[ "${{ needs.build.result }}" != "success" ]]; then
-            echo "::error::One or more asset builds failed. Successful assets may still have been published."
+            echo "::error::One or more asset builds failed. Successful GIFs may still have been published."
             failed=1
           fi
-
           if [[ "${{ needs.publish.result }}" == "failure" ]]; then
-            echo "::error::Publishing generated assets failed."
+            echo "::error::Publishing generated GIFs failed."
             failed=1
           fi
-
           exit "$failed"
