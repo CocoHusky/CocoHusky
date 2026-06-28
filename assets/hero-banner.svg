@@ -20,7 +20,7 @@
 
   .hero-title {
     fill: #f5f7fb;
-    font-size: 49px;
+    font-size: 55px;
     font-weight: 820;
     letter-spacing: -2.1px;
   }
