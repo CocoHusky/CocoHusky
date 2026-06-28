@@ -1,8 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="558" viewBox="0 0 860 400" role="img" aria-labelledby="active-title active-desc">
-  <title id="active-title">Active Projects</title>
-  <desc id="active-desc">Three compact active project cards for radar, professional profile, and home lab work.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="activity-title activity-desc">
+  <title id="activity-title">Project Activity</title>
+  <desc id="activity-desc">Three project activity cards with short summaries and compact skill labels.</desc>
 
   <defs>
+    <linearGradient id="activity-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#010409"/>
+      <stop offset="0.58" stop-color="#06101c"/>
+      <stop offset="1" stop-color="#0d1117"/>
+    </linearGradient>
+
+    <radialGradient id="orange-glow" cx="0.12" cy="0.12" r="0.85">
+      <stop stop-color="#e8834a" stop-opacity="0.20"/>
+      <stop offset="1" stop-color="#e8834a" stop-opacity="0"/>
+    </radialGradient>
+
     <style><![CDATA[
       .ui-font {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
@@ -13,152 +24,184 @@
       }
 
       .canvas {
-        fill: #161b22;
+        fill: url(#activity-bg);
       }
 
-      .card {
-        fill: #1c2230;
-        stroke: #2a3345;
-        stroke-width: 1;
+      .glow {
+        fill: url(#orange-glow);
+      }
+
+      .eyebrow {
+        fill: #ffb26d;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 2.8px;
       }
 
       .section-title {
-        fill: #f0f4ff;
-        font-size: 22px;
-        font-weight: 700;
+        fill: #f5f7fb;
+        font-size: 34px;
+        font-weight: 820;
+        letter-spacing: -0.8px;
       }
 
-      .section-subtitle {
-        fill: #6b7fa3;
-        font-size: 12px;
-        letter-spacing: 0.04em;
+      .section-summary {
+        fill: #8b98ad;
+        font-size: 15px;
+        font-weight: 450;
       }
 
-      .status-active {
+      .portfolio-pill {
+        fill: #e8834a;
+        stroke: rgba(255, 178, 109, 0.42);
+        stroke-width: 1;
+      }
+
+      .portfolio-text {
+        fill: #010409;
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .card {
+        fill: rgba(13, 17, 23, 0.78);
+        stroke: rgba(232, 131, 74, 0.18);
+        stroke-width: 1;
+      }
+
+      .status-dot-active {
         fill: #4ade80;
-        font-size: 10px;
-        font-weight: 600;
-        letter-spacing: 0.1em;
       }
 
-      .status-finalized {
+      .status-dot-final {
         fill: #f59e0b;
-        font-size: 10px;
-        font-weight: 600;
-        letter-spacing: 0.1em;
       }
 
-      .title-text {
-        fill: #e8edf8;
-        font-size: 17px;
-        font-weight: 700;
-      }
-
-      .summary-text {
-        fill: #fb923c;
+      .status-text {
+        fill: #8b98ad;
         font-size: 11px;
-        font-weight: 600;
+        font-weight: 800;
+        letter-spacing: 1.6px;
       }
 
-      .card-rule {
-        stroke: #2a3345;
-        stroke-width: 0.75;
+      .card-title {
+        fill: #f5f7fb;
+        font-size: 21px;
+        font-weight: 780;
       }
 
-      .tag-blue {
-        fill: #1e2d40;
-        stroke: #2a4060;
-        stroke-width: 0.75;
+      .card-summary {
+        fill: #9aa7bc;
+        font-size: 13.5px;
+        font-weight: 450;
       }
 
-      .tag-blue-text {
-        fill: #7ab8e8;
-        font-size: 10.5px;
+      .orange-line {
+        stroke: #e8834a;
+        stroke-width: 2;
+        stroke-linecap: round;
+        opacity: 0.82;
       }
 
-      .tag-amber {
-        fill: #2a2010;
-        stroke: #4a3a10;
-        stroke-width: 0.75;
+      .tag {
+        fill: rgba(30, 45, 64, 0.82);
+        stroke: rgba(91, 155, 213, 0.28);
+        stroke-width: 1;
       }
 
-      .tag-amber-text {
-        fill: #f5c060;
-        font-size: 10.5px;
+      .tag-warm {
+        fill: rgba(42, 32, 16, 0.86);
+        stroke: rgba(232, 131, 74, 0.30);
+        stroke-width: 1;
+      }
+
+      .tag-text {
+        fill: #b8d7f4;
+        font-size: 12px;
+        font-weight: 650;
+      }
+
+      .tag-text-warm {
+        fill: #ffc078;
+        font-size: 12px;
+        font-weight: 650;
       }
     ]]></style>
   </defs>
 
-  <rect class="canvas" width="860" height="400" rx="16"/>
+  <rect class="canvas" width="1200" height="520" rx="22"/>
+  <circle class="glow" cx="115" cy="74" r="210"/>
 
   <g class="ui-font">
-    <text class="section-title" x="36" y="52">Active Projects</text>
-    <text class="mono-font section-subtitle" x="36" y="70">tech build focus · agentic native · embedded sys. · bio-sensing</text>
+    <text class="eyebrow" x="48" y="54">PROJECT ACTIVITY</text>
+    <text class="section-title" x="48" y="94">What I am building right now</text>
+    <text class="section-summary" x="48" y="126">Hardware, embedded systems, data tools, and product-facing engineering projects tied to medical sensing and local-first systems.</text>
+
+    <g aria-label="BurtonMakes portfolio button">
+      <rect class="portfolio-pill" x="996" y="48" width="154" height="38" rx="19"/>
+      <text class="portfolio-text" x="1020" y="72">BurtonMakes →</text>
+    </g>
 
     <g id="radar-card">
-      <rect class="card" x="28" y="90" width="262" height="292" rx="12"/>
-      <circle cx="48" cy="114" r="4" fill="#4ade80"/>
-      <text class="mono-font status-active" x="58" y="118">ACTIVE</text>
-      <text class="title-text" x="48" y="148">60 GHz mmWave Radar</text>
-      <text class="mono-font summary-text" x="48" y="168">Contactless physiology monitoring</text>
-      <line class="card-rule" x1="48" y1="182" x2="270" y2="182"/>
+      <rect class="card" x="48" y="164" width="344" height="304" rx="18"/>
+      <circle class="status-dot-active" cx="76" cy="194" r="5"/>
+      <text class="mono-font status-text" x="90" y="198">ACTIVE BUILD</text>
+      <text class="card-title" x="76" y="234">60 GHz mmWave Radar</text>
+      <text class="card-summary" x="76" y="260">Real-time radar streaming for contactless</text>
+      <text class="card-summary" x="76" y="280">physiology and presence sensing.</text>
+      <line class="orange-line" x1="76" y1="304" x2="142" y2="304"/>
 
-      <g class="mono-font tag-blue-text" text-anchor="middle">
-        <rect class="tag-blue" x="44" y="192" width="90" height="20" rx="4"/><text x="89" y="206">UART parsing</text>
-        <rect class="tag-blue" x="140" y="192" width="110" height="20" rx="4"/><text x="195" y="206">VisLog stream API</text>
-        <rect class="tag-blue" x="44" y="218" width="90" height="20" rx="4"/><text x="89" y="232">Sensor fusion</text>
-        <rect class="tag-blue" x="140" y="218" width="110" height="20" rx="4"/><text x="195" y="232">Deterministic DSP</text>
-        <rect class="tag-blue" x="44" y="244" width="72" height="20" rx="4"/><text x="80" y="258">Secure OTA</text>
-        <rect class="tag-blue" x="122" y="244" width="76" height="20" rx="4"/><text x="160" y="258">Zephyr RTOS</text>
-        <rect class="tag-blue" x="204" y="244" width="48" height="20" rx="4"/><text x="228" y="258">HIL CI</text>
-        <rect class="tag-blue" x="44" y="270" width="52" height="20" rx="4"/><text x="70" y="284">ESP32</text>
-        <rect class="tag-blue" x="102" y="270" width="88" height="20" rx="4"/><text x="146" y="284">nRF52840 SoC</text>
-        <rect class="tag-blue" x="196" y="270" width="80" height="20" rx="4"/><text x="236" y="284">Captive layer</text>
+      <g class="mono-font" text-anchor="middle">
+        <rect class="tag" x="76" y="326" width="74" height="26" rx="7"/><text class="tag-text" x="113" y="344">ESP32-C6</text>
+        <rect class="tag" x="158" y="326" width="84" height="26" rx="7"/><text class="tag-text" x="200" y="344">Zephyr</text>
+        <rect class="tag" x="250" y="326" width="92" height="26" rx="7"/><text class="tag-text" x="296" y="344">UART parser</text>
+        <rect class="tag" x="76" y="360" width="96" height="26" rx="7"/><text class="tag-text" x="124" y="378">Sensor data</text>
+        <rect class="tag" x="180" y="360" width="92" height="26" rx="7"/><text class="tag-text" x="226" y="378">Live charts</text>
+        <rect class="tag" x="280" y="360" width="74" height="26" rx="7"/><text class="tag-text" x="317" y="378">OTA</text>
+        <rect class="tag" x="76" y="394" width="96" height="26" rx="7"/><text class="tag-text" x="124" y="412">Data logger</text>
+        <rect class="tag" x="180" y="394" width="92" height="26" rx="7"/><text class="tag-text" x="226" y="412">Device UI</text>
       </g>
     </g>
 
     <g id="profile-card">
-      <rect class="card" x="302" y="90" width="262" height="292" rx="12"/>
-      <circle cx="322" cy="114" r="4" fill="#4ade80"/>
-      <text class="mono-font status-active" x="332" y="118">ACTIVE</text>
-      <text class="title-text" x="322" y="148">Professional Profile</text>
-      <text class="mono-font summary-text" x="322" y="168">Recruiter-facing docs &amp; automation</text>
-      <line class="card-rule" x1="322" y1="182" x2="544" y2="182"/>
+      <rect class="card" x="428" y="164" width="344" height="304" rx="18"/>
+      <circle class="status-dot-active" cx="456" cy="194" r="5"/>
+      <text class="mono-font status-text" x="470" y="198">ACTIVE BUILD</text>
+      <text class="card-title" x="456" y="234">Professional Profile</text>
+      <text class="card-summary" x="456" y="260">Recruiter-facing portfolio and GitHub profile</text>
+      <text class="card-summary" x="456" y="280">that show engineering depth clearly.</text>
+      <line class="orange-line" x1="456" y1="304" x2="522" y2="304"/>
 
-      <g class="mono-font tag-blue-text" text-anchor="middle">
-        <rect class="tag-blue" x="318" y="192" width="70" height="20" rx="4"/><text x="353" y="206">Astro SSG</text>
-        <rect class="tag-blue" x="394" y="192" width="94" height="20" rx="4"/><text x="441" y="206">Semantic DOM</text>
-        <rect class="tag-blue" x="318" y="218" width="110" height="20" rx="4"/><text x="373" y="232">Git-driven lifecycle</text>
-        <rect class="tag-blue" x="434" y="218" width="100" height="20" rx="4"/><text x="484" y="232">CI/CD deploy</text>
-        <rect class="tag-blue" x="318" y="244" width="90" height="20" rx="4"/><text x="363" y="258">Dynamic SVG</text>
-        <rect class="tag-blue" x="414" y="244" width="118" height="20" rx="4"/><text x="473" y="258">HTTP cache tuning</text>
-        <rect class="tag-blue" x="318" y="270" width="98" height="20" rx="4"/><text x="367" y="284">Telemetry infra</text>
-        <rect class="tag-blue" x="422" y="270" width="110" height="20" rx="4"/><text x="477" y="284">Ingestion pipelines</text>
-        <rect class="tag-blue" x="318" y="296" width="96" height="20" rx="4"/><text x="366" y="310">Funnel tracking</text>
-        <rect class="tag-blue" x="420" y="296" width="96" height="20" rx="4"/><text x="468" y="310">Conversion UX</text>
+      <g class="mono-font" text-anchor="middle">
+        <rect class="tag" x="456" y="326" width="72" height="26" rx="7"/><text class="tag-text" x="492" y="344">Astro</text>
+        <rect class="tag" x="536" y="326" width="84" height="26" rx="7"/><text class="tag-text" x="578" y="344">GitHub CI</text>
+        <rect class="tag" x="628" y="326" width="82" height="26" rx="7"/><text class="tag-text" x="669" y="344">SVG UI</text>
+        <rect class="tag" x="456" y="360" width="86" height="26" rx="7"/><text class="tag-text" x="499" y="378">Portfolio</text>
+        <rect class="tag" x="550" y="360" width="104" height="26" rx="7"/><text class="tag-text" x="602" y="378">Analytics</text>
+        <rect class="tag" x="662" y="360" width="78" height="26" rx="7"/><text class="tag-text" x="701" y="378">Resume</text>
+        <rect class="tag" x="456" y="394" width="96" height="26" rx="7"/><text class="tag-text" x="504" y="412">Case studies</text>
+        <rect class="tag" x="560" y="394" width="94" height="26" rx="7"/><text class="tag-text" x="607" y="412">Docs flow</text>
       </g>
     </g>
 
     <g id="homelab-card">
-      <rect class="card" x="576" y="90" width="262" height="292" rx="12"/>
-      <circle cx="596" cy="114" r="4" fill="#f59e0b"/>
-      <text class="mono-font status-finalized" x="606" y="118">FINALIZED</text>
-      <text class="title-text" x="596" y="148">Home Lab Server</text>
-      <text class="mono-font summary-text" x="596" y="168">Local-first storage, backups, AI</text>
-      <line class="card-rule" x1="596" y1="182" x2="818" y2="182"/>
+      <rect class="card" x="808" y="164" width="344" height="304" rx="18"/>
+      <circle class="status-dot-final" cx="836" cy="194" r="5"/>
+      <text class="mono-font status-text" x="850" y="198">SYSTEM BUILD</text>
+      <text class="card-title" x="836" y="234">Home Lab Server</text>
+      <text class="card-summary" x="836" y="260">Local-first compute, backups, storage, and</text>
+      <text class="card-summary" x="836" y="280">automation for personal infrastructure.</text>
+      <line class="orange-line" x1="836" y1="304" x2="902" y2="304"/>
 
-      <g class="mono-font tag-amber-text" text-anchor="middle">
-        <rect class="tag-amber" x="592" y="192" width="84" height="20" rx="4"/><text x="634" y="206">Proxmox VE</text>
-        <rect class="tag-amber" x="682" y="192" width="108" height="20" rx="4"/><text x="736" y="206">KVM/LXC tenancy</text>
-        <rect class="tag-amber" x="592" y="218" width="68" height="20" rx="4"/><text x="626" y="232">ZFS pools</text>
-        <rect class="tag-amber" x="666" y="218" width="74" height="20" rx="4"/><text x="703" y="232">Snapshots</text>
-        <rect class="tag-amber" x="746" y="218" width="78" height="20" rx="4"/><text x="785" y="232">Replication</text>
-        <rect class="tag-amber" x="592" y="244" width="130" height="20" rx="4"/><text x="657" y="258">Self-hosted orch.</text>
-        <rect class="tag-amber" x="728" y="244" width="96" height="20" rx="4"/><text x="776" y="258">Index pipelines</text>
-        <rect class="tag-amber" x="592" y="270" width="104" height="20" rx="4"/><text x="644" y="284">Docker Compose</text>
-        <rect class="tag-amber" x="702" y="270" width="96" height="20" rx="4"/><text x="750" y="284">ClawCode tools</text>
-        <rect class="tag-amber" x="592" y="296" width="108" height="20" rx="4"/><text x="646" y="310">Edge-node cluster</text>
-        <rect class="tag-amber" x="706" y="296" width="82" height="20" rx="4"/><text x="747" y="310">ARM64 SBCs</text>
+      <g class="mono-font" text-anchor="middle">
+        <rect class="tag-warm" x="836" y="326" width="88" height="26" rx="7"/><text class="tag-text-warm" x="880" y="344">Proxmox</text>
+        <rect class="tag-warm" x="932" y="326" width="74" height="26" rx="7"/><text class="tag-text-warm" x="969" y="344">ZFS</text>
+        <rect class="tag-warm" x="1014" y="326" width="82" height="26" rx="7"/><text class="tag-text-warm" x="1055" y="344">Docker</text>
+        <rect class="tag-warm" x="836" y="360" width="76" height="26" rx="7"/><text class="tag-text-warm" x="874" y="378">Backups</text>
+        <rect class="tag-warm" x="920" y="360" width="104" height="26" rx="7"/><text class="tag-text-warm" x="972" y="378">Self-hosting</text>
+        <rect class="tag-warm" x="1032" y="360" width="74" height="26" rx="7"/><text class="tag-text-warm" x="1069" y="378">NAS</text>
+        <rect class="tag-warm" x="836" y="394" width="98" height="26" rx="7"/><text class="tag-text-warm" x="885" y="412">VM / LXC</text>
+        <rect class="tag-warm" x="942" y="394" width="104" height="26" rx="7"/><text class="tag-text-warm" x="994" y="412">Local AI</text>
       </g>
     </g>
   </g>
