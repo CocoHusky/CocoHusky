@@ -20,74 +20,64 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Centralize hero SVG text styles
+      - name: Centralize hero SVG text styles without changing layout
         shell: bash
         run: |
           set -euo pipefail
-          python3 - <<'PY'
+          python3 -c '
           from pathlib import Path
-
-          hero = Path('assets/hero-banner.svg')
+          hero = Path("assets/hero-banner.svg")
           svg = hero.read_text()
+          old_style = "<style>.heroUi{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,system-ui,sans-serif}.heroEyebrow{fill:#ffb26d;font-size:12px;font-weight:800;letter-spacing:3px}.heroTitle{fill:#f5f7fb;font-size:49px;font-weight:820;letter-spacing:-2.1px}.heroBody{fill:#b6c2d4;font-size:16px;font-weight:450}</style>"
+          new_style = """<style><![CDATA[
+            .ui-font {
+              font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+            }
 
-          old_style = '<style>.heroUi{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,system-ui,sans-serif}.heroEyebrow{fill:#ffb26d;font-size:12px;font-weight:800;letter-spacing:3px}.heroTitle{fill:#f5f7fb;font-size:49px;font-weight:820;letter-spacing:-2.1px}.heroBody{fill:#b6c2d4;font-size:16px;font-weight:450}</style>'
-          new_style = '''<style><![CDATA[
-  .ui-font {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  }
+            .eyebrow {
+              fill: #ffb26d;
+              font-size: 12px;
+              font-weight: 800;
+              letter-spacing: 3px;
+            }
 
-  .eyebrow {
-    fill: #ffb26d;
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 3px;
-  }
+            .hero-title {
+              fill: #f5f7fb;
+              font-size: 49px;
+              font-weight: 820;
+              letter-spacing: -2.1px;
+            }
 
-  .hero-title {
-    fill: #f5f7fb;
-    font-size: 54px;
-    font-weight: 820;
-    letter-spacing: -2.2px;
-  }
-
-  .body-copy {
-    fill: #b6c2d4;
-    font-size: 16px;
-    font-weight: 450;
-  }
-]]></style>'''
+            .body-copy {
+              fill: #b6c2d4;
+              font-size: 16px;
+              font-weight: 450;
+            }
+          ]]></style>"""
           svg = svg.replace(old_style, new_style)
-
-          old_text = '  <g class="heroUi"><text x="44" y="52" class="heroEyebrow">BIOMEDICAL ENGINEERING FULL STACK</text><text x="44" y="104" class="heroTitle">Medical sensor systems</text><text x="44" y="158" class="heroTitle">from prototype to product-ready devices.</text><text x="44" y="238" class="heroBody">I like building devices that make health data easier to understand,</text><text x="44" y="263" class="heroBody">give people better tools, and help care feel less uncertain.</text></g>'
-          new_text = '''  <g class="ui-font">
-    <text class="eyebrow" x="44" y="52">BIOMEDICAL ENGINEERING FULL STACK</text>
-    <text class="hero-title" x="44" y="110">Medical sensor systems</text>
-    <text class="hero-title" x="44" y="170">from prototype to product-ready devices.</text>
-    <text class="body-copy" x="44" y="238">I like building devices that make health data easier to understand,</text>
-    <text class="body-copy" x="44" y="263">give people better tools, and help care feel less uncertain.</text>
-  </g>'''
+          old_text = "  <g class=\"heroUi\"><text x=\"44\" y=\"52\" class=\"heroEyebrow\">BIOMEDICAL ENGINEERING FULL STACK</text><text x=\"44\" y=\"104\" class=\"heroTitle\">Medical sensor systems</text><text x=\"44\" y=\"158\" class=\"heroTitle\">from prototype to product-ready devices.</text><text x=\"44\" y=\"238\" class=\"heroBody\">I like building devices that make health data easier to understand,</text><text x=\"44\" y=\"263\" class=\"heroBody\">give people better tools, and help care feel less uncertain.</text></g>"
+          new_text = """  <g class=\"ui-font\">
+            <text class=\"eyebrow\" x=\"44\" y=\"52\">BIOMEDICAL ENGINEERING FULL STACK</text>
+            <text class=\"hero-title\" x=\"44\" y=\"104\">Medical sensor systems</text>
+            <text class=\"hero-title\" x=\"44\" y=\"158\">from prototype to product-ready devices.</text>
+            <text class=\"body-copy\" x=\"44\" y=\"238\">I like building devices that make health data easier to understand,</text>
+            <text class=\"body-copy\" x=\"44\" y=\"263\">give people better tools, and help care feel less uncertain.</text>
+          </g>"""
           svg = svg.replace(old_text, new_text)
-
           hero.write_text(svg)
-          PY
+          '
 
-      - name: Add note to divider SVG
+      - name: Validate SVG organization
         shell: bash
         run: |
           set -euo pipefail
-          python3 - <<'PY'
-          from pathlib import Path
-          divider = Path('assets/section-divider.svg')
-          svg = divider.read_text()
-          if '<!-- No text styles:' not in svg:
-              svg = svg.replace('<defs>', '<defs>\n<!-- No text styles: this SVG is shape/animation only. -->', 1)
-              divider.write_text(svg)
-          PY
-
-      - name: Validate SVGs
-        shell: bash
-        run: |
-          set -euo pipefail
+          grep -q '<style><!\[CDATA\[' assets/hero-banner.svg
+          grep -q 'class="ui-font"' assets/hero-banner.svg
+          grep -q 'class="hero-title"' assets/hero-banner.svg
+          grep -q '<style><!\[CDATA\[' assets/active-projects-card.svg
+          grep -q 'class="section-title"' assets/active-projects-card.svg
+          grep -q '<style><!\[CDATA\[' assets/section-divider.svg
+          grep -q 'class="divider-track"' assets/section-divider.svg
           for file in assets/hero-banner.svg assets/active-projects-card.svg assets/section-divider.svg; do
             test -s "$file"
             grep -q '<svg' "$file"
@@ -111,7 +101,7 @@ jobs:
           if [[ -n "$(git status --porcelain)" ]]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git commit -m "style: centralize SVG text formatting [skip ci]"
+            git commit -m "style: centralize SVG formatting"
             git push
           else
             echo "No SVG formatting changes to commit."
