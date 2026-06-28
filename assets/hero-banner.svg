@@ -20,7 +20,7 @@
 
   .hero-title {
     fill: #f5f7fb;
-    font-size: 55px;
+    font-size: 58px;
     font-weight: 820;
     letter-spacing: -2.1px;
   }
@@ -999,11 +999,11 @@
   <rect width="744" height="360" fill="url(#textShade)"/>
   <rect x="24" y="44" width="2" height="248" rx="1" fill="url(#accentLine)"/>
   <g class="ui-font">
-  <text class="eyebrow" x="44" y="52">BIOMEDICAL ENGINEERING FULL STACK</text>
-  <text class="hero-title" x="44" y="104">Medical sensor systems</text>
-  <text class="hero-title" x="44" y="158">from prototype to product-ready devices.</text>
-  <text class="body-copy" x="44" y="238">I like building devices that make health data easier to understand,</text>
-  <text class="body-copy" x="44" y="263">give people better tools, and help care feel less uncertain.</text>
+  <text class="eyebrow" x="44" y="52">BIOMEDICAL ENGINEERING FULL-STACK</text>
+  <text class="hero-title" x="44" y="104">Medical sensing devices</text>
+  <text class="hero-title" x="44" y="158">built for real-world use.</text>
+  <text class="body-copy" x="44" y="238">I turn early sensing concepts into wearable and implantable systems,</text>
+  <text class="body-copy" x="44" y="263">bridging hardware, data, validation, and product translation.</text>
 </g>
   <image x="0" y="0" width="1" height="1" opacity="0"/>
 </g>
