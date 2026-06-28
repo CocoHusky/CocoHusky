@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="activity-title activity-desc">
   <title id="activity-title">Project Activity</title>
-  <desc id="activity-desc">Three project activity cards with short summaries and compact skill labels.</desc>
+  <desc id="activity-desc">Three project activity cards summarized from active GitHub repositories.</desc>
 
   <defs>
     <linearGradient id="activity-bg" x1="0" y1="0" x2="1" y2="1">
@@ -135,7 +135,7 @@
   <g class="ui-font">
     <text class="eyebrow" x="48" y="54">PROJECT ACTIVITY</text>
     <text class="section-title" x="48" y="94">What I am building right now</text>
-    <text class="section-summary" x="48" y="126">Hardware, embedded systems, data tools, and product-facing engineering projects tied to medical sensing and local-first systems.</text>
+    <text class="section-summary" x="48" y="126">Repo-backed hardware, firmware, local infrastructure, and product-facing engineering work.</text>
 
     <g aria-label="BurtonMakes portfolio button">
       <rect class="portfolio-pill" x="996" y="48" width="154" height="38" rx="19"/>
@@ -145,63 +145,66 @@
     <g id="radar-card">
       <rect class="card" x="48" y="164" width="344" height="304" rx="18"/>
       <circle class="status-dot-active" cx="76" cy="194" r="5"/>
-      <text class="mono-font status-text" x="90" y="198">ACTIVE BUILD</text>
-      <text class="card-title" x="76" y="234">60 GHz mmWave Radar</text>
-      <text class="card-summary" x="76" y="260">Real-time radar streaming for contactless</text>
-      <text class="card-summary" x="76" y="280">physiology and presence sensing.</text>
+      <text class="mono-font status-text" x="90" y="198">ACTIVE RUNTIME</text>
+      <text class="card-title" x="76" y="234">MR60BHA2 Sensor VisLog</text>
+      <text class="card-summary" x="76" y="260">Local radar console for vital signs, presence,</text>
+      <text class="card-summary" x="76" y="280">target tracking, logging, LEDs, and live JSON.</text>
       <line class="orange-line" x1="76" y1="304" x2="142" y2="304"/>
 
       <g class="mono-font" text-anchor="middle">
-        <rect class="tag" x="76" y="326" width="74" height="26" rx="7"/><text class="tag-text" x="113" y="344">ESP32-C6</text>
-        <rect class="tag" x="158" y="326" width="84" height="26" rx="7"/><text class="tag-text" x="200" y="344">Zephyr</text>
-        <rect class="tag" x="250" y="326" width="92" height="26" rx="7"/><text class="tag-text" x="296" y="344">UART parser</text>
-        <rect class="tag" x="76" y="360" width="96" height="26" rx="7"/><text class="tag-text" x="124" y="378">Sensor data</text>
-        <rect class="tag" x="180" y="360" width="92" height="26" rx="7"/><text class="tag-text" x="226" y="378">Live charts</text>
-        <rect class="tag" x="280" y="360" width="74" height="26" rx="7"/><text class="tag-text" x="317" y="378">OTA</text>
-        <rect class="tag" x="76" y="394" width="96" height="26" rx="7"/><text class="tag-text" x="124" y="412">Data logger</text>
-        <rect class="tag" x="180" y="394" width="92" height="26" rx="7"/><text class="tag-text" x="226" y="412">Device UI</text>
+        <rect class="tag" x="76" y="326" width="86" height="26" rx="7"/><text class="tag-text" x="119" y="344">MR60BHA2</text>
+        <rect class="tag" x="170" y="326" width="88" height="26" rx="7"/><text class="tag-text" x="214" y="344">ESP32-C6</text>
+        <rect class="tag" x="266" y="326" width="70" height="26" rx="7"/><text class="tag-text" x="301" y="344">Zephyr</text>
+        <rect class="tag" x="76" y="360" width="88" height="26" rx="7"/><text class="tag-text" x="120" y="378">Arduino</text>
+        <rect class="tag" x="172" y="360" width="90" height="26" rx="7"/><text class="tag-text" x="217" y="378">Wi-Fi OTA</text>
+        <rect class="tag" x="270" y="360" width="74" height="26" rx="7"/><text class="tag-text" x="307" y="378">JSON API</text>
+        <rect class="tag" x="76" y="394" width="94" height="26" rx="7"/><text class="tag-text" x="123" y="412">Heart rate</text>
+        <rect class="tag" x="178" y="394" width="96" height="26" rx="7"/><text class="tag-text" x="226" y="412">Breathing</text>
+        <rect class="tag" x="282" y="394" width="54" height="26" rx="7"/><text class="tag-text" x="309" y="412">LEDs</text>
       </g>
     </g>
 
-    <g id="profile-card">
+    <g id="portal-card">
       <rect class="card" x="428" y="164" width="344" height="304" rx="18"/>
       <circle class="status-dot-active" cx="456" cy="194" r="5"/>
-      <text class="mono-font status-text" x="470" y="198">ACTIVE BUILD</text>
-      <text class="card-title" x="456" y="234">Professional Profile</text>
-      <text class="card-summary" x="456" y="260">Recruiter-facing portfolio and GitHub profile</text>
-      <text class="card-summary" x="456" y="280">that show engineering depth clearly.</text>
+      <text class="mono-font status-text" x="470" y="198">ACTIVE PORT</text>
+      <text class="card-title" x="456" y="234">Local Device Portal</text>
+      <text class="card-summary" x="456" y="260">Browser-based ESP32 setup portal for Wi-Fi</text>
+      <text class="card-summary" x="456" y="280">provisioning and dashboards without an app.</text>
       <line class="orange-line" x1="456" y1="304" x2="522" y2="304"/>
 
       <g class="mono-font" text-anchor="middle">
-        <rect class="tag" x="456" y="326" width="72" height="26" rx="7"/><text class="tag-text" x="492" y="344">Astro</text>
-        <rect class="tag" x="536" y="326" width="84" height="26" rx="7"/><text class="tag-text" x="578" y="344">GitHub CI</text>
-        <rect class="tag" x="628" y="326" width="82" height="26" rx="7"/><text class="tag-text" x="669" y="344">SVG UI</text>
-        <rect class="tag" x="456" y="360" width="86" height="26" rx="7"/><text class="tag-text" x="499" y="378">Portfolio</text>
-        <rect class="tag" x="550" y="360" width="104" height="26" rx="7"/><text class="tag-text" x="602" y="378">Analytics</text>
-        <rect class="tag" x="662" y="360" width="78" height="26" rx="7"/><text class="tag-text" x="701" y="378">Resume</text>
-        <rect class="tag" x="456" y="394" width="96" height="26" rx="7"/><text class="tag-text" x="504" y="412">Case studies</text>
-        <rect class="tag" x="560" y="394" width="94" height="26" rx="7"/><text class="tag-text" x="607" y="412">Docs flow</text>
+        <rect class="tag" x="456" y="326" width="82" height="26" rx="7"/><text class="tag-text" x="497" y="344">ESP32</text>
+        <rect class="tag" x="546" y="326" width="96" height="26" rx="7"/><text class="tag-text" x="594" y="344">Captive UI</text>
+        <rect class="tag" x="650" y="326" width="82" height="26" rx="7"/><text class="tag-text" x="691" y="344">No app</text>
+        <rect class="tag" x="456" y="360" width="100" height="26" rx="7"/><text class="tag-text" x="506" y="378">Wi-Fi setup</text>
+        <rect class="tag" x="564" y="360" width="92" height="26" rx="7"/><text class="tag-text" x="610" y="378">mDNS</text>
+        <rect class="tag" x="664" y="360" width="76" height="26" rx="7"/><text class="tag-text" x="702" y="378">Portal</text>
+        <rect class="tag" x="456" y="394" width="90" height="26" rx="7"/><text class="tag-text" x="501" y="412">Arduino</text>
+        <rect class="tag" x="554" y="394" width="96" height="26" rx="7"/><text class="tag-text" x="602" y="412">Zephyr port</text>
+        <rect class="tag" x="658" y="394" width="72" height="26" rx="7"/><text class="tag-text" x="694" y="412">Local UI</text>
       </g>
     </g>
 
     <g id="homelab-card">
       <rect class="card" x="808" y="164" width="344" height="304" rx="18"/>
       <circle class="status-dot-final" cx="836" cy="194" r="5"/>
-      <text class="mono-font status-text" x="850" y="198">SYSTEM BUILD</text>
-      <text class="card-title" x="836" y="234">Home Lab Server</text>
-      <text class="card-summary" x="836" y="260">Local-first compute, backups, storage, and</text>
-      <text class="card-summary" x="836" y="280">automation for personal infrastructure.</text>
+      <text class="mono-font status-text" x="850" y="198">BUILD GUIDE</text>
+      <text class="card-title" x="836" y="234">Home Lab Server Build</text>
+      <text class="card-summary" x="836" y="260">Proxmox rebuild manual for DNS, storage,</text>
+      <text class="card-summary" x="836" y="280">self-hosted services, backups, and remote access.</text>
       <line class="orange-line" x1="836" y1="304" x2="902" y2="304"/>
 
       <g class="mono-font" text-anchor="middle">
         <rect class="tag-warm" x="836" y="326" width="88" height="26" rx="7"/><text class="tag-text-warm" x="880" y="344">Proxmox</text>
-        <rect class="tag-warm" x="932" y="326" width="74" height="26" rx="7"/><text class="tag-text-warm" x="969" y="344">ZFS</text>
-        <rect class="tag-warm" x="1014" y="326" width="82" height="26" rx="7"/><text class="tag-text-warm" x="1055" y="344">Docker</text>
-        <rect class="tag-warm" x="836" y="360" width="76" height="26" rx="7"/><text class="tag-text-warm" x="874" y="378">Backups</text>
-        <rect class="tag-warm" x="920" y="360" width="104" height="26" rx="7"/><text class="tag-text-warm" x="972" y="378">Self-hosting</text>
-        <rect class="tag-warm" x="1032" y="360" width="74" height="26" rx="7"/><text class="tag-text-warm" x="1069" y="378">NAS</text>
-        <rect class="tag-warm" x="836" y="394" width="98" height="26" rx="7"/><text class="tag-text-warm" x="885" y="412">VM / LXC</text>
-        <rect class="tag-warm" x="942" y="394" width="104" height="26" rx="7"/><text class="tag-text-warm" x="994" y="412">Local AI</text>
+        <rect class="tag-warm" x="932" y="326" width="74" height="26" rx="7"/><text class="tag-text-warm" x="969" y="344">TrueNAS</text>
+        <rect class="tag-warm" x="1014" y="326" width="82" height="26" rx="7"/><text class="tag-text-warm" x="1055" y="344">Pi-hole</text>
+        <rect class="tag-warm" x="836" y="360" width="86" height="26" rx="7"/><text class="tag-text-warm" x="879" y="378">Unbound</text>
+        <rect class="tag-warm" x="930" y="360" width="96" height="26" rx="7"/><text class="tag-text-warm" x="978" y="378">Tailscale</text>
+        <rect class="tag-warm" x="1034" y="360" width="78" height="26" rx="7"/><text class="tag-text-warm" x="1073" y="378">Backups</text>
+        <rect class="tag-warm" x="836" y="394" width="94" height="26" rx="7"/><text class="tag-text-warm" x="883" y="412">Nextcloud</text>
+        <rect class="tag-warm" x="938" y="394" width="78" height="26" rx="7"/><text class="tag-text-warm" x="977" y="412">Immich</text>
+        <rect class="tag-warm" x="1024" y="394" width="84" height="26" rx="7"/><text class="tag-text-warm" x="1066" y="412">Kuma</text>
       </g>
     </g>
   </g>
