@@ -9,6 +9,52 @@
       <stop offset="1" stop-color="#0d1117"/>
     </linearGradient>
     <radialGradient id="activeGlow"><stop stop-color="#e8834a" stop-opacity="0.10"/><stop offset="1" stop-color="#e8834a" stop-opacity="0"/></radialGradient>
+    <style><![CDATA[
+      .ui-font {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      }
+
+      .mono-font {
+        font-family: ui-monospace, SFMono-Regular, "SF Pro Mono", Menlo, Monaco, Consolas, monospace;
+      }
+
+      .section-title {
+        fill: #f5f7fb;
+        font-size: 24px;
+        font-weight: 800;
+      }
+
+      .section-subtitle {
+        fill: #7e8a9b;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+      }
+
+      .status-label {
+        fill: #7e8a9b;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+      }
+
+      .card-title {
+        fill: #f5f7fb;
+        font-size: 21px;
+        font-weight: 760;
+      }
+
+      .card-subtitle {
+        fill: #ffb26d;
+        font-size: 13.2px;
+        font-weight: 650;
+      }
+
+      .tag-text {
+        fill: #d7dfec;
+        font-size: 11.5px;
+      }
+    ]]></style>
   </defs>
 
   <g clip-path="url(#activeClip)">
@@ -17,17 +63,17 @@
     <circle cx="1110" cy="60" r="250" fill="url(#activeGlow)"/>
     <circle cx="80" cy="460" r="190" fill="url(#activeGlow)"/>
 
-    <g font-family="-apple-system, BlinkMacSystemFont, Segoe UI, system-ui, sans-serif">
-      <text x="36" y="54" fill="#f5f7fb" font-size="24" font-weight="800">Active Projects</text>
-      <text x="36" y="78" fill="#7e8a9b" font-size="12" font-weight="700" letter-spacing="1.5">tech build focus · agentic native · embedded sys. · bio-sensing</text>
+    <g class="ui-font">
+      <text class="section-title" x="36" y="54">Active Projects</text>
+      <text class="section-subtitle" x="36" y="78">tech build focus · agentic native · embedded sys. · bio-sensing</text>
 
       <g transform="translate(36 96)">
         <rect width="350" height="300" rx="18" fill="#111821" fill-opacity="0.78" stroke="#e8834a" stroke-opacity="0.18"/>
         <circle cx="28" cy="30" r="5" fill="#22c55e"><animate attributeName="opacity" values="0.65;1;0.75;0.65" dur="46s" repeatCount="indefinite"/></circle>
-        <text x="46" y="34" fill="#7e8a9b" font-size="12" font-weight="700" letter-spacing="1.5">ACTIVE</text>
-        <text x="24" y="76" fill="#f5f7fb" font-size="21" font-weight="760">60 GHz mmWave Radar</text>
-        <text x="24" y="108" fill="#ffb26d" font-size="13.2" font-weight="650">Contactless physiology monitoring</text>
-        <g font-family="ui-monospace, SFMono-Regular, SF Pro Mono, Menlo, Monaco, Consolas, monospace" font-size="11.5" fill="#d7dfec">
+        <text class="status-label" x="46" y="34">ACTIVE</text>
+        <text class="card-title" x="24" y="76">60 GHz mmWave Radar</text>
+        <text class="card-subtitle" x="24" y="108">Contactless physiology monitoring</text>
+        <g class="mono-font tag-text">
           <rect x="24" y="134" width="86" height="24" rx="6" fill="#010409" fill-opacity="0.60" stroke="#e8834a" stroke-opacity="0.25"/><text x="34" y="151">UART parsing</text>
           <rect x="118" y="134" width="138" height="24" rx="6" fill="#010409" fill-opacity="0.60" stroke="#e8834a" stroke-opacity="0.25"/><text x="128" y="151">VisLog streaming API</text>
           <rect x="24" y="166" width="88" height="24" rx="6" fill="#010409" fill-opacity="0.60" stroke="#e8834a" stroke-opacity="0.25"/><text x="34" y="183">Sensor fusion</text>
@@ -44,10 +90,10 @@
       <g transform="translate(425 96)">
         <rect width="350" height="300" rx="18" fill="#111821" fill-opacity="0.78" stroke="#e8834a" stroke-opacity="0.18"/>
         <circle cx="28" cy="30" r="5" fill="#e8834a"><animate attributeName="opacity" values="0.65;1;0.75;0.65" dur="46s" repeatCount="indefinite"/></circle>
-        <text x="46" y="34" fill="#7e8a9b" font-size="12" font-weight="700" letter-spacing="1.5">FINALIZED</text>
-        <text x="24" y="76" fill="#f5f7fb" font-size="21" font-weight="760">Home Lab Server</text>
-        <text x="24" y="108" fill="#ffb26d" font-size="13.2" font-weight="650">Local-first storage, backups, services, private AI</text>
-        <g font-family="ui-monospace, SFMono-Regular, SF Pro Mono, Menlo, Monaco, Consolas, monospace" font-size="11.5" fill="#d7dfec">
+        <text class="status-label" x="46" y="34">FINALIZED</text>
+        <text class="card-title" x="24" y="76">Home Lab Server</text>
+        <text class="card-subtitle" x="24" y="108">Local-first storage, backups, services, private AI</text>
+        <g class="mono-font tag-text">
           <rect x="24" y="134" width="86" height="24" rx="6" fill="#010409" fill-opacity="0.60" stroke="#e8834a" stroke-opacity="0.25"/><text x="34" y="151">Proxmox VE</text>
           <rect x="118" y="134" width="138" height="24" rx="6" fill="#010409" fill-opacity="0.60" stroke="#e8834a" stroke-opacity="0.25"/><text x="128" y="151">KVM/LXC tenancy</text>
           <rect x="24" y="166" width="70" height="24" rx="6" fill="#010409" fill-opacity="0.60" stroke="#e8834a" stroke-opacity="0.25"/><text x="34" y="183">ZFS pools</text>
@@ -65,10 +111,10 @@
       <g transform="translate(814 96)">
         <rect width="350" height="300" rx="18" fill="#111821" fill-opacity="0.78" stroke="#e8834a" stroke-opacity="0.18"/>
         <circle cx="28" cy="30" r="5" fill="#22c55e"><animate attributeName="opacity" values="0.65;1;0.75;0.65" dur="46s" repeatCount="indefinite"/></circle>
-        <text x="46" y="34" fill="#7e8a9b" font-size="12" font-weight="700" letter-spacing="1.5">ACTIVE</text>
-        <text x="24" y="76" fill="#f5f7fb" font-size="21" font-weight="760">Professional Profile</text>
-        <text x="24" y="108" fill="#ffb26d" font-size="13.2" font-weight="650">Recruiter-facing documentation and automation</text>
-        <g font-family="ui-monospace, SFMono-Regular, SF Pro Mono, Menlo, Monaco, Consolas, monospace" font-size="11.5" fill="#d7dfec">
+        <text class="status-label" x="46" y="34">ACTIVE</text>
+        <text class="card-title" x="24" y="76">Professional Profile</text>
+        <text class="card-subtitle" x="24" y="108">Recruiter-facing documentation and automation</text>
+        <g class="mono-font tag-text">
           <rect x="24" y="134" width="72" height="24" rx="6" fill="#010409" fill-opacity="0.60" stroke="#e8834a" stroke-opacity="0.25"/><text x="34" y="151">Astro SSG</text>
           <rect x="104" y="134" width="104" height="24" rx="6" fill="#010409" fill-opacity="0.60" stroke="#e8834a" stroke-opacity="0.25"/><text x="114" y="151">Semantic DOM</text>
           <rect x="24" y="166" width="130" height="24" rx="6" fill="#010409" fill-opacity="0.60" stroke="#e8834a" stroke-opacity="0.25"/><text x="34" y="183">Git-driven lifecycle</text>
