@@ -23,7 +23,6 @@
       .ui { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
       .mono { font-family: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace; }
       .title { fill:#f5f7fb; font-size:58px; font-weight:820; letter-spacing:-1.6px; }
-      .label { fill:#ffb26d; font-size:13px; font-weight:850; letter-spacing:1.4px; }
       .copy { fill:#b6c2d4; font-size:19px; font-weight:460; }
       .stack { fill:#ffb26d; font-size:15px; font-weight:700; letter-spacing:0.1px; }
       .complete { fill:#f59e0b; }
@@ -42,14 +41,10 @@
 
     <text class="title" x="62" y="126">Local AI Knowledge Server</text>
 
-    <text class="label" x="62" y="164">WHAT IT IS</text>
-    <text class="copy" x="198" y="164">A local-first AI compute, storage, backup, and retrieval system for personal documents and project files.</text>
-
-    <text class="label" x="62" y="212">WHY BUILD IT</text>
-    <text class="copy" x="198" y="212">To keep useful context searchable on local hardware instead of depending on scattered folders or cloud-only tools.</text>
-
-    <text class="label" x="62" y="260">WHAT IT DOES NOW</text>
-    <text class="copy" x="244" y="260">Maintains files, uptime checks, local AI services, SQL metadata, OCR output, and full-text document search.</text>
+    <text class="copy" x="62" y="170">Local AI Knowledge Server is a local-first compute, storage, backup, and document retrieval system.</text>
+    <text class="copy" x="62" y="202">I built it so documents, images, OCR text, and notes can become searchable context for AI workflows.</text>
+    <text class="copy" x="62" y="234">It runs local AI services, SQL metadata, full-text search, OCR indexing, and uptime checks</text>
+    <text class="copy" x="62" y="266">so information can be found and reused quickly.</text>
 
     <text class="mono stack" x="62" y="312">Local AI · Storage · Backups · OCR · SQL metadata · Full-text search · Uptime monitoring</text>
   </g>
