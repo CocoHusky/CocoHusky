@@ -22,11 +22,11 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   validate:
-    name: Validate SVG assets
+    name: Validate SVG assets and README references
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -34,27 +34,69 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Validate SVG files
+      - name: Validate expected SVG files
         shell: bash
         run: |
           set -euo pipefail
-          for file in assets/hero-banner.svg assets/active-projects-card.svg assets/section-divider.svg; do
+
+          expected_svg_assets=(
+            "assets/hero-banner.svg"
+            "assets/section-divider.svg"
+            "assets/project-mmwave-vislog.svg"
+            "assets/project-local-device-portal.svg"
+            "assets/project-microserver-deployment.svg"
+          )
+
+          for file in "${expected_svg_assets[@]}"; do
+            echo "Validating $file"
             test -s "$file"
             grep -q '<svg' "$file"
             grep -q '</svg>' "$file"
             grep -q 'xmlns="http://www.w3.org/2000/svg"' "$file"
+
             if grep -q '{{' "$file"; then
               echo "::error file=$file::Template token remains in final SVG."
               exit 1
             fi
+
             if grep -qi '<foreignObject' "$file"; then
               echo "::error file=$file::foreignObject is not allowed in README SVG assets."
               exit 1
             fi
           done
 
-  build:
-    name: Build SVG artifact
+      - name: Validate README asset references
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          required_readme_refs=(
+            './assets/hero-banner.svg'
+            './assets/section-divider.svg'
+            './assets/project-mmwave-vislog.svg'
+            './assets/project-local-device-portal.svg'
+            './assets/project-microserver-deployment.svg'
+          )
+
+          for ref in "${required_readme_refs[@]}"; do
+            grep -q "$ref" README.md || {
+              echo "::error file=README.md::Missing required SVG reference: $ref"
+              exit 1
+            }
+          done
+
+          if grep -q './assets/active-projects-card.svg' README.md; then
+            echo "::error file=README.md::README still references stale combined active-projects-card.svg."
+            exit 1
+          fi
+
+          if grep -q './assets/.*\.png' README.md || grep -q './assets/.*\.gif' README.md; then
+            echo "::error file=README.md::README should only reference SVG profile assets."
+            exit 1
+          fi
+
+  artifact:
+    name: Package SVG assets
     needs: validate
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -69,8 +111,10 @@ jobs:
           set -euo pipefail
           mkdir -p profile-svg-assets
           cp assets/hero-banner.svg profile-svg-assets/
-          cp assets/active-projects-card.svg profile-svg-assets/
           cp assets/section-divider.svg profile-svg-assets/
+          cp assets/project-mmwave-vislog.svg profile-svg-assets/
+          cp assets/project-local-device-portal.svg profile-svg-assets/
+          cp assets/project-microserver-deployment.svg profile-svg-assets/
 
       - name: Upload SVG artifacts
         uses: actions/upload-artifact@v4
@@ -78,26 +122,3 @@ jobs:
           name: profile-svg-assets
           path: profile-svg-assets/*.svg
           if-no-files-found: error
-
-  publish:
-    name: Publish check
-    needs: build
-    if: github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Confirm README uses SVG assets
-        shell: bash
-        run: |
-          set -euo pipefail
-          grep -q './assets/hero-banner.svg' README.md
-          grep -q './assets/active-projects-card.svg' README.md
-          grep -q './assets/section-divider.svg' README.md
-          if grep -q './assets/.*\.png' README.md || grep -q './assets/.*\.gif' README.md; then
-            echo "::error file=README.md::README should only reference SVG profile assets."
-            exit 1
-          fi
