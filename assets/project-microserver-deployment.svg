@@ -39,7 +39,7 @@
     <circle class="complete" cx="62" cy="56" r="5.5"/>
     <text class="mono status" x="76" y="61">COMPLETE</text>
 
-    <text class="title" x="62" y="128">Local AI Knowledge Server</text>
+    <text class="title" x="62" y="128">Local AI Server</text>
 
     <text class="copy" x="62" y="174">A local-first server stack for private storage, backups, and self-hosted AI services.</text>
     <text class="copy" x="62" y="202">It keeps sensitive files and AI workflows on your own hardware.</text>
