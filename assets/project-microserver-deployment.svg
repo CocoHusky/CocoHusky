@@ -41,12 +41,12 @@
 
     <text class="title" x="62" y="128">Local AI Knowledge Server</text>
 
-    <text class="copy" x="62" y="174">Local AI Knowledge Server is a local-first compute, storage, backup, and retrieval</text>
-    <text class="copy" x="62" y="202">system for a team of eight.</text>
-    <text class="copy" x="62" y="230">I built it so images, documents, OCR text, and notes can become searchable AI context.</text>
+    <text class="copy" x="62" y="174">A local-first server stack for private storage, backups, and self-hosted AI services.</text>
+    <text class="copy" x="62" y="202">It keeps sensitive files and AI workflows on your own hardware.</text>
+    <text class="copy" x="62" y="230">I built it so images, documents, videos, and OCR text can become searchable AI context.</text>
     <text class="copy" x="62" y="258">It now runs at 99.99% uptime across retrieval, mesh VPN, automated backups,</text>
     <text class="copy" x="62" y="286">email summaries, financial summaries, local AI, SQL metadata, and full-text search.</text>
 
-    <text class="mono stack" x="62" y="354">99.99% uptime · Team of 8 · OCR · SQL metadata · Full-text search · Backups · AI summaries</text>
+    <text class="mono stack" x="62" y="354">Clustering · OCR · Full-text search · SQL metadata · Local-first · AI summaries</text>
   </g>
 </svg>
