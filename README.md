@@ -59,6 +59,20 @@
 <br />
 
 <div align="center">
+  <strong>🧭 Workflow Tracker</strong><br />
+  <img src="./assets/section-divider.svg?v=profile-svg-v1" alt="" width="100%" />
+</div>
+
+| Asset | Step | Progress |
+| --- | --- | --- |
+| Profile stats card | Refresh profile | B- cache bump live |
+| Selected project cards | Verify | 3 profile cards live |
+| Repo backlog | Define work | 5 useful issues open |
+| Contribution workflow | Track | [Workflow doc](docs/contribution-workflow.md) live |
+
+<br />
+
+<div align="center">
   <strong>🔗 Links</strong><br />
   <img src="./assets/section-divider.svg?v=profile-svg-v1" alt="" width="100%" />
 </div>
