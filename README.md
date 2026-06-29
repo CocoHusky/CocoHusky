@@ -62,7 +62,7 @@
   &nbsp;&nbsp;
   <a href="https://burtonmakes.github.io"><img src="https://img.shields.io/badge/Website-E8834A?style=for-the-badge&logo=safari&logoColor=white" alt="Website" /></a>
   &nbsp;&nbsp;
-  <a href="https://scholar.google.com/citations?user=RAq9IoQAAAAJ&hl=en&oi=ao"><img src="https://img.shields.io/badge/Scholar-3DD6C8?style=for-the-badge&logo=googlescholar&logoColor=010409" alt="Scholar" /></a>
+  <a href="https://scholar.google.com/citations?user=RAq9IoQAAAAJ&hl=en&oi=ao"><img src="https://img.shields.io/badge/Scholar-4A90E2?style=for-the-badge&logo=googlescholar&logoColor=white" alt="Scholar" /></a>
 </div>
 
 <br />
