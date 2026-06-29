@@ -46,6 +46,6 @@
     <text class="copy" x="62" y="224">It now streams data over Wi-Fi into local dashboards for live status, trends, logs,</text>
     <text class="copy" x="62" y="252">daily wellness summaries, and actions to take to improve my wellbeing.</text>
 
-    <text class="mono stack" x="62" y="312">mmWave phase sensing · Heart rate · Breathing · Distance · Motion · Wi-Fi dashboard · Local logging</text>
+    <text class="mono stack" x="62" y="312">mmWave phase sensing · Heart rate · Breathing · Distance · Motion · Json API · HTML</text>
   </g>
 </svg>
