@@ -47,6 +47,6 @@
     <text class="copy" x="62" y="258">It now runs at 99.99% uptime across retrieval, mesh VPN, automated backups,</text>
     <text class="copy" x="62" y="286">email summaries, financial summaries, local AI, SQL metadata, and full-text search.</text>
 
-    <text class="mono stack" x="62" y="354">Clustering · OCR · Full-text search · SQL metadata · Local-first · AI summaries</text>
+    <text class="mono stack" x="62" y="354">Clustering · OCR · Full-text search · SQL metadata · Local-first · AI summaries · Mesh VPN</text>
   </g>
 </svg>
