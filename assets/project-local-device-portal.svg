@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="340" viewBox="0 0 1200 340" role="img" aria-labelledby="portal-title portal-desc">
-  <title id="portal-title">mDNS Device Portal</title>
+  <title id="portal-title">Embedded Device Portall</title>
   <desc id="portal-desc">A reusable browser-based setup layer for embedded sensors and prototype hardware with local discovery and access.</desc>
 
   <defs>
