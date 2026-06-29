@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-  I’m a hands-on builder who likes making devices that create useful improvements for people, not just things that work in the lab. I work best at the edges between teams, where hardware, firmware, software, data, and clinical needs have to come together. I like bridging those gaps, keeping communication clear, and helping turn complex prototypes into reliable tools that actually help people.
+  I’m a hands-on builder who loves making tech that actually helps people, not just things that work in a lab. I'm happiest working with efficient teams where novel sensors, hardware, firmware, software, data, and clinical studies all meet. I love bridging gaps and turning messy prototypes into reliable tools that make life better for people.
 </p>
 
 <br />
