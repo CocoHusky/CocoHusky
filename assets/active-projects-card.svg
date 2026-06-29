@@ -123,10 +123,10 @@
 
       <g class="mono-font" text-anchor="middle">
         <rect class="tag" x="76" y="326" width="86" height="26" rx="7"/>
-        <text class="tag-text" x="119" y="344">mmWave</text>
+        <text class="tag-text" x="119" y="344">mmWave Radar</text>
 
         <rect class="tag" x="170" y="326" width="88" height="26" rx="7"/>
-        <text class="tag-text" x="214" y="344">ESP32-C6</text>
+        <text class="tag-text" x="214" y="344">ESP32</text>
 
         <rect class="tag" x="266" y="326" width="74" height="26" rx="7"/>
         <text class="tag-text" x="303" y="344">Zephyr</text>
@@ -135,16 +135,16 @@
         <text class="tag-text" x="117" y="378">Arduino</text>
 
         <rect class="tag" x="166" y="360" width="78" height="26" rx="7"/>
-        <text class="tag-text" x="205" y="378">UART</text>
+        <text class="tag-text" x="205" y="378">UART/SPI</text>
 
         <rect class="tag" x="252" y="360" width="88" height="26" rx="7"/>
         <text class="tag-text" x="296" y="378">JSON API</text>
 
         <rect class="tag" x="76" y="394" width="86" height="26" rx="7"/>
-        <text class="tag-text" x="119" y="412">HR / BR</text>
+        <text class="tag-text" x="119" y="412">Contactless HR/BR</text>
 
         <rect class="tag" x="170" y="394" width="92" height="26" rx="7"/>
-        <text class="tag-text" x="216" y="412">Presence</text>
+        <text class="tag-text" x="216" y="412">Target Tracking</text>
 
         <rect class="tag" x="270" y="394" width="70" height="26" rx="7"/>
         <text class="tag-text" x="305" y="412">Logging</text>
