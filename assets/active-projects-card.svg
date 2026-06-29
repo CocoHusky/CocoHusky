@@ -17,22 +17,88 @@
     <style><![CDATA[
       .ui-font { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
       .mono-font { font-family: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace; }
+
       .canvas { fill: url(#activity-bg); }
       .glow { fill: url(#orange-glow); }
-      .eyebrow { fill: #ffb26d; font-size: 12px; font-weight: 800; letter-spacing: 2.8px; }
-      .section-title { fill: #f5f7fb; font-size: 34px; font-weight: 820; letter-spacing: -0.8px; }
-      .section-summary { fill: #8b98ad; font-size: 15px; font-weight: 450; }
-      .card { fill: rgba(13, 17, 23, 0.78); stroke: rgba(232, 131, 74, 0.18); stroke-width: 1; }
+
+      .eyebrow {
+        fill: #ffb26d;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 2.8px;
+      }
+
+      .section-title {
+        fill: #f5f7fb;
+        font-size: 34px;
+        font-weight: 820;
+        letter-spacing: -0.8px;
+      }
+
+      .section-summary {
+        fill: #8b98ad;
+        font-size: 15px;
+        font-weight: 450;
+      }
+
+      .card {
+        fill: rgba(13, 17, 23, 0.78);
+        stroke: rgba(232, 131, 74, 0.18);
+        stroke-width: 1;
+      }
+
       .status-dot-active { fill: #4ade80; }
       .status-dot-final { fill: #f59e0b; }
-      .status-text { fill: #8b98ad; font-size: 11px; font-weight: 800; letter-spacing: 1.6px; }
-      .card-title { fill: #f5f7fb; font-size: 21px; font-weight: 780; }
-      .card-summary { fill: #9aa7bc; font-size: 13.5px; font-weight: 450; }
-      .orange-line { stroke: #e8834a; stroke-width: 2; stroke-linecap: round; opacity: 0.82; }
-      .tag { fill: rgba(30, 45, 64, 0.82); stroke: rgba(91, 155, 213, 0.28); stroke-width: 1; }
-      .tag-warm { fill: rgba(42, 32, 16, 0.86); stroke: rgba(232, 131, 74, 0.30); stroke-width: 1; }
-      .tag-text { fill: #b8d7f4; font-size: 12px; font-weight: 650; }
-      .tag-text-warm { fill: #ffc078; font-size: 12px; font-weight: 650; }
+
+      .status-text {
+        fill: #8b98ad;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 1.6px;
+      }
+
+      .card-title {
+        fill: #f5f7fb;
+        font-size: 21px;
+        font-weight: 780;
+      }
+
+      .card-summary {
+        fill: #9aa7bc;
+        font-size: 13.5px;
+        font-weight: 450;
+      }
+
+      .orange-line {
+        stroke: #e8834a;
+        stroke-width: 2;
+        stroke-linecap: round;
+        opacity: 0.82;
+      }
+
+      .tag {
+        fill: rgba(30, 45, 64, 0.82);
+        stroke: rgba(91, 155, 213, 0.28);
+        stroke-width: 1;
+      }
+
+      .tag-warm {
+        fill: rgba(42, 32, 16, 0.86);
+        stroke: rgba(232, 131, 74, 0.30);
+        stroke-width: 1;
+      }
+
+      .tag-text {
+        fill: #b8d7f4;
+        font-size: 12px;
+        font-weight: 650;
+      }
+
+      .tag-text-warm {
+        fill: #ffc078;
+        font-size: 12px;
+        font-weight: 650;
+      }
     ]]></style>
   </defs>
 
@@ -42,27 +108,46 @@
   <g class="ui-font">
     <text class="eyebrow" x="48" y="54">PROJECT ACTIVITY</text>
     <text class="section-title" x="48" y="94">What I am building right now</text>
-    <text class="section-summary" x="48" y="126">Embeded Firware, local AI infrastructure, and product-facing engineering work.</text>
+    <text class="section-summary" x="48" y="126">Embedded firmware, local AI infrastructure, and product-facing engineering work.</text>
 
     <g id="radar-card">
       <rect class="card" x="48" y="164" width="344" height="304" rx="18"/>
       <circle class="status-dot-active" cx="76" cy="194" r="5"/>
       <text class="mono-font status-text" x="90" y="198">ACTIVE RUNTIME</text>
+
       <text class="card-title" x="76" y="234">60 GHz mmWave VisLog</text>
-      <text class="card-summary" x="76" y="260">Real-time vital signs, multi-target tracking,</text>
-      <text class="card-summary" x="76" y="280">fall detection, point cloud visualization.</text>
+      <text class="card-summary" x="76" y="260">Real-time vital signs, presence sensing,</text>
+      <text class="card-summary" x="76" y="280">multi-target tracking, and local logging.</text>
+
       <line class="orange-line" x1="76" y1="304" x2="142" y2="304"/>
 
       <g class="mono-font" text-anchor="middle">
-        <rect class="tag" x="76" y="326" width="86" height="26" rx="7"/><text class="tag-text" x="119" y="344">MR60BHA2</text>
-        <rect class="tag" x="170" y="326" width="88" height="26" rx="7"/><text class="tag-text" x="214" y="344">ESP32-C6</text>
-        <rect class="tag" x="266" y="326" width="70" height="26" rx="7"/><text class="tag-text" x="301" y="344">Zephyr</text>
-        <rect class="tag" x="76" y="360" width="88" height="26" rx="7"/><text class="tag-text" x="120" y="378">Arduino</text>
-        <rect class="tag" x="172" y="360" width="90" height="26" rx="7"/><text class="tag-text" x="217" y="378">Wi-Fi OTA</text>
-        <rect class="tag" x="270" y="360" width="74" height="26" rx="7"/><text class="tag-text" x="307" y="378">JSON API</text>
-        <rect class="tag" x="76" y="394" width="94" height="26" rx="7"/><text class="tag-text" x="123" y="412">Heart rate</text>
-        <rect class="tag" x="178" y="394" width="96" height="26" rx="7"/><text class="tag-text" x="226" y="412">Breathing</text>
-        <rect class="tag" x="282" y="394" width="54" height="26" rx="7"/><text class="tag-text" x="309" y="412">LEDs</text>
+        <rect class="tag" x="76" y="326" width="86" height="26" rx="7"/>
+        <text class="tag-text" x="119" y="344">mmWave</text>
+
+        <rect class="tag" x="170" y="326" width="88" height="26" rx="7"/>
+        <text class="tag-text" x="214" y="344">ESP32-C6</text>
+
+        <rect class="tag" x="266" y="326" width="74" height="26" rx="7"/>
+        <text class="tag-text" x="303" y="344">Zephyr</text>
+
+        <rect class="tag" x="76" y="360" width="82" height="26" rx="7"/>
+        <text class="tag-text" x="117" y="378">Arduino</text>
+
+        <rect class="tag" x="166" y="360" width="78" height="26" rx="7"/>
+        <text class="tag-text" x="205" y="378">UART</text>
+
+        <rect class="tag" x="252" y="360" width="88" height="26" rx="7"/>
+        <text class="tag-text" x="296" y="378">JSON API</text>
+
+        <rect class="tag" x="76" y="394" width="86" height="26" rx="7"/>
+        <text class="tag-text" x="119" y="412">HR / BR</text>
+
+        <rect class="tag" x="170" y="394" width="92" height="26" rx="7"/>
+        <text class="tag-text" x="216" y="412">Presence</text>
+
+        <rect class="tag" x="270" y="394" width="70" height="26" rx="7"/>
+        <text class="tag-text" x="305" y="412">Logging</text>
       </g>
     </g>
 
@@ -70,19 +155,40 @@
       <rect class="card" x="428" y="164" width="344" height="304" rx="18"/>
       <circle class="status-dot-active" cx="456" cy="194" r="5"/>
       <text class="mono-font status-text" x="470" y="198">ACTIVE PORT</text>
+
       <text class="card-title" x="456" y="234">Local Device Portal</text>
-      <text class="card-summary" x="456" y="260">Browser-based ESP32 setup portal for Wi-Fi</text>
-      <text class="card-summary" x="456" y="280">provisioning and dashboards without an app.</text>
+      <text class="card-summary" x="456" y="260">Browser-based ESP32 setup portal for</text>
+      <text class="card-summary" x="456" y="280">Wi-Fi provisioning without an app.</text>
+
       <line class="orange-line" x1="456" y1="304" x2="522" y2="304"/>
 
       <g class="mono-font" text-anchor="middle">
-        <rect class="tag" x="456" y="326" width="82" height="26" rx="7"/><text class="tag-text" x="497" y="344">ESP32</text>
-        <rect class="tag" x="546" y="326" width="96" height="26" rx="7"/><text class="tag-text" x="594" y="344">Captive UI</text>
-        <rect class="tag" x="650" y="326" width="82" height="26" rx="7"/><text class="tag-text" x="691" y="344">App-less Interaction</text>
-        <rect class="tag" x="456" y="360" width="100" height="26" rx="7"/><text class="tag-text" x="506" y="378">Wi-Fi setup</text>
-        <rect class="tag" x="564" y="360" width="92" height="26" rx="7"/><text class="tag-text" x="610" y="378">mDNS</text>
-        <rect class="tag" x="554" y="394" width="96" height="26" rx="7"/><text class="tag-text" x="602" y="412">Zephyr</text>
-        <rect class="tag" x="658" y="394" width="72" height="26" rx="7"/><text class="tag-text" x="694" y="412">Local UI</text>
+        <rect class="tag" x="456" y="326" width="82" height="26" rx="7"/>
+        <text class="tag-text" x="497" y="344">ESP32</text>
+
+        <rect class="tag" x="546" y="326" width="96" height="26" rx="7"/>
+        <text class="tag-text" x="594" y="344">Captive UI</text>
+
+        <rect class="tag" x="650" y="326" width="82" height="26" rx="7"/>
+        <text class="tag-text" x="691" y="344">App-less</text>
+
+        <rect class="tag" x="456" y="360" width="100" height="26" rx="7"/>
+        <text class="tag-text" x="506" y="378">Wi-Fi setup</text>
+
+        <rect class="tag" x="564" y="360" width="78" height="26" rx="7"/>
+        <text class="tag-text" x="603" y="378">mDNS</text>
+
+        <rect class="tag" x="650" y="360" width="82" height="26" rx="7"/>
+        <text class="tag-text" x="691" y="378">Local UI</text>
+
+        <rect class="tag" x="456" y="394" width="92" height="26" rx="7"/>
+        <text class="tag-text" x="502" y="412">Dashboard</text>
+
+        <rect class="tag" x="556" y="394" width="82" height="26" rx="7"/>
+        <text class="tag-text" x="597" y="412">Arduino</text>
+
+        <rect class="tag" x="646" y="394" width="86" height="26" rx="7"/>
+        <text class="tag-text" x="689" y="412">Zephyr</text>
       </g>
     </g>
 
@@ -90,20 +196,40 @@
       <rect class="card" x="808" y="164" width="344" height="304" rx="18"/>
       <circle class="status-dot-final" cx="836" cy="194" r="5"/>
       <text class="mono-font status-text" x="850" y="198">BUILD GUIDE</text>
+
       <text class="card-title" x="836" y="234">Micro-Server Deployment</text>
-      <text class="card-summary" x="836" y="260">Local-first architecture for isolating private data under AI model deployment</text>
-      <text class="card-summary" x="836" y="280">featuring unprivileged containerization, UID/GID mapping, and zero-trust access.</text>
+      <text class="card-summary" x="836" y="260">Local-first server architecture for</text>
+      <text class="card-summary" x="836" y="280">private data, backups, and AI workflows.</text>
+
       <line class="orange-line" x1="836" y1="304" x2="902" y2="304"/>
 
       <g class="mono-font" text-anchor="middle">
-        <rect class="tag-warm" x="836" y="326" width="88" height="26" rx="7"/><text class="tag-text-warm" x="880" y="344">Hypervisor</text>
-        <rect class="tag-warm" x="932" y="326" width="74" height="26" rx="7"/><text class="tag-text-warm" x="969" y="344">Network Storage</text>
-        <rect class="tag-warm" x="1014" y="326" width="82" height="26" rx="7"/><text class="tag-text-warm" x="1055" y="344">Automated Backups</text>
-        <rect class="tag-warm" x="836" y="360" width="86" height="26" rx="7"/><text class="tag-text-warm" x="879" y="378">Uptime Monitor</text>
-        <rect class="tag-warm" x="930" y="360" width="96" height="26" rx="7"/><text class="tag-text-warm" x="978" y="378">DNS Block/Resolve</text>
-        <rect class="tag-warm" x="1034" y="360" width="78" height="26" rx="7"/><text class="tag-text-warm" x="1073" y="378">Mesh VPN</text>
-        <rect class="tag-warm" x="836" y="394" width="94" height="26" rx="7"/><text class="tag-text-warm" x="883" y="412">CT/VM Maintenance</text>
-        <rect class="tag-warm" x="938" y="394" width="78" height="26" rx="7"/><text class="tag-text-warm" x="977" y="412">Access Control</text>
+        <rect class="tag-warm" x="836" y="326" width="92" height="26" rx="7"/>
+        <text class="tag-text-warm" x="882" y="344">Proxmox VE</text>
+
+        <rect class="tag-warm" x="936" y="326" width="72" height="26" rx="7"/>
+        <text class="tag-text-warm" x="972" y="344">KVM</text>
+
+        <rect class="tag-warm" x="1016" y="326" width="80" height="26" rx="7"/>
+        <text class="tag-text-warm" x="1056" y="344">LXC</text>
+
+        <rect class="tag-warm" x="836" y="360" width="76" height="26" rx="7"/>
+        <text class="tag-text-warm" x="874" y="378">ZFS</text>
+
+        <rect class="tag-warm" x="920" y="360" width="94" height="26" rx="7"/>
+        <text class="tag-text-warm" x="967" y="378">TrueNAS</text>
+
+        <rect class="tag-warm" x="1022" y="360" width="88" height="26" rx="7"/>
+        <text class="tag-text-warm" x="1066" y="378">Backups</text>
+
+        <rect class="tag-warm" x="836" y="394" width="86" height="26" rx="7"/>
+        <text class="tag-text-warm" x="879" y="412">WireGuard</text>
+
+        <rect class="tag-warm" x="930" y="394" width="74" height="26" rx="7"/>
+        <text class="tag-text-warm" x="967" y="412">DNS</text>
+
+        <rect class="tag-warm" x="1012" y="394" width="98" height="26" rx="7"/>
+        <text class="tag-text-warm" x="1061" y="412">Access Ctrl</text>
       </g>
     </g>
   </g>
