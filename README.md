@@ -52,7 +52,7 @@
 </div>
 
 <div align="center">
-  <img height="180em" src="https://pszostak-stats.vercel.app/api?username=CocoHusky&amp;show_icons=true&amp;theme=tokyonight&amp;hide_border=true&amp;bg_color=0d1117&amp;title_color=e8834a&amp;icon_color=e8834a&amp;text_color=ffffff&amp;include_all_commits=true&amp;count_private=true&amp;cache_seconds=1800&amp;border_radius=18" alt="GitHub Stats" />
+  <img height="180em" src="https://pszostak-stats.vercel.app/api?username=CocoHusky&amp;show_icons=true&amp;theme=tokyonight&amp;hide_border=true&amp;bg_color=0d1117&amp;title_color=e8834a&amp;icon_color=e8834a&amp;text_color=ffffff&amp;include_all_commits=true&amp;count_private=true&amp;cache_seconds=1800&amp;border_radius=18&amp;v=bminus-20260629" alt="GitHub Stats" />
   <img height="180em" src="https://pszostak-stats.vercel.app/api/top-langs/?username=CocoHusky&amp;layout=compact&amp;theme=tokyonight&amp;hide_border=true&amp;bg_color=0d1117&amp;title_color=e8834a&amp;text_color=ffffff&amp;langs_count=6&amp;cache_seconds=1800&amp;border_radius=18" alt="Top Languages" />
 </div>
 
