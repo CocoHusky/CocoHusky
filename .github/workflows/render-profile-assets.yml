@@ -1,4 +1,4 @@
-name: Validate profile SVG assets
+name: Validate and publish profile SVG assets
 
 on:
   workflow_dispatch:
@@ -6,19 +6,19 @@ on:
     branches:
       - main
     paths:
-      - assets/*.svg
-      - .github/workflows/render-profile-assets.yml
-      - README.md
+      - 'assets/*.svg'
+      - '.github/workflows/render-profile-assets.yml'
+      - 'README.md'
   pull_request:
     branches:
       - main
     paths:
-      - assets/*.svg
-      - .github/workflows/render-profile-assets.yml
-      - README.md
+      - 'assets/*.svg'
+      - '.github/workflows/render-profile-assets.yml'
+      - 'README.md'
 
 concurrency:
-  group: validate-profile-svg-assets-${{ github.ref }}
+  group: profile-svg-assets-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
@@ -49,10 +49,26 @@ jobs:
 
           for file in "${expected_svg_assets[@]}"; do
             echo "Validating $file"
-            test -s "$file"
-            grep -q '<svg' "$file"
-            grep -q '</svg>' "$file"
-            grep -q 'xmlns="http://www.w3.org/2000/svg"' "$file"
+
+            if [[ ! -s "$file" ]]; then
+              echo "::error file=$file::Expected SVG asset is missing or empty."
+              exit 1
+            fi
+
+            grep -q '<svg' "$file" || {
+              echo "::error file=$file::Missing opening <svg> tag."
+              exit 1
+            }
+
+            grep -q '</svg>' "$file" || {
+              echo "::error file=$file::Missing closing </svg> tag."
+              exit 1
+            }
+
+            grep -q 'xmlns="http://www.w3.org/2000/svg"' "$file" || {
+              echo "::error file=$file::Missing SVG XML namespace."
+              exit 1
+            }
 
             if grep -q '{{' "$file"; then
               echo "::error file=$file::Template token remains in final SVG."
@@ -81,7 +97,7 @@ jobs:
           required_project_links=(
             'https://github.com/CocoHusky/mmWaveVizLog'
             'https://github.com/CocoHusky/local-device-portal'
-            'https://github.com/CocoHusky/openclaw-setup'
+            'https://github.com/CocoHusky/proxmox-homelab-guide'
           )
 
           for ref in "${required_readme_refs[@]}"; do
@@ -98,15 +114,21 @@ jobs:
             }
           done
 
-          if grep -q './assets/active-projects-card.svg' README.md; then
-            echo "::error file=README.md::README still references stale combined active-projects-card.svg."
-            exit 1
-          fi
+          stale_asset_refs=(
+            './assets/active-projects-card.svg'
+            './assets/hero-banner.png'
+            './assets/section-divider.png'
+            './assets/project-mmwave-vislog.png'
+            './assets/project-local-device-portal.png'
+            './assets/project-microserver-deployment.png'
+          )
 
-          if grep -q './assets/.*\.png' README.md || grep -q './assets/.*\.gif' README.md; then
-            echo "::error file=README.md::README should only reference SVG profile assets."
-            exit 1
-          fi
+          for ref in "${stale_asset_refs[@]}"; do
+            if grep -q "$ref" README.md; then
+              echo "::error file=README.md::README still references stale generated asset: $ref"
+              exit 1
+            fi
+          done
 
   artifacts:
     name: Publish organized SVG artifacts
@@ -122,15 +144,17 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+
+          # Start clean every run so old/stale files cannot be republished.
           rm -rf profile-svg-assets
-          mkdir -p profile-svg-assets/project-cards
           mkdir -p profile-svg-assets/page-assets
+          mkdir -p profile-svg-assets/project-cards
 
           cp assets/hero-banner.svg profile-svg-assets/page-assets/hero-banner.svg
           cp assets/section-divider.svg profile-svg-assets/page-assets/section-divider.svg
           cp assets/project-mmwave-vislog.svg profile-svg-assets/project-cards/project-mmwave-vislog.svg
-          cp assets/project-local-device-portal.svg profile-svg-assets/project-cards/project-mdns-device-portal.svg
-          cp assets/project-microserver-deployment.svg profile-svg-assets/project-cards/project-local-ai-knowledge-server.svg
+          cp assets/project-local-device-portal.svg profile-svg-assets/project-cards/project-local-device-portal.svg
+          cp assets/project-microserver-deployment.svg profile-svg-assets/project-cards/project-microserver-deployment.svg
 
           cat > profile-svg-assets/ASSET_MANIFEST.md <<'MANIFEST'
           # Profile SVG Assets
@@ -140,8 +164,8 @@ jobs:
           | Hero banner | `assets/hero-banner.svg` | `page-assets/hero-banner.svg` |
           | Section divider | `assets/section-divider.svg` | `page-assets/section-divider.svg` |
           | 60 GHz mmWave VisLog card | `assets/project-mmwave-vislog.svg` | `project-cards/project-mmwave-vislog.svg` |
-          | mDNS Device Portal card | `assets/project-local-device-portal.svg` | `project-cards/project-mdns-device-portal.svg` |
-          | Local AI Knowledge Server card | `assets/project-microserver-deployment.svg` | `project-cards/project-local-ai-knowledge-server.svg` |
+          | mDNS Device Portal card | `assets/project-local-device-portal.svg` | `project-cards/project-local-device-portal.svg` |
+          | Local AI Server card | `assets/project-microserver-deployment.svg` | `project-cards/project-microserver-deployment.svg` |
           MANIFEST
 
       - name: Write Actions summary
@@ -156,10 +180,10 @@ jobs:
             echo "| Hero banner | assets/hero-banner.svg | profile-hero-banner |"
             echo "| Section divider | assets/section-divider.svg | profile-section-divider |"
             echo "| 60 GHz mmWave VisLog | assets/project-mmwave-vislog.svg | project-mmwave-vislog |"
-            echo "| mDNS Device Portal | assets/project-local-device-portal.svg | project-mdns-device-portal |"
-            echo "| Local AI Knowledge Server | assets/project-microserver-deployment.svg | project-local-ai-knowledge-server |"
+            echo "| mDNS Device Portal | assets/project-local-device-portal.svg | project-local-device-portal |"
+            echo "| Local AI Server | assets/project-microserver-deployment.svg | project-microserver-deployment |"
             echo
-            echo "A bundled artifact named profile-svg-assets-all is also uploaded for downloading everything at once."
+            echo "A bundled artifact named profile-svg-assets-all is uploaded with every SVG plus ASSET_MANIFEST.md."
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload all SVG assets bundle
@@ -193,13 +217,13 @@ jobs:
       - name: Upload mDNS Device Portal card artifact
         uses: actions/upload-artifact@v4
         with:
-          name: project-mdns-device-portal
-          path: profile-svg-assets/project-cards/project-mdns-device-portal.svg
+          name: project-local-device-portal
+          path: profile-svg-assets/project-cards/project-local-device-portal.svg
           if-no-files-found: error
 
-      - name: Upload Local AI Knowledge Server card artifact
+      - name: Upload Local AI Server card artifact
         uses: actions/upload-artifact@v4
         with:
-          name: project-local-ai-knowledge-server
-          path: profile-svg-assets/project-cards/project-local-ai-knowledge-server.svg
+          name: project-microserver-deployment
+          path: profile-svg-assets/project-cards/project-microserver-deployment.svg
           if-no-files-found: error
