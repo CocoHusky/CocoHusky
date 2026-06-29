@@ -39,7 +39,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/CocoHusky/openclaw-setup">
+  <a href="https://github.com/CocoHusky/proxmox-homelab-guide">
     <img src="./assets/project-microserver-deployment.svg?v=project-cards-v10" alt="Local AI Knowledge Server project" width="100%" />
   </a>
 </p>
