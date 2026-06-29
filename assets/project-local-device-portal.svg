@@ -46,6 +46,6 @@
     <text class="copy" x="62" y="224">It now drops into embedded projects for quick testing, browser dashboards,</text>
     <text class="copy" x="62" y="252">and mDNS-based access in real workflows.</text>
 
-    <text class="mono stack" x="62" y="312">mDNS · Captive portal · Browser dashboard · Wi-Fi provisioning · Embedded setup · ESP32</text>
+    <text class="mono stack" x="62" y="312">mDNS · Captive portal · Browser dashboard · Wi-Fi provisioning · Embedded setup · ESP32 · nrf5284</text>
   </g>
 </svg>
