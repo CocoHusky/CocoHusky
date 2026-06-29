@@ -42,9 +42,9 @@
     <text class="title" x="62" y="128">60 GHz mmWave VisLog</text>
 
     <text class="copy" x="62" y="174">Uses radar phase changes at the chest to estimate heart rate, breathing, distance, and motion.</text>
-    <text class="copy" x="62" y="230">I built it to feed me contactless vital sign data during work hours and during sleep.</text>
-    <text class="copy" x="62" y="258">It now streams data over Wi-Fi into local dashboards for live status, trends, logs,</text>
-    <text class="copy" x="62" y="286">daily wellness summaries, and actions to take to improve my wellbeing.</text>
+    <text class="copy" x="62" y="212">I built it to feed me contactless vital sign data during work hours and during sleep.</text>
+    <text class="copy" x="62" y="240">It now streams data over Wi-Fi into local dashboards for live status, trends, logs,</text>
+    <text class="copy" x="62" y="268">daily wellness summaries, and actions to take to improve my wellbeing.</text>
 
     <text class="mono stack" x="62" y="354">mmWave phase sensing · Heart rate · Breathing · Distance · Motion · Wi-Fi dashboard · Local logging</text>
   </g>
