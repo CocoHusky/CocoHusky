@@ -58,15 +58,15 @@
 </div>
 
 <div align="center">
-  <a href="https://www.linkedin.com/in/draburton/"><img src="https://img.shields.io/badge/LinkedIn-2563EB?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
+  <a href="https://www.linkedin.com/in/draburton/"><img src="https://img.shields.io/badge/LinkedIn-4A90E2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
   &nbsp;&nbsp;
   <a href="https://burtonmakes.github.io"><img src="https://img.shields.io/badge/Website-E8834A?style=for-the-badge&logo=safari&logoColor=white" alt="Website" /></a>
   &nbsp;&nbsp;
-  <a href="https://scholar.google.com/citations?user=RAq9IoQAAAAJ&hl=en&oi=ao"><img src="https://img.shields.io/badge/Scholar-7C3AED?style=for-the-badge&logo=googlescholar&logoColor=white" alt="Scholar" /></a>
+  <a href="https://scholar.google.com/citations?user=RAq9IoQAAAAJ&hl=en&oi=ao"><img src="https://img.shields.io/badge/Scholar-3DD6C8?style=for-the-badge&logo=googlescholar&logoColor=010409" alt="Scholar" /></a>
 </div>
 
 <br />
 
 <div align="center">
-  <img src="https://komarev.com/ghpvc/?username=CocoHusky&style=for-the-badge&color=e8834a&label=PROFILE+VIEWS" alt="Profile views" />
+  <img src="https://komarev.com/ghpvc/?username=CocoHusky&style=for-the-badge&color=E8834A&label=PROFILE+VIEWS" alt="Profile views" />
 </div>
