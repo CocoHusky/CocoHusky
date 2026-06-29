@@ -90,13 +90,13 @@
 
       .tag-text {
         fill: #b8d7f4;
-        font-size: 12px;
+        font-size: 11.5px;
         font-weight: 650;
       }
 
       .tag-text-warm {
         fill: #ffc078;
-        font-size: 12px;
+        font-size: 11.5px;
         font-weight: 650;
       }
     ]]></style>
@@ -120,40 +120,41 @@
       <text class="card-summary" x="76" y="280">multi-target tracking, and local logging.</text>
 
       <line class="orange-line" x1="76" y1="304" x2="142" y2="304"/>
-      
+
       <g class="mono-font" text-anchor="middle">
         <rect class="tag" x="76" y="326" width="118" height="26" rx="7"/>
         <text class="tag-text" x="135" y="344">mmWave Radar</text>
-      
+
         <rect class="tag" x="202" y="326" width="74" height="26" rx="7"/>
         <text class="tag-text" x="239" y="344">ESP32</text>
-      
+
         <rect class="tag" x="284" y="326" width="88" height="26" rx="7"/>
         <text class="tag-text" x="328" y="344">Zephyr</text>
-      
+
         <rect class="tag" x="76" y="360" width="86" height="26" rx="7"/>
         <text class="tag-text" x="119" y="378">Arduino</text>
-      
+
         <rect class="tag" x="170" y="360" width="86" height="26" rx="7"/>
         <text class="tag-text" x="213" y="378">UART/SPI</text>
-      
+
         <rect class="tag" x="264" y="360" width="108" height="26" rx="7"/>
         <text class="tag-text" x="318" y="378">JSON API</text>
-      
+
         <rect class="tag" x="76" y="394" width="124" height="26" rx="7"/>
         <text class="tag-text" x="138" y="412">Contactless HR/BR</text>
-      
-        <rect class="tag" x="208" y="394" width="102" height="26" rx="7"/>
-        <text class="tag-text" x="259" y="412">Target Tracking</text>
-      
-        <rect class="tag" x="318" y="394" width="54" height="26" rx="7"/>
-        <text class="tag-text" x="345" y="412">Logging</text>
+
+        <rect class="tag" x="208" y="394" width="90" height="26" rx="7"/>
+        <text class="tag-text" x="253" y="412">Tracking</text>
+
+        <rect class="tag" x="306" y="394" width="66" height="26" rx="7"/>
+        <text class="tag-text" x="339" y="412">Logging</text>
       </g>
-      
+    </g>
+
     <g id="portal-card">
       <rect class="card" x="428" y="164" width="344" height="304" rx="18"/>
-      <circle class="status-dot-active" cx="456" cy="194" r="5"/>
-      <text class="mono-font status-text" x="470" y="198">ACTIVE PORT</text>
+      <circle class="status-dot-final" cx="456" cy="194" r="5"/>
+      <text class="mono-font status-text" x="470" y="198">COMPLETE</text>
 
       <text class="card-title" x="456" y="234">Local Device Portal</text>
       <text class="card-summary" x="456" y="260">Browser-based ESP32 setup portal for</text>
@@ -194,7 +195,7 @@
     <g id="homelab-card">
       <rect class="card" x="808" y="164" width="344" height="304" rx="18"/>
       <circle class="status-dot-final" cx="836" cy="194" r="5"/>
-      <text class="mono-font status-text" x="850" y="198">BUILD GUIDE</text>
+      <text class="mono-font status-text" x="850" y="198">COMPLETE</text>
 
       <text class="card-title" x="836" y="234">Micro-Server Deployment</text>
       <text class="card-summary" x="836" y="260">Local-first server architecture for</text>
