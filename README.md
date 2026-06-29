@@ -27,15 +27,21 @@
 </div>
 
 <p align="center">
-  <img src="./assets/project-mmwave-vislog.svg?v=project-cards-v9" alt="60 GHz mmWave VisLog project" width="100%" />
+  <a href="https://github.com/CocoHusky/mmWaveVizLog">
+    <img src="./assets/project-mmwave-vislog.svg?v=project-cards-v9" alt="60 GHz mmWave VisLog project" width="100%" />
+  </a>
 </p>
 
 <p align="center">
-  <img src="./assets/project-local-device-portal.svg?v=project-cards-v9" alt="Local Device Portal project" width="100%" />
+  <a href="https://github.com/CocoHusky/local-device-portal">
+    <img src="./assets/project-local-device-portal.svg?v=project-cards-v9" alt="Local Device Portal project" width="100%" />
+  </a>
 </p>
 
 <p align="center">
-  <img src="./assets/project-microserver-deployment.svg?v=project-cards-v9" alt="Local AI Knowledge Server project" width="100%" />
+  <a href="https://github.com/CocoHusky/openclaw-setup">
+    <img src="./assets/project-microserver-deployment.svg?v=project-cards-v9" alt="Local AI Knowledge Server project" width="100%" />
+  </a>
 </p>
 
 <br />
