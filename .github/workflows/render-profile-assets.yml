@@ -65,7 +65,7 @@ jobs:
             fi
           done
 
-      - name: Validate README asset references
+      - name: Validate README asset references and project links
         shell: bash
         run: |
           set -euo pipefail
@@ -78,9 +78,22 @@ jobs:
             './assets/project-microserver-deployment.svg'
           )
 
+          required_project_links=(
+            'https://github.com/CocoHusky/mmWaveVizLog'
+            'https://github.com/CocoHusky/local-device-portal'
+            'https://github.com/CocoHusky/openclaw-setup'
+          )
+
           for ref in "${required_readme_refs[@]}"; do
             grep -q "$ref" README.md || {
               echo "::error file=README.md::Missing required SVG reference: $ref"
+              exit 1
+            }
+          done
+
+          for link in "${required_project_links[@]}"; do
+            grep -q "$link" README.md || {
+              echo "::error file=README.md::Missing required project link: $link"
               exit 1
             }
           done
@@ -95,8 +108,8 @@ jobs:
             exit 1
           fi
 
-  artifact:
-    name: Package SVG assets
+  artifacts:
+    name: Publish organized SVG artifacts
     needs: validate
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -109,16 +122,84 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p profile-svg-assets
-          cp assets/hero-banner.svg profile-svg-assets/
-          cp assets/section-divider.svg profile-svg-assets/
-          cp assets/project-mmwave-vislog.svg profile-svg-assets/
-          cp assets/project-local-device-portal.svg profile-svg-assets/
-          cp assets/project-microserver-deployment.svg profile-svg-assets/
+          rm -rf profile-svg-assets
+          mkdir -p profile-svg-assets/project-cards
+          mkdir -p profile-svg-assets/page-assets
 
-      - name: Upload SVG artifacts
+          cp assets/hero-banner.svg profile-svg-assets/page-assets/hero-banner.svg
+          cp assets/section-divider.svg profile-svg-assets/page-assets/section-divider.svg
+          cp assets/project-mmwave-vislog.svg profile-svg-assets/project-cards/project-mmwave-vislog.svg
+          cp assets/project-local-device-portal.svg profile-svg-assets/project-cards/project-mdns-device-portal.svg
+          cp assets/project-microserver-deployment.svg profile-svg-assets/project-cards/project-local-ai-knowledge-server.svg
+
+          cat > profile-svg-assets/ASSET_MANIFEST.md <<'MANIFEST'
+          # Profile SVG Assets
+
+          | Asset | Source | Artifact path |
+          |---|---|---|
+          | Hero banner | `assets/hero-banner.svg` | `page-assets/hero-banner.svg` |
+          | Section divider | `assets/section-divider.svg` | `page-assets/section-divider.svg` |
+          | 60 GHz mmWave VisLog card | `assets/project-mmwave-vislog.svg` | `project-cards/project-mmwave-vislog.svg` |
+          | mDNS Device Portal card | `assets/project-local-device-portal.svg` | `project-cards/project-mdns-device-portal.svg` |
+          | Local AI Knowledge Server card | `assets/project-microserver-deployment.svg` | `project-cards/project-local-ai-knowledge-server.svg` |
+          MANIFEST
+
+      - name: Write Actions summary
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            echo "## Published SVG assets"
+            echo
+            echo "| Asset | Source file | Artifact name |"
+            echo "|---|---|---|"
+            echo "| Hero banner | assets/hero-banner.svg | profile-hero-banner |"
+            echo "| Section divider | assets/section-divider.svg | profile-section-divider |"
+            echo "| 60 GHz mmWave VisLog | assets/project-mmwave-vislog.svg | project-mmwave-vislog |"
+            echo "| mDNS Device Portal | assets/project-local-device-portal.svg | project-mdns-device-portal |"
+            echo "| Local AI Knowledge Server | assets/project-microserver-deployment.svg | project-local-ai-knowledge-server |"
+            echo
+            echo "A bundled artifact named profile-svg-assets-all is also uploaded for downloading everything at once."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload all SVG assets bundle
         uses: actions/upload-artifact@v4
         with:
-          name: profile-svg-assets
-          path: profile-svg-assets/*.svg
+          name: profile-svg-assets-all
+          path: profile-svg-assets/**
+          if-no-files-found: error
+
+      - name: Upload hero banner artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: profile-hero-banner
+          path: profile-svg-assets/page-assets/hero-banner.svg
+          if-no-files-found: error
+
+      - name: Upload section divider artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: profile-section-divider
+          path: profile-svg-assets/page-assets/section-divider.svg
+          if-no-files-found: error
+
+      - name: Upload mmWave project card artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-mmwave-vislog
+          path: profile-svg-assets/project-cards/project-mmwave-vislog.svg
+          if-no-files-found: error
+
+      - name: Upload mDNS Device Portal card artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-mdns-device-portal
+          path: profile-svg-assets/project-cards/project-mdns-device-portal.svg
+          if-no-files-found: error
+
+      - name: Upload Local AI Knowledge Server card artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-local-ai-knowledge-server
+          path: profile-svg-assets/project-cards/project-local-ai-knowledge-server.svg
           if-no-files-found: error
