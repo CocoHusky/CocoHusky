@@ -27,15 +27,15 @@
 </div>
 
 <p align="center">
-  <img src="./assets/project-mmwave-vislog.svg?v=profile-svg-v1" alt="60 GHz mmWave VisLog project" width="100%" />
+  <img src="./assets/project-mmwave-vislog.svg?v=project-cards-v2" alt="60 GHz mmWave VisLog project" width="100%" />
 </p>
 
 <p align="center">
-  <img src="./assets/project-local-device-portal.svg?v=profile-svg-v1" alt="Local Device Portal project" width="100%" />
+  <img src="./assets/project-local-device-portal.svg?v=project-cards-v2" alt="Local Device Portal project" width="100%" />
 </p>
 
 <p align="center">
-  <img src="./assets/project-microserver-deployment.svg?v=profile-svg-v1" alt="Micro-Server Deployment project" width="100%" />
+  <img src="./assets/project-microserver-deployment.svg?v=project-cards-v2" alt="Micro-Server Deployment project" width="100%" />
 </p>
 
 <br />
