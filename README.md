@@ -22,12 +22,20 @@
 <br />
 
 <div align="center">
-  <strong>⚡ Active Projects</strong><br />
+  <strong>⚡ Selected Projects</strong><br />
   <img src="./assets/section-divider.svg?v=profile-svg-v1" alt="" width="100%" />
 </div>
 
 <p align="center">
-  <img src="./assets/active-projects-card.svg?v=profile-svg-v1" alt="Active projects" width="100%" />
+  <img src="./assets/project-mmwave-vislog.svg?v=profile-svg-v1" alt="60 GHz mmWave VisLog project" width="100%" />
+</p>
+
+<p align="center">
+  <img src="./assets/project-local-device-portal.svg?v=profile-svg-v1" alt="Local Device Portal project" width="100%" />
+</p>
+
+<p align="center">
+  <img src="./assets/project-microserver-deployment.svg?v=profile-svg-v1" alt="Micro-Server Deployment project" width="100%" />
 </p>
 
 <br />
