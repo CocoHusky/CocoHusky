@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="340" viewBox="0 0 1200 340" role="img" aria-labelledby="portal-title portal-desc">
-  <title id="portal-title">Local Device Portal</title>
-  <desc id="portal-desc">A reusable browser-based setup layer for embedded sensors and prototype hardware.</desc>
+  <title id="portal-title">mDNS Device Portal</title>
+  <desc id="portal-desc">A reusable browser-based setup layer for embedded sensors and prototype hardware with local discovery and access.</desc>
 
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
@@ -39,13 +39,13 @@
     <circle class="complete" cx="62" cy="54" r="5.5"/>
     <text class="mono status" x="76" y="59">COMPLETE</text>
 
-    <text class="title" x="62" y="124">Local Device Portal</text>
+    <text class="title" x="62" y="124">mDNS Device Portal</text>
 
     <text class="copy" x="62" y="168">Reusable browser setup layer for embedded sensors and prototype hardware.</text>
-    <text class="copy" x="62" y="196">I built it to make device setup faster without a separate app or account flow.</text>
-    <text class="copy" x="62" y="224">It now drops into embedded projects for quick testing, demos,</text>
-    <text class="copy" x="62" y="252">and real workflow validation from a browser dashboard.</text>
+    <text class="copy" x="62" y="196">I built it to make Wi-Fi setup, local discovery, and device access simpler.</text>
+    <text class="copy" x="62" y="224">It now drops into embedded projects for quick testing, browser dashboards,</text>
+    <text class="copy" x="62" y="252">and mDNS-based access in real workflows.</text>
 
-    <text class="mono stack" x="62" y="312">ESP32 · Portal UI · Browser dashboard · App-less setup · Reusable embedded module</text>
+    <text class="mono stack" x="62" y="312">mDNS · Captive portal · Browser dashboard · Wi-Fi provisioning · Embedded setup · ESP32</text>
   </g>
 </svg>
