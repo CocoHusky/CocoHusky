@@ -1000,11 +1000,10 @@
   <rect x="24" y="44" width="2" height="248" rx="1" fill="url(#accentLine)"/>
   <g class="ui-font">
   <text class="eyebrow" x="44" y="52">BIOMEDICAL ENGINEERING FULL STACK</text>
-  <text class="hero-title" x="44" y="118">Medical sensor systems from</text>
-  <text class="hero-title" x="44" y="172">prototype to product-ready devices.</text>
-  <text class="body-copy" x="44" y="238">I like building devices that make health data easier to understand,</text>
-  <text class="body-copy" x="44" y="263">give people better tools, and help care feel less uncertain.</text>
-
+  <text class="hero-title" x="44" y="118">Health sensing systems</text>
+  <text class="hero-title" x="44" y="172">from prototype to product.</text>
+  <text class="body-copy" x="44" y="226">I build sensing hardware, firmware, and data tools that make</text>
+  <text class="body-copy" x="44" y="251">health signals easier to measure, understand, and use.</text>
   <a href="https://burtonmakes.github.io/">
     <g aria-label="Portfolio button">
       <rect x="1014" y="296" width="142" height="40" rx="20" fill="#e8834a" opacity="0.18"/>
