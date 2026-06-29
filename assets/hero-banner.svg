@@ -1000,8 +1000,8 @@
   <rect x="24" y="44" width="2" height="248" rx="1" fill="url(#accentLine)"/>
   <g class="ui-font">
   <text class="eyebrow" x="44" y="52">BIOMEDICAL ENGINEERING FULL STACK</text>
-  <text class="hero-title" x="44" y="104">Medical sensor systems from</text>
-  <text class="hero-title" x="44" y="166">prototype to product-ready devices.</text>
+  <text class="hero-title" x="44" y="118">Medical sensor systems from</text>
+  <text class="hero-title" x="44" y="172">prototype to product-ready devices.</text>
   <text class="body-copy" x="44" y="238">I like building devices that make health data easier to understand,</text>
   <text class="body-copy" x="44" y="263">give people better tools, and help care feel less uncertain.</text>
 
