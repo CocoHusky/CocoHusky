@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="340" viewBox="0 0 1200 340" role="img" aria-labelledby="mmwave-title mmwave-desc">
   <title id="mmwave-title">60 GHz mmWave VisLog</title>
-  <desc id="mmwave-desc">A contactless radar sensing module that tracks chest phase changes for heart rate, breathing, distance, motion, and health status summaries.</desc>
+  <desc id="mmwave-desc">A contactless radar sensing project for physiological monitoring, Wi-Fi visualization, and health status summaries.</desc>
 
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
@@ -23,7 +23,6 @@
       .ui { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
       .mono { font-family: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace; }
       .title { fill:#f5f7fb; font-size:58px; font-weight:820; letter-spacing:-1.6px; }
-      .label { fill:#ffb26d; font-size:13px; font-weight:850; letter-spacing:1.4px; }
       .copy { fill:#b6c2d4; font-size:19px; font-weight:460; }
       .stack { fill:#ffb26d; font-size:15px; font-weight:700; letter-spacing:0.1px; }
       .active { fill:#4ade80; }
@@ -42,14 +41,10 @@
 
     <text class="title" x="62" y="126">60 GHz mmWave VisLog</text>
 
-    <text class="label" x="62" y="164">WHAT IT IS</text>
-    <text class="copy" x="198" y="164">A contactless radar sensing module that reads tiny chest phase changes for heart rate, breathing, distance, and motion.</text>
-
-    <text class="label" x="62" y="212">WHY BUILD IT</text>
-    <text class="copy" x="198" y="212">To collect physiological data without contact during work and sleep, then turn it into health status and trend summaries.</text>
-
-    <text class="label" x="62" y="260">WHAT IT DOES NOW</text>
-    <text class="copy" x="244" y="260">Streams sensor data wirelessly over Wi-Fi into local dashboards for live visualization, logging, and action-oriented feedback.</text>
+    <text class="copy" x="62" y="170">60 GHz mmWave VisLog uses chest phase changes to estimate heart rate, breathing, distance, and motion.</text>
+    <text class="copy" x="62" y="202">I built it to collect physiological data without contact during work or sleep.</text>
+    <text class="copy" x="62" y="234">It streams radar data over Wi-Fi into local dashboards so current status, trends,</text>
+    <text class="copy" x="62" y="266">and next actions can be reviewed in real time.</text>
 
     <text class="mono stack" x="62" y="312">mmWave phase sensing · Heart rate · Breathing · Distance · Motion · Wi-Fi dashboard · Local logging</text>
   </g>
