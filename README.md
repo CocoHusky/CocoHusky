@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://burtonmakes.github.io">
+  <a href="https://cocometric.com">
     <img src="./assets/hero-banner.svg?v=profile-svg-v1" alt="Alex Burton — biomedical engineer building wearable and implantable medical sensor systems." width="100%" />
   </a>
 </p>
@@ -66,7 +66,7 @@
 <div align="center">
   <a href="https://www.linkedin.com/in/draburton/"><img src="https://img.shields.io/badge/LinkedIn-4A90E2?style=for-the-badge&amp;logo=linkedin&amp;logoColor=white" alt="LinkedIn" /></a>
   &nbsp;&nbsp;
-  <a href="https://burtonmakes.github.io"><img src="https://img.shields.io/badge/Website-E8834A?style=for-the-badge&amp;logo=safari&amp;logoColor=white" alt="Website" /></a>
+  <a href="https://cocometric.com"><img src="https://img.shields.io/badge/Website-E8834A?style=for-the-badge&amp;logo=safari&amp;logoColor=white" alt="Website" /></a>
   &nbsp;&nbsp;
   <a href="https://scholar.google.com/citations?user=RAq9IoQAAAAJ&amp;hl=en&amp;oi=ao"><img src="https://img.shields.io/badge/Scholar-4A90E2?style=for-the-badge&amp;logo=googlescholar&amp;logoColor=white" alt="Scholar" /></a>
 </div>
