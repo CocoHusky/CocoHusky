@@ -44,12 +44,6 @@
   </a>
 </p>
 
-<p align="center">
-  <a href="https://www.printables.com/@AlexBurton_5424739">
-    <img src="https://img.shields.io/badge/Printables-3D%20Models-E8834A?style=for-the-badge&logo=printables&logoColor=white" alt="Coco's Printables 3D models" />
-  </a>
-</p>
-
 <br />
 
 <div align="center">
@@ -75,6 +69,8 @@
   <a href="https://cocometric.com"><img src="https://img.shields.io/badge/Website-E8834A?style=for-the-badge&amp;logo=safari&amp;logoColor=white" alt="Website" /></a>
   &nbsp;&nbsp;
   <a href="https://scholar.google.com/citations?user=RAq9IoQAAAAJ&amp;hl=en&amp;oi=ao"><img src="https://img.shields.io/badge/Scholar-4A90E2?style=for-the-badge&amp;logo=googlescholar&amp;logoColor=white" alt="Scholar" /></a>
+  &nbsp;&nbsp;
+  <a href="https://www.printables.com/@AlexBurton_5424739"><img src="https://img.shields.io/badge/Printables-3D%20Models-E8834A?style=for-the-badge&amp;logo=printables&amp;logoColor=white" alt="Coco's Printables 3D models" /></a>
 </div>
 
 <br />
