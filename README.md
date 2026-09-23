@@ -44,6 +44,16 @@
   </a>
 </p>
 
+<p align="center">
+  <a href="https://www.printables.com/@AlexBurton_5424739">
+    <img src="https://img.shields.io/badge/Printables-3D%20Models-E8834A?style=for-the-badge&logo=printables&logoColor=white" alt="Coco's Printables 3D models" />
+  </a>
+</p>
+
+<p align="center">
+  Printable model source files and project notes live in <a href="./3d-models/">3d-models</a>.
+</p>
+
 <br />
 
 <div align="center">
