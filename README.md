@@ -50,10 +50,6 @@
   </a>
 </p>
 
-<p align="center">
-  Printable model source files and project notes live in <a href="./3d-models/">3d-models</a>.
-</p>
-
 <br />
 
 <div align="center">
